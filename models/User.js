@@ -15,7 +15,7 @@ const UserSchema = new Schema({
   password: {
     type: String,
     required: true,
-    minlength: 6
+    minlength: 5
   },
   role: {
     type: String,
@@ -37,8 +37,6 @@ UserSchema.methods.generateAuthTokens = function() {
   const access = 'auth';
   const accessTokenExp = Math.floor(Date.now() / 1000) + (60 * 30);
   const refreshTokenExp = Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 7);
-
-  console.log('accessTokenExp', accessTokenExp);
 
   const accessToken = jwt.sign({
     username: this.username,
@@ -70,7 +68,37 @@ UserSchema.methods.generateAuthTokens = function() {
   });
 };
 
+UserSchema.statics.findByCredentials = function(username, password) {
+  var User = this;
+  return User.findOne({ username }).then((user) => {
+    if (!user) return Promise.reject();
 
+    return new Promise((resolve, reject) => {
+      bcrypt.compare(password, user.password, (err, result) => {
+        if (err) reject(err);
+        if (result) {
+          resolve(user);
+        } else {
+          reject();
+        }
+      });
+    });
+  });
+};
+
+UserSchema.pre('save', function(next) {
+  var user = this;
+  if (user.isModified('password')) {
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(user.password, salt, (err, hash) => {
+        user.password = hash;
+        next();
+      });
+    });
+  } else {
+    next();
+  }
+});
 
 const User = mongoose.model('user', UserSchema);
 module.exports = User;

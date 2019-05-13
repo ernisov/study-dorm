@@ -1,19 +1,11 @@
 const express = require('express');
 const path = require('path');
-const mongoose = require('mongoose');
+const mongoose = require('./db/mongoose');
 const config = require('config');
 const authenticate = require('./middleware/auth');
 
 const app = express();
 app.use(express.json());
-
-mongoose
-  .connect(config.get('mongoURI'), {
-    useNewUrlParser: true,
-    useCreateIndex: true
-  })
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.log(err));
 
 app.use('/auth', require('./routes/auth'));
 

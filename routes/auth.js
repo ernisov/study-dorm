@@ -8,7 +8,8 @@ const User = require('../models/User');
 
 router.post('/login', (req, res) => {
   let { username, password } = req.body;
-  User.findOne({ username, password }).then((user) => {
+
+  User.findByCredentials(username, password).then((user) => {
     if (!user) return Promise.reject();
     user.generateAuthTokens().then(tokens => {
       res.status(200).json({
