@@ -47,6 +47,7 @@ UserSchema.methods.generateAuthTokens = function() {
   const refreshToken = jwt.sign({
     username: this.username,
     _id: this._id,
+    role: this.role,
     exp: refreshTokenExp,
     access
   }, config.get('refreshTokenSecret'));
@@ -83,6 +84,23 @@ UserSchema.statics.findByCredentials = function(username, password) {
         }
       });
     });
+  });
+};
+
+UserSchema.statics.findByToken = function(token) {
+  var User = this;
+  var decoded;
+
+  try {
+    decoded = jwt.verify(token, config.get('refreshTokenSecret'));
+  } catch (err) {
+    return Promise.reject();
+  }
+
+  return User.findOne({
+    '_id': decoded._id,
+    'tokens.token': token,
+    'tokens.access': 'auth'
   });
 };
 

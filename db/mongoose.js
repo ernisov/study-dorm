@@ -7,7 +7,6 @@ mongoose.connect(config.get('mongoURI'), {
   useNewUrlParser: true,
   useCreateIndex: true
 }).then(() => {
-  console.log('connected to MongoDB');
   User.findOne({ username: 'admin' }).then((user) => {
     if (!user) {
       let admin = new User({

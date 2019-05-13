@@ -9,7 +9,8 @@
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
+    "test-server": "mocha tests/**/*.test.js"
   },
   "engines": {
     "node": "10.15.1"
@@ -25,7 +26,8 @@
     "mongoose": "^5.5.5"
   },
   "devDependencies": {
-    "jest": "^24.8.0",
-    "supertest": "^4.0.2"
+    "expect": "^1.20.2",
+    "mocha": "^3.0.2",
+    "supertest": "^2.0.0"
   }
 }
