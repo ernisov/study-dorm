@@ -1,8 +1,21 @@
 const express = require('express');
-const app = express();
 const path = require('path');
+const mongoose = require('mongoose');
+const config = require('config');
+const authenticate = require('./middleware/auth');
 
+const app = express();
 app.use(express.json());
+
+mongoose
+  .connect(config.get('mongoURI'), {
+    useNewUrlParser: true,
+    useCreateIndex: true
+  })
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.log(err));
+
+app.use('/auth', require('./routes/auth'));
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
@@ -13,3 +26,5 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const port = process.env.PORT || 5000;
+
+app.listen(port, () => console.log(`started on port ${port}`));

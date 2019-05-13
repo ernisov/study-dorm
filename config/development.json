@@ -1,0 +1,5 @@
+{
+  "mongoURI": "mongodb://localhost:27017/dorm",
+  "accessTokenSecret": "sdkfjrr327tegyfwh12hue(*#@B)sdf;khig",
+  "refreshTokenSecret": "sdkjfguyc7661270qowppkjosdnov-{dspjf978r}"
+}
