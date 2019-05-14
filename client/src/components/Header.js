@@ -46,6 +46,11 @@ export default class AppNavBar extends Component {
                     Dormitory
                   </NavLink>
                 </NavItem>
+                <NavItem>
+                  <NavLink onClick={this.props.onLogout}>
+                    logout
+                  </NavLink>
+                </NavItem>
               </Nav>
             </Collapse>
           </Container>

@@ -35,8 +35,8 @@ const UserSchema = new Schema({
 
 UserSchema.methods.generateAuthTokens = function() {
   const access = 'auth';
-  const accessTokenExp = Math.floor(Date.now() / 1000) + (60 * 30);
-  const refreshTokenExp = Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 7);
+  const accessTokenExp = Math.floor(Date.now() / 1000) + +config.get('accessTokenLifespan');
+  const refreshTokenExp = Math.floor(Date.now() / 1000) + +config.get('refreshTokenLifespan');
 
   const accessToken = jwt.sign({
     username: this.username,

@@ -6,6 +6,17 @@ const authenticate = require('../middleware/auth');
 
 const User = require('../models/User');
 
+router.get('/', (req, res) => {
+  let accessToken = req.header('x-auth-token');
+  jwt.verify(accessToken, config.get('accessTokenSecret'), (err, decoded) => {
+    if (err) return res.status(401).send();
+    res.status(200).json({
+      username: decoded.username,
+      role: decoded.role
+    });
+  });
+});
+
 router.post('/login', (req, res) => {
   let { username, password } = req.body;
 
@@ -21,8 +32,9 @@ router.post('/login', (req, res) => {
   }).catch((err) => res.status(401).send(err));
 });
 
-router.post('/refresh-token', (req, res) => {
+router.get('/refresh-token', (req, res) => {
   let refreshToken = req.header('x-auth-refresh-token');
+  console.log('got refreshToken request');
   jwt.verify(refreshToken, config.get('refreshTokenSecret'), (err, decoded) => {
     if (err) return res.status(401).send(err);
 

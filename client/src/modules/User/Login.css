@@ -1,0 +1,34 @@
+.Login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.login-form {
+  width: 30%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-submit {
+  transition: background-color .1s ease-in-out;
+  outline: none;
+  margin-top: 8px;
+  background-color: #4169e1;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.login-submit:active {
+  background-color: #4169e180;
+}

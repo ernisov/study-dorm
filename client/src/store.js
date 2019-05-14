@@ -3,13 +3,15 @@ import ReduxThunk from 'redux-thunk';
 
 import StudentsReducer from './modules/Students/redux/reducer';
 import DormitoryReducer from './modules/Dormitory/redux/reducer';
+import UserReducer from './modules/User/redux/reducer';
 
 const initialState = {};
 const middleware = [ReduxThunk];
 
 const reducers = combineReducers({
   students: StudentsReducer,
-  dormitory: DormitoryReducer
+  dormitory: DormitoryReducer,
+  user: UserReducer
 });
 
 const store = createStore(
