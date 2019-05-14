@@ -1,0 +1,7 @@
+{
+  "mongoURI": "mongodb://admin:119609tswdhdxe@ds151876.mlab.com:51876/dorm",
+  "accessTokenSecret": "nfgiuerqmfpvji9283rhygrbevhdfvknej8r238ufwdfnvkcvn938r329",
+  "refreshTokenSecret": "sdlfjhaigh7f8tf6v13nrjckvowddjkbvq9w7^T^%R^3rvbjffijndsifhb",
+  "accessTokenLifespan": 1800,
+  "refreshTokenLifespan": 604800
+}
