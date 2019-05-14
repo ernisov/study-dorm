@@ -3,6 +3,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT_SUCCESS,
+  LOGOUT_FAIL,
   LOADING_FALSE,
   LOADING_TRUE,
   ACCESS_TOKEN_VALID
@@ -43,7 +44,39 @@ export const loginUser = (username, password) => {
 };
 
 export const logoutUser = () => {
-  return { type: LOGOUT_SUCCESS };
+  return dispatch => {
+    let refreshToken = localStorage.getItem('refreshToken');
+    console.log('refreshToken logout', refreshToken);
+    axios({
+      method: 'post',
+      url: '/auth/logout',
+      headers: {
+        'Content-type': 'application/json',
+        'x-auth-refresh-token': refreshToken
+      }
+    })
+    .then((res) => {
+      console.log(res);
+      if (res.status === 200) {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('accessTokenExp');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('refreshTokenExp');
+
+        dispatch({ type: LOGOUT_SUCCESS });
+      }
+    }).catch((err) => {
+      let { status } = err.response;
+      if (status === 404 && err.response.data.message === 'NoUserFound') {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('accessTokenExp');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('refreshTokenExp');
+
+        dispatch({ type: LOGOUT_FAIL });
+      }
+    });
+  };
 };
 
 export const loadUser = (accessToken, refreshToken) => {

@@ -89,13 +89,14 @@ UserSchema.statics.findByCredentials = function(username, password) {
 
 UserSchema.statics.findByToken = function(token) {
   var User = this;
-  var decoded;
+  let decoded;
 
-  try {
-    decoded = jwt.verify(token, config.get('refreshTokenSecret'));
-  } catch (err) {
-    return Promise.reject();
-  }
+  jwt.verify(token, config.get('refreshTokenSecret'), (err, res) => {
+    if (err) {
+      return Promise.reject();
+    }
+    decoded = res;
+  });
 
   return User.findOne({
     '_id': decoded._id,

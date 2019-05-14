@@ -4,3 +4,4 @@ export const LOADING_FALSE = 'set_auth_loading_false';
 export const LOADING_TRUE = 'set_auth_loading_true';
 export const ACCESS_TOKEN_VALID = 'auth_access_token_valid';
 export const LOGIN_FAIL = 'auth_login_fail';
+export const LOGOUT_FAIL = 'auth_logout_fail';

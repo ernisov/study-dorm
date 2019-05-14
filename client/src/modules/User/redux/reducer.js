@@ -4,7 +4,8 @@ import {
   LOADING_FALSE,
   LOADING_TRUE,
   ACCESS_TOKEN_VALID,
-  LOGIN_FAIL
+  LOGIN_FAIL,
+  LOGOUT_FAIL
 } from './types';
 
 const INITIAL_STATE = {
@@ -27,9 +28,10 @@ export default (state = INITIAL_STATE, action) => {
       };
 
     case LOGOUT_SUCCESS:
+    case LOGOUT_FAIL:
       return {
-        ...state,
-        isAuthenticated: false
+        ...INITIAL_STATE,
+        loading: false
       };
 
     case ACCESS_TOKEN_VALID:

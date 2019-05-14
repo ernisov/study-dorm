@@ -66,7 +66,7 @@ router.post('/logout', (req, res) => {
     let tokenIndex = user.tokens.findIndex(token => token.token === refreshToken);
     user.tokens.splice(tokenIndex, 1);
     user.save().then(() => res.status(200).send());
-  }).catch((err) => res.status(400).send());
+  }).catch((err) => res.status(400).send(err));
 });
 
 module.exports = router;
