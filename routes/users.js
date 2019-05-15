@@ -53,6 +53,15 @@ router.patch('/:username', authenticate, allowedRoles(['admin']), (req, res) => 
   }).catch((err) => res.status(400).send(err));
 });
 
-// router.delete('/:username')
+router.delete('/:username', authenticate, allowedRoles(['admin']), (req, res) => {
+  let { username } = req.params;
+  User.findOneAndRemove({ username }).then((result) => {
+    if (!result) return res.status(404).send();
+    res.status(200).send({
+      username: result.username,
+      role: result.role
+    });
+  }).catch((err) => res.status(400).send(err));
+});
 
 module.exports = router;
