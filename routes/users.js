@@ -25,6 +25,18 @@ router.post('/', authenticate, allowedRoles(['admin']), (req, res) => {
   }).catch((err) => res.status(400).send(err));
 });
 
+router.get('/:username', authenticate, allowedRoles(['admin']), (req, res) => {
+  let { username } = req.params;
+  User.findOne({ username }).then((user) => {
+    if (!user) return res.status(404).send();
+
+    res.status(200).json({
+      username: user.username,
+      role: user.role
+    });
+  }).catch((err) => res.status(400).send(err));
+});
+
 // router.patch('/:username')
 
 // router.delete('/:username')
