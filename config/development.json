@@ -2,6 +2,6 @@
   "mongoURI": "mongodb://localhost:27017/dorm",
   "accessTokenSecret": "sdkfjrr327tegyfwh12hue(*#@B)sdf;khig",
   "refreshTokenSecret": "sdkjfguyc7661270qowppkjosdnov-{dspjf978r}",
-  "accessTokenLifespan": 60,
-  "refreshTokenLifespan": 180
+  "accessTokenLifespan": 1800,
+  "refreshTokenLifespan": 604800
 }

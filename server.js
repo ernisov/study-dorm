@@ -8,6 +8,7 @@ const app = express();
 app.use(express.json());
 
 app.use('/auth', require('./routes/auth'));
+app.use('/users', require('./routes/users'));
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
