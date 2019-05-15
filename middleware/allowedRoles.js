@@ -1,6 +1,3 @@
-const jwt = require('jsonwebtoken');
-const config = require('config');
-
 const allowedRoles = (roles) => {
   return (req, res, next) => {
     if (roles.includes(req.user.role)) {

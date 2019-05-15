@@ -34,7 +34,6 @@ router.post('/login', (req, res) => {
 
 router.get('/refresh-token', (req, res) => {
   let refreshToken = req.header('x-auth-refresh-token');
-  console.log('got refreshToken request');
   jwt.verify(refreshToken, config.get('refreshTokenSecret'), (err, decoded) => {
     if (err) return res.status(401).send(err);
 
