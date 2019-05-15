@@ -37,7 +37,21 @@ router.get('/:username', authenticate, allowedRoles(['admin']), (req, res) => {
   }).catch((err) => res.status(400).send(err));
 });
 
-// router.patch('/:username')
+router.patch('/:username', authenticate, allowedRoles(['admin']), (req, res) => {
+  let { username } = req.params;
+  let update = {};
+  for (let key in req.body) {
+    update[key] = req.body[key];
+  }
+
+  User.findOne({ username }).then((user) => {
+    if (!user) return res.status(404).send();
+    for (let key in update) {
+      user[key] = update[key];
+    }
+    user.save().then((result) => res.send(result));
+  }).catch((err) => res.status(400).send(err));
+});
 
 // router.delete('/:username')
 
