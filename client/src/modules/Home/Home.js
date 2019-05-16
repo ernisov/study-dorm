@@ -6,6 +6,8 @@ import Header from '../../components/Header';
 import Admin from '../Admin/Admin';
 import Dormitory from '../Dormitory/Dormitory';
 
+import './Home.css';
+
 class Home extends Component {
   render() {
     if (!this.props.isAuthenticated) {
@@ -13,7 +15,7 @@ class Home extends Component {
     }
 
     return (
-      <div>
+      <div className="App">
         <Header />
         <Route path='/dormitory' component={Dormitory} />
         <Route path='/admins' component={Admin} />
