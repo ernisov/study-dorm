@@ -46,7 +46,6 @@ export const loginUser = (username, password) => {
 export const logoutUser = () => {
   return dispatch => {
     let refreshToken = localStorage.getItem('refreshToken');
-    console.log('refreshToken logout', refreshToken);
     axios({
       method: 'post',
       url: '/auth/logout',
@@ -56,7 +55,6 @@ export const logoutUser = () => {
       }
     })
     .then((res) => {
-      console.log(res);
       if (res.status === 200) {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('accessTokenExp');
@@ -129,7 +127,6 @@ export const loadUser = (accessToken, refreshToken) => {
         }).catch(err => {
           let { status } = err.response;
           if (status === 404 || status === 401) {
-            console.log('refreshToken not valid');
             localStorage.removeItem('accessToken');
             localStorage.removeItem('accessTokenExp');
             localStorage.removeItem('refreshToken');

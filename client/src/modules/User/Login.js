@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import {
-  Input,
-  Label,
-  Form,
-  FormGroup,
-  FormFeedback
-} from 'reactstrap';
+import { Form, Input, Icon, Button } from 'antd';
 import { connect } from 'react-redux';
 import { loginUser, loadUser, loadingFalse } from './redux/actions';
-import Button from './components/Button';
 import './Login.css';
 
 class Login extends Component {
@@ -55,37 +48,46 @@ class Login extends Component {
   }
 
   render() {
+    let usernameError = 'Please, enter your username';
+    let passwordError = 'Please, check your password';
+
     if (this.props.isAuthenticated) {
       return <Redirect to='/' />
     }
 
     return (
       <div className="Login">
-        <div className='login-form'>
-          <Form>
-            <FormGroup>
-              <Label>Username</Label>
-              <Input
-                invalid={this.state.usernameInvalid}
-                type='text'
-                value={this.state.username}
-                onChange={this.onUsernameChange}
-              />
-              <FormFeedback>Enter username</FormFeedback>
-            </FormGroup>
-            <FormGroup>
-              <Label>Password</Label>
-              <Input
-                invalid={this.state.passwordInvalid}
-                type='password'
-                value={this.state.password}
-                onChange={this.onPasswordChange}
-              />
-              <FormFeedback>Password should be 5 characters long</FormFeedback>
-            </FormGroup>
-            <Button onClick={this.onSubmit} loading={this.props.loading}>Submit</Button>
-          </Form>
-        </div>
+        <Form className='login-form'>
+          <Form.Item
+            validateStatus={this.state.usernameInvalid ? 'error' : ''}
+            help={this.state.usernameInvalid ? usernameError : ''}
+          >
+            <Input
+              prefix={<Icon type='user' style={{color: 'rgba(0, 0, 0, .25)'}} />}
+              onChange={this.onUsernameChange}
+              allowClear
+              placeholder='username'
+              value={this.state.username}/>
+          </Form.Item>
+          <Form.Item
+            validateStatus={this.state.passwordInvalid ? 'error' : ''}
+            help={this.state.passwordInvalid ? passwordError : ''}
+          >
+            <Input.Password
+              prefix={<Icon type='lock' style={{color: 'rgba(0, 0, 0, .25)'}} />}
+              onChange={this.onPasswordChange}
+              allowClear
+              placeholder='password'
+              value={this.state.password}/>
+          </Form.Item>
+          <Button
+            onClick={this.onSubmit}
+            type='primary'
+            className='login-form-submit'
+          >
+            Log in
+          </Button>
+        </Form>
       </div>
     );
   }

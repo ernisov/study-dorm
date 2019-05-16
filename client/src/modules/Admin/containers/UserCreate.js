@@ -3,6 +3,30 @@ import { Button } from 'antd';
 import './UserCreate.css';
 
 class UserCreate extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: '',
+      role: '',
+      usernameValid: true,
+      passwordValid: true,
+      roleValid: true
+    };
+  }
+
+  handleUsername() {
+
+  }
+
+  handlePassword() {
+
+  }
+
+  handleRole() {
+    
+  }
+
   submitForm() {
     console.log('submitForm');
   }
