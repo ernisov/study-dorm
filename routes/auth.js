@@ -9,7 +9,7 @@ const User = require('../models/User');
 router.get('/', (req, res) => {
   let accessToken = req.header('x-auth-token');
   jwt.verify(accessToken, config.get('accessTokenSecret'), (err, decoded) => {
-    if (err) return res.status(401).send();
+    if (err) return res.status(401).send(err);
     res.status(200).json({
       username: decoded.username,
       role: decoded.role

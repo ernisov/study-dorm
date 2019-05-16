@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link, Route } from 'react-router-dom';
-import { logoutUser } from '../User/redux/actions';
+import Header from '../../components/Header';
 
 import Admins from './Admins';
 import Users from './Users';
+import Dormitory from '../Dormitory/Dormitory';
 
 class Home extends Component {
   render() {
@@ -14,17 +15,10 @@ class Home extends Component {
 
     return (
       <div>
-        <button onClick={this.props.logoutUser}>Log out</button>
-
-        <nav>
-          <ul>
-            <li><Link to='/admins'>Admins Only</Link></li>
-            <li><Link to='/users'>Users</Link></li>
-          </ul>
-        </nav>
-
-        <Route path='/admins' component={Admins} />
+        <Header />
+        <Route path='/dormitory' component={Dormitory} />
         <Route path='/users' component={Users} />
+        <Route path='/admins' component={Admins} />
       </div>
     );
   }
@@ -35,6 +29,4 @@ const mapStateToProps = (state) => {
   return { isAuthenticated };
 };
 
-export default connect(mapStateToProps, {
-  logoutUser
-})(Home);
+export default connect(mapStateToProps)(Home);
