@@ -16,9 +16,13 @@ class Home extends Component {
 
     return (
       <div className="App">
-        <Header />
-        <Route path='/dormitory' component={Dormitory} />
-        <Route path='/admins' component={Admin} />
+        <div className="AppNavBar">
+          <Header />
+        </div>
+        <div className="AppContent">
+          <Route path='/dormitory' component={Dormitory} />
+          <Route path='/admins' component={Admin} />
+        </div>
       </div>
     );
   }

@@ -7,6 +7,7 @@ import './Admin.css';
 import Sidebar from './components/Sidebar';
 import Empty from './components/Empty';
 import Users from './containers/Users';
+import UserCreate from './containers/UserCreate';
 
 class Admin extends Component {
   render() {
@@ -23,7 +24,14 @@ class Admin extends Component {
         </Sidebar>
         <main className="main">
           <Switch>
-            <Route exact path={`${this.props.match.path}/users`} component={Users} />
+            <Route
+              exact
+              path={`${this.props.match.path}/users`}
+              component={Users} />
+            <Route
+              exact
+              path={`${this.props.match.path}/users/create`}
+              component={UserCreate} />
             <Route path={this.props.match.path} component={Empty} />
           </Switch>
         </main>

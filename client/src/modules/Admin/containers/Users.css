@@ -1,0 +1,16 @@
+.Users {
+  background-color: #eee;
+  height: 100%;
+  padding: 0 1rem;
+}
+
+.Users-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Users-create {
+  
+}

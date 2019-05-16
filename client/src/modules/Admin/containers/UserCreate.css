@@ -1,0 +1,44 @@
+.UserCreate {
+  margin: 0 1rem;
+}
+
+.UserCreate section {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.input-row {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  width: 50%;
+}
+
+.input-row > * {
+  flex: 1;
+}
+
+.input-row label {
+  text-transform: uppercase;
+  font-size: .8rem;
+}
+
+.submit {
+  transition: background-color .1s ease-in-out;
+  outline: none;
+  margin-top: 8px;
+  background-color: #4169e1;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.submit:active {
+  background-color: #4169e180;
+}
