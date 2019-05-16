@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect, Link, Route } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 import Header from '../../components/Header';
 
-import Admins from './Admins';
-import Users from './Users';
+import Admin from '../Admin/Admin';
 import Dormitory from '../Dormitory/Dormitory';
 
 class Home extends Component {
@@ -17,8 +16,7 @@ class Home extends Component {
       <div>
         <Header />
         <Route path='/dormitory' component={Dormitory} />
-        <Route path='/users' component={Users} />
-        <Route path='/admins' component={Admins} />
+        <Route path='/admins' component={Admin} />
       </div>
     );
   }

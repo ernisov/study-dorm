@@ -1,35 +1,14 @@
 import React, { Component } from 'react';
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  // NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  Container
-} from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logoutUser } from '../modules/User/redux/actions';
 import routes from '../routes/routes';
+import './Header.css';
 
 class AppNavBar extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isOpen: false
-    };
-    this.toggle = this.toggle.bind(this);
     this.renderItems = this.renderItems.bind(this);
-  }
-
-  toggle() {
-    this.setState({ isOpen: !this.state.isOpen });
   }
 
   renderItems() {
@@ -37,17 +16,26 @@ class AppNavBar extends Component {
     routes.forEach(route => {
       if (route.roles.includes(this.props.role)) {
         let item = (
-          <NavItem key={route.href}>
-            <NavLink to={route.href}>{route.title}</NavLink>
-          </NavItem>
+          <NavLink
+            className="nav-item"
+            key={route.href}
+            to={route.href}
+            activeClassName="nav-item-active"
+          >
+            {route.title}
+          </NavLink>
         );
         menu.push(item);
       }
     });
     let logout = (
-      <NavItem key='logout' style={{ cursor: 'pointer' }}>
-        <NavLink onClick={this.props.logoutUser}>Log out</NavLink>
-      </NavItem>
+      <button
+        key="logout"
+        className="nav-item"
+        onClick={this.props.logoutUser}
+      >
+        Log out
+      </button>
     );
     menu.push(logout);
     return menu;
@@ -55,19 +43,14 @@ class AppNavBar extends Component {
 
   render() {
     return (
-      <div>
-        <Navbar color="dark" dark expand="sm" className="mb-5">
-          <Container>
-            <NavbarBrand href="/">Dorm</NavbarBrand>
-            <NavbarToggler onClick={this.toggle} />
-            <Collapse isOpen={this.state.isOpen} navbar>
-              <Nav className="ml-auto" navbar>
-                {this.renderItems()}
-              </Nav>
-            </Collapse>
-          </Container>
-        </Navbar>
-      </div>
+      <header className="Header">
+        <NavLink to="/" className="logo">
+          Dormitory Service
+        </NavLink>
+        <nav className="navigation">
+          {this.renderItems()}
+        </nav>
+      </header>
     );
   }
 }
