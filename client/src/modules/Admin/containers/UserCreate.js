@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Button } from 'antd';
+import { Button, Form, Input, Select, Icon, Tooltip } from 'antd';
 import './UserCreate.css';
+
+const { Option } = Select;
 
 class UserCreate extends Component {
   constructor(props) {
@@ -24,7 +26,7 @@ class UserCreate extends Component {
   }
 
   handleRole() {
-    
+
   }
 
   submitForm() {
@@ -32,39 +34,57 @@ class UserCreate extends Component {
   }
 
   render() {
+    const formItemLayout = {
+      layout: 'vertical',
+      wrapperCol: {
+        sm: { span: 16 },
+        md: { span: 10 }
+      }
+    };
+
     return (
       <div className="UserCreate">
-        <section>
-          <h3>Main Information:</h3>
-          <form className="main-form">
-            <div className="input-row">
-              <label>username:</label>
-              <input
-                id='username'
-                type='text'
-                placeholder='username' />
-            </div>
-            <div className="input-row">
-              <label>password:</label>
-              <input
-                id='password'
-                type='password'
-                placeholder='password' />
-            </div>
-            <div className="input-row">
-              <label>role:</label>
-              <select id='role'>
-                <option value='admin'>Admin</option>
-                <option value='student'>Student</option>
-                <option value='employee'>Employee</option>
-                <option value='service'>Service Worker</option>
-                <option value='dean'>Dean</option>
-                <option value='commandant'>Commandant</option>
-              </select>
-            </div>
-          </form>
-        </section>
-        <Button type='primary'>Create</Button>
+        <Form {...formItemLayout} onSubmit={this.submitForm} >
+          <section>
+            <h3 className='section-header'>Main</h3>
+            <Form.Item
+              required
+              label='Username'
+            >
+              <Input allowClear />
+            </Form.Item>
+            <Form.Item
+              required
+              label='Password'
+            >
+              <Input.Password
+                allowClear
+                prefix={
+                  <Tooltip title='Minimum length: 5 characters'>
+                    <Icon type='question-circle-o' />
+                  </Tooltip>
+                }
+              />
+            </Form.Item>
+            <Form.Item required label='Role'>
+              <Select>
+                <Option default value='student'>Student</Option>
+                <Option value='employee'>Employee</Option>
+                <Option value='service'>Service Worker</Option>
+                <Option value='dean'>Dean</Option>
+                <Option value='commandant'>Commandant</Option>
+                <Option value='admin'>Admin</Option>
+              </Select>
+            </Form.Item>
+          </section>
+        </Form>
+        <Button
+          className='user-create-submit'
+          htmlType='submit'
+          type='primary'
+        >
+          Register
+        </Button>
       </div>
     );
   }

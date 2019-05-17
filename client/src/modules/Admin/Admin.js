@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Route, NavLink, Switch } from 'react-router-dom';
+import { Route, Link, Switch } from 'react-router-dom';
+import { Menu, Icon } from 'antd';
 import { connect } from 'react-redux';
 import { allowedRoles } from '../../hoc/allowedRoles';
 import './Admin.css';
@@ -9,18 +10,31 @@ import Empty from './components/Empty';
 import Users from './containers/Users';
 import UserCreate from './containers/UserCreate';
 
+const SubMenu = Menu.SubMenu;
+
 class Admin extends Component {
   render() {
     return (
       <div className="Admin">
         <Sidebar>
-          <NavLink
-            activeClassName="aside-nav-item-active"
-            className="aside-nav-item"
-            to={`${this.props.match.path}/users`}
-          >
-            Users
-          </NavLink>
+          <Menu mode='inline' defaultOpenKeys={['users']}>
+            <SubMenu
+              key='users'
+              title={
+                <span className='side-menu-item'>
+                  <Icon type='user' />
+                  Users
+                </span>
+              }
+            >
+              <Menu.Item>
+                <Link to={`${this.props.match.path}/users`}>List</Link>
+              </Menu.Item>
+              <Menu.Item>
+                <Link to={`${this.props.match.path}/users/create`}>Create</Link>
+              </Menu.Item>
+            </SubMenu>
+          </Menu>
         </Sidebar>
         <main className="main">
           <Switch>

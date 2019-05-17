@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link, Route } from 'react-router-dom';
 import './Users.css';
 
 class Users extends Component {
@@ -8,9 +7,6 @@ class Users extends Component {
       <div className="Users">
         <div className="Users-header">
           <h2>Users</h2>
-          <Link
-            to={`${this.props.match.path}/create`}
-            className="Users-create">Add user</Link>
         </div>
         <div>
           <h3>List</h3>
