@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
-import Header from '../../components/Header';
+import AppHeader from '../../components/AppHeader';
 
 import Admin from '../Admin/Admin';
 import Dormitory from '../Dormitory/Dormitory';
@@ -17,7 +17,7 @@ class Home extends Component {
     return (
       <div className="App">
         <div className="AppNavBar">
-          <Header />
+          <AppHeader />
         </div>
         <div className="AppContent">
           <Route path='/dormitory' component={Dormitory} />

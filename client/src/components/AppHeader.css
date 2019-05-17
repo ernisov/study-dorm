@@ -1,0 +1,29 @@
+.Header {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 2px solid #e8e8e8;
+}
+
+.Header .logo {
+  font-size: 1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-link {
+  color: #2d2d2d;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.user-item {
+  float: right;
+}

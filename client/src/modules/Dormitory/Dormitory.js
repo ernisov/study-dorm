@@ -11,6 +11,7 @@ class Dormitory extends Component {
       console.log('offset left', offset);
       return (
         <Room
+          key={offset}
           x={offset}
           width={room.width}
           height={room.height}

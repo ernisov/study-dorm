@@ -29,7 +29,10 @@ class Login extends Component {
     }
   }
 
-  onSubmit() {
+  onSubmit(e) {
+    if (e) {
+      e.preventDefault();
+    }
     if (!this.state.username) {
       return this.setState({ usernameInvalid: true });
     }
@@ -57,7 +60,7 @@ class Login extends Component {
 
     return (
       <div className="Login">
-        <Form className='login-form'>
+        <Form onSubmit={this.onSubmit} className='login-form'>
           <Form.Item
             validateStatus={this.state.usernameInvalid ? 'error' : ''}
             help={this.state.usernameInvalid ? usernameError : ''}
@@ -81,7 +84,7 @@ class Login extends Component {
               value={this.state.password}/>
           </Form.Item>
           <Button
-            onClick={this.onSubmit}
+            htmlType='submit'
             type='primary'
             className='login-form-submit'
           >
