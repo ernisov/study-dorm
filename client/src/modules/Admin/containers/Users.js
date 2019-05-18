@@ -42,7 +42,10 @@ class Users extends Component {
           dataSource={users}
           renderItem={item => {
             let edit = (
-              <Link to={`${this.props.match.path}/${item.username}/edit`}>
+              <Link to={{
+                pathname: `${this.props.match.path}/${item.username}/edit`,
+                state: item
+              }} >
                 edit
               </Link>
             );

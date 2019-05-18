@@ -9,6 +9,7 @@ import Sidebar from './components/Sidebar';
 import Empty from './components/Empty';
 import Users from './containers/Users';
 import UserCreate from './containers/UserCreate';
+import UserEdit from './containers/UserEdit';
 
 const SubMenu = Menu.SubMenu;
 
@@ -46,6 +47,9 @@ class Admin extends Component {
               exact
               path={`${this.props.match.path}/users/create`}
               component={UserCreate} />
+            <Route
+              path={`${this.props.match.path}/users/:username/edit`}
+              component={UserEdit} />
             <Route path={this.props.match.path} component={Empty} />
           </Switch>
         </main>

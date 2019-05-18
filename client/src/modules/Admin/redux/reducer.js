@@ -4,7 +4,8 @@ import {
   LOAD_USERS_FAIL,
   SET_LOADING,
   DELETE_USER_FAIL,
-  DELETE_USER_SUCCESS
+  DELETE_USER_SUCCESS,
+  USER_UPDATED
 } from './types';
 
 const INITIAL_STATE = {
@@ -35,6 +36,17 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         users: state.users.filter(u => u.username !== action.payload.username)
+      };
+
+    case USER_UPDATED:
+      return {
+        ...state,
+        users: state.users.map(u => {
+          if (u.username === action.payload.old.username) {
+            return action.payload.newUser;
+          }
+          return u;
+        }),
       };
 
     case DELETE_USER_FAIL:

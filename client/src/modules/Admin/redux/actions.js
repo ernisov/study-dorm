@@ -4,7 +4,8 @@ import {
   LOAD_USERS_FAIL,
   SET_LOADING,
   DELETE_USER_SUCCESS,
-  DELETE_USER_FAIL
+  DELETE_USER_FAIL,
+  USER_UPDATED
 } from './types';
 import { request } from '../../../api/requests';
 
@@ -39,4 +40,8 @@ export const deleteUser = (username) => {
       dispatch({ type: DELETE_USER_FAIL });
     });
   };
+};
+
+export const updateUser = (old, newUser) => {
+  return { type: USER_UPDATED, payload: { old, newUser } };
 };
