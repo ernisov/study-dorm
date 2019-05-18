@@ -12,6 +12,8 @@ mongoose.connect(config.get('mongoURI'), {
       let admin = new User({
         username: 'admin',
         password: 'admin',
+        firstName: 'admin',
+        lastName: 'admin',
         role: 'admin'
       });
 

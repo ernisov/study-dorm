@@ -8,10 +8,11 @@ const allowedRoles = require('../middleware/allowedRoles');
 const User = require('../models/User');
 
 router.get('/', authenticate, allowedRoles(['admin']), (req, res) => {
-  // TODO: find about pagination
   User.paginate({}, { limit: req.query.limit, page: req.query.page }).then((result) => {
     let docs = result.docs.map(user => ({
       username: user.username,
+      firstName: user.firstName,
+      lastName: user.lastName,
       role: user.role
     }));
 
@@ -26,11 +27,13 @@ router.get('/', authenticate, allowedRoles(['admin']), (req, res) => {
 });
 
 router.post('/', authenticate, allowedRoles(['admin']), (req, res) => {
-  let { username, password, role } = req.body;
-  let user = new User({ username, password, role });
+  let { username, password, role, firstName, lastName } = req.body;
+  let user = new User({ username, password, role, firstName, lastName });
   user.save().then((doc) => {
     res.status(200).json({
       username: doc.username,
+      firstName: doc.firstName,
+      lastName: doc.lastName,
       role: doc.role
     });
   }).catch((err) => res.status(400).send(err));
@@ -43,6 +46,8 @@ router.get('/:username', authenticate, allowedRoles(['admin']), (req, res) => {
 
     res.status(200).json({
       username: user.username,
+      firstName: user.firstName,
+      lastName: user.lastName,
       role: user.role
     });
   }).catch((err) => res.status(400).send(err));
@@ -70,6 +75,8 @@ router.delete('/:username', authenticate, allowedRoles(['admin']), (req, res) =>
     if (!result) return res.status(404).send();
     res.status(200).send({
       username: result.username,
+      firstName: result.firstName,
+      lastName: result.lastName,
       role: result.role
     });
   }).catch((err) => res.status(400).send(err));

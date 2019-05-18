@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Button, Form, Input, Select, Icon, Tooltip } from 'antd';
-import { connect } from 'react-redux';
-import { createUser } from '../redux/actions';
+import { Button, Form, Input, Select, Icon, Tooltip, message } from 'antd';
+import { request } from '../../../api/requests';
 import './UserCreate.css';
 
 const { Option } = Select;
@@ -12,13 +11,19 @@ class UserCreate extends Component {
     this.state = {
       username: '',
       password: '',
+      firstName: '',
+      lastName: '',
       role: 'student',
       usernameInvalid: false,
-      passwordInvalid: false
+      passwordInvalid: false,
+      firstNameInvalid: false,
+      lastNameInvalid: false
     };
 
     this.handleUsername = this.handleUsername.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
+    this.handleFirstName = this.handleFirstName.bind(this);
+    this.handleLastName = this.handleLastName.bind(this);
     this.handleRole = this.handleRole.bind(this);
     this.submitForm = this.submitForm.bind(this);
   }
@@ -31,6 +36,14 @@ class UserCreate extends Component {
     this.setState({ password: e.target.value, passwordInvalid: false });
   }
 
+  handleFirstName(e) {
+    this.setState({ firstName: e.target.value, firstNameInvalid: false });
+  }
+
+  handleLastName(e) {
+    this.setState({ lastName: e.target.value, lastNameInvalid: false });
+  }
+
   handleRole(role) {
     this.setState({ role });
   }
@@ -41,17 +54,39 @@ class UserCreate extends Component {
       return this.setState({ usernameInvalid: true });
     }
 
+    if (!this.state.firstName) {
+      return this.setState({ firstNameInvalid: true });
+    }
+
+    if (!this.state.lastName) {
+      return this.setState({ lastNameInvalid: true });
+    }
+
     if(this.state.password.length < 5) {
       return this.setState({ passwordInvalid: true });
     }
 
     let user = {
-      username: this.state.username,
+      username: this.state.username.toLowerCase(),
       password: this.state.password,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
       role: this.state.role
     };
 
-    this.props.createUser(user);
+    request({
+      method: 'post',
+      url: '/users/',
+      data: user
+    }).then((response) => {
+      if (response.data.username && response.data.role) {
+        console.log('user created');
+        message.success(`${response.data.username} successfully created.`)
+      }
+    }).catch((err) => {
+      console.log(err);
+      message.error(`Couldn't create new user`)
+    })
   }
 
   render() {
@@ -65,6 +100,7 @@ class UserCreate extends Component {
 
     const usernameError = 'Please, enter unique username';
     const passwordError = 'Password should be 5 characters long';
+    const namesError = 'User must have a name [Valar Morghulis]';
 
     return (
       <div className="UserCreate">
@@ -95,6 +131,24 @@ class UserCreate extends Component {
                 }
               />
             </Form.Item>
+            <Form.Item
+              required
+              validateStatus={this.state.firstNameInvalid ? 'error' : ''}
+              help={this.state.firstNameInvalid ? namesError : ''}
+              label='First Name'
+            >
+              <Input allowClear onChange={this.handleFirstName} />
+            </Form.Item>
+
+            <Form.Item
+              required
+              validateStatus={this.state.lastNameInvalid ? 'error' : ''}
+              help={this.state.lastNameInvalid ? namesError : ''}
+              label='Last Name'
+            >
+              <Input allowClear onChange={this.handleLastName} />
+            </Form.Item>
+
             <Form.Item label='Role'>
               <Select onChange={this.handleRole} defaultValue='student'>
                 <Option default value='student'>Student</Option>
@@ -120,4 +174,4 @@ class UserCreate extends Component {
   }
 }
 
-export default connect(null, { createUser })(UserCreate);
+export default UserCreate;

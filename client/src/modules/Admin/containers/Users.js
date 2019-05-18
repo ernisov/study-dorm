@@ -1,43 +1,66 @@
 import React, { Component } from 'react';
-import { request } from '../../../api/requests';
+import { connect } from 'react-redux';
+import { List, Skeleton, Button } from 'antd';
 import './Users.css';
 
 class Users extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      page: 1,
-      users: []
-    };
-    this.loadMore = this.loadMore.bind(this);
-  }
-
-  loadMore() {
-    console.log(this.state.page);
-    request({
-      method: 'get',
-      url: '/users/',
-      params: {
-        page: this.state.page,
-        limit: 1
-      }
-    }).then((response) => {
-      console.log(response);
-      this.setState({ page: this.state.page + 1, users: [...response.data.users, ...this.state.users] });
-    })
-
-  }
-
   render() {
+    const { users, loading, initialLoading } = this.props;
+    const loadMore =
+      !initialLoading && !loading ? (
+        <div
+          style={{
+            textAlign: 'center',
+            marginTop: 12,
+            height: 32,
+            lineHeight: '32px',
+          }}
+        >
+          <Button onClick={this.onLoadMore}>loading more</Button>
+        </div>
+      ) : null;
+
     return (
       <div className="Users">
-        <button onClick={this.loadMore}>load more</button>
-        {
-          this.state.users.map((user) => <p>{`${user.username} - ${user.role}`}</p>)
-        }
+        <h3>Users</h3>
+        <List
+          itemLayout='horizontal'
+          loadMore={loadMore}
+          dataSource={users}
+          renderItem={item => (
+            <List.Item actions={[<a>edit</a>, <a>delete</a>]}>
+              <Skeleton title={false} loading={loading} active>
+                <List.Item.Meta title={item.username} />
+              </Skeleton>
+            </List.Item>
+          )} />
       </div>
     );
   }
 }
 
-export default Users;
+const mapStateToProps = (state) => {
+  const {
+    users,
+    page,
+    hasNextPage,
+    hasPrevPage,
+    totalDocs,
+    totalPages,
+    loading,
+    initialLoading
+  } = state.adminUsers;
+
+  return {
+    users,
+    page,
+    hasNextPage,
+    hasPrevPage,
+    totalDocs,
+    totalPages,
+    loading,
+    initialLoading
+  };
+};
+
+export default connect(mapStateToProps)(Users);
