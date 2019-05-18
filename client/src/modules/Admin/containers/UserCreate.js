@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, Input, Select, Icon, Tooltip } from 'antd';
+import { connect } from 'react-redux';
+import { createUser } from '../redux/actions';
 import './UserCreate.css';
 
 const { Option } = Select;
@@ -49,7 +51,7 @@ class UserCreate extends Component {
       role: this.state.role
     };
 
-    console.log(user);
+    this.props.createUser(user);
   }
 
   render() {
@@ -118,4 +120,4 @@ class UserCreate extends Component {
   }
 }
 
-export default UserCreate;
+export default connect(null, { createUser })(UserCreate);
