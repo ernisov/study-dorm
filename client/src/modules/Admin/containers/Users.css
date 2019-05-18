@@ -2,3 +2,8 @@
   margin: 0 1rem;
   padding: 10px;
 }
+
+.users-list {
+  max-height: 70vh;
+  overflow-y: scroll;
+}

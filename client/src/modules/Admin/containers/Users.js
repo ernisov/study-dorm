@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { List, Skeleton, Button } from 'antd';
+import { loadUsers } from '../redux/actions';
+import { List, Button } from 'antd';
 import './Users.css';
 
 class Users extends Component {
+  componentDidMount() {
+    if (this.props.page === 1 && this.props.users.length === 0) {
+      this.props.loadUsers(this.props.page);
+    }
+  }
+
   render() {
-    const { users, loading, initialLoading } = this.props;
-    const loadMore =
-      !initialLoading && !loading ? (
+    const { users, loading, hasNextPage } = this.props;
+    const loadMore = hasNextPage ? (
         <div
           style={{
             textAlign: 'center',
@@ -16,7 +22,11 @@ class Users extends Component {
             lineHeight: '32px',
           }}
         >
-          <Button onClick={this.onLoadMore}>loading more</Button>
+          <Button
+            onClick={() => this.props.loadUsers(this.props.page)}
+          >
+            load more
+          </Button>
         </div>
       ) : null;
 
@@ -24,14 +34,16 @@ class Users extends Component {
       <div className="Users">
         <h3>Users</h3>
         <List
+          className='users-list'
+          loading={(loading && hasNextPage)}
           itemLayout='horizontal'
           loadMore={loadMore}
           dataSource={users}
           renderItem={item => (
             <List.Item actions={[<a>edit</a>, <a>delete</a>]}>
-              <Skeleton title={false} loading={loading} active>
-                <List.Item.Meta title={item.username} />
-              </Skeleton>
+              <List.Item.Meta
+                title={`${item.firstName} ${item.lastName}`}
+                description={item.role}/>
             </List.Item>
           )} />
       </div>
@@ -47,8 +59,7 @@ const mapStateToProps = (state) => {
     hasPrevPage,
     totalDocs,
     totalPages,
-    loading,
-    initialLoading
+    loading
   } = state.adminUsers;
 
   return {
@@ -58,9 +69,8 @@ const mapStateToProps = (state) => {
     hasPrevPage,
     totalDocs,
     totalPages,
-    loading,
-    initialLoading
+    loading
   };
 };
 
-export default connect(mapStateToProps)(Users);
+export default connect(mapStateToProps, { loadUsers })(Users);
