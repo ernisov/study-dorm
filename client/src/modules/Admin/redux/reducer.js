@@ -2,7 +2,9 @@ import {
   CREATE_USER,
   LOAD_USERS,
   LOAD_USERS_FAIL,
-  SET_LOADING
+  SET_LOADING,
+  DELETE_USER_FAIL,
+  DELETE_USER_SUCCESS
 } from './types';
 
 const INITIAL_STATE = {
@@ -29,9 +31,14 @@ export default (state = INITIAL_STATE, action) => {
         page: state.page + 1
       };
 
-    case LOAD_USERS_FAIL:
-      return {...state};
+    case DELETE_USER_SUCCESS:
+      return {
+        ...state,
+        users: state.users.filter(u => u.username !== action.payload.username)
+      };
 
+    case DELETE_USER_FAIL:
+    case LOAD_USERS_FAIL:
     default:
       return state;
   }

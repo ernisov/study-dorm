@@ -2,7 +2,9 @@ import {
   CREATE_USER,
   LOAD_USERS,
   LOAD_USERS_FAIL,
-  SET_LOADING
+  SET_LOADING,
+  DELETE_USER_SUCCESS,
+  DELETE_USER_FAIL
 } from './types';
 import { request } from '../../../api/requests';
 
@@ -21,6 +23,20 @@ export const loadUsers = (page) => {
     }).catch(err => {
       console.log(err);
       dispatch({ type: LOAD_USERS_FAIL });
+    });
+  };
+};
+
+export const deleteUser = (username) => {
+  return dispatch => {
+    request({
+      method: 'delete',
+      url: `/users/${username}`,
+    }).then((res) => {
+      dispatch({ type: DELETE_USER_SUCCESS, payload: res.data });
+    }).catch(err => {
+      console.log(err);
+      dispatch({ type: DELETE_USER_FAIL });
     });
   };
 };

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loadUsers } from '../redux/actions';
+import { loadUsers, deleteUser } from '../redux/actions';
 import { List, Button } from 'antd';
 import './Users.css';
 
@@ -39,13 +40,27 @@ class Users extends Component {
           itemLayout='horizontal'
           loadMore={loadMore}
           dataSource={users}
-          renderItem={item => (
-            <List.Item actions={[<a>edit</a>, <a>delete</a>]}>
-              <List.Item.Meta
-                title={`${item.firstName} ${item.lastName}`}
-                description={item.role}/>
-            </List.Item>
-          )} />
+          renderItem={item => {
+            let edit = (
+              <Link to={`${this.props.match.path}/${item.username}/edit`}>
+                edit
+              </Link>
+            );
+
+            let deleteUser = (
+              <span onClick={() => this.props.deleteUser(item.username)}>
+                delete
+              </span>
+            );
+
+            return (
+              <List.Item actions={[edit, deleteUser]}>
+                <List.Item.Meta
+                  title={`${item.firstName} ${item.lastName}`}
+                  description={item.role}/>
+              </List.Item>
+            );
+          }} />
       </div>
     );
   }
@@ -73,4 +88,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { loadUsers })(Users);
+export default connect(mapStateToProps, { loadUsers, deleteUser })(Users);
