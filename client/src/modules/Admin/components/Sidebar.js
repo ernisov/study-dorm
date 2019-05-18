@@ -1,15 +1,8 @@
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import React from 'react';
 import '../Admin.css';
 
-class Sidebar extends Component {
-  render() {
-    return (
-      <div className="Sidebar">
-        {this.props.children}
-      </div>
-    );
-  }
-}
-
-export default Sidebar;
+export default (props) => (
+  <div className="Sidebar">
+    {props.children}
+  </div>
+);

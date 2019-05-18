@@ -10,27 +10,46 @@ class UserCreate extends Component {
     this.state = {
       username: '',
       password: '',
-      role: '',
-      usernameValid: true,
-      passwordValid: true,
-      roleValid: true
+      role: 'student',
+      usernameInvalid: false,
+      passwordInvalid: false
     };
+
+    this.handleUsername = this.handleUsername.bind(this);
+    this.handlePassword = this.handlePassword.bind(this);
+    this.handleRole = this.handleRole.bind(this);
+    this.submitForm = this.submitForm.bind(this);
   }
 
-  handleUsername() {
-
+  handleUsername(e) {
+    this.setState({ username: e.target.value, usernameInvalid: false });
   }
 
-  handlePassword() {
-
+  handlePassword(e) {
+    this.setState({ password: e.target.value, passwordInvalid: false });
   }
 
-  handleRole() {
-
+  handleRole(role) {
+    this.setState({ role });
   }
 
-  submitForm() {
-    console.log('submitForm');
+  submitForm(e) {
+    e.preventDefault();
+    if (!this.state.username) {
+      return this.setState({ usernameInvalid: true });
+    }
+
+    if(this.state.password.length < 5) {
+      return this.setState({ passwordInvalid: true });
+    }
+
+    let user = {
+      username: this.state.username,
+      password: this.state.password,
+      role: this.state.role
+    };
+
+    console.log(user);
   }
 
   render() {
@@ -42,6 +61,9 @@ class UserCreate extends Component {
       }
     };
 
+    const usernameError = 'Please, enter unique username';
+    const passwordError = 'Password should be 5 characters long';
+
     return (
       <div className="UserCreate">
         <Form {...formItemLayout} onSubmit={this.submitForm} >
@@ -49,16 +71,21 @@ class UserCreate extends Component {
             <h3 className='section-header'>Main</h3>
             <Form.Item
               required
+              validateStatus={this.state.usernameInvalid ? 'error' : ''}
+              help={this.state.usernameInvalid ? usernameError : ''}
               label='Username'
             >
-              <Input allowClear />
+              <Input allowClear onChange={this.handleUsername} />
             </Form.Item>
             <Form.Item
               required
+              validateStatus={this.state.passwordInvalid ? 'error' : ''}
+              help={this.state.passwordInvalid ? passwordError : ''}
               label='Password'
             >
               <Input.Password
                 allowClear
+                onChange={this.handlePassword}
                 prefix={
                   <Tooltip title='Minimum length: 5 characters'>
                     <Icon type='question-circle-o' />
@@ -66,8 +93,8 @@ class UserCreate extends Component {
                 }
               />
             </Form.Item>
-            <Form.Item required label='Role'>
-              <Select>
+            <Form.Item label='Role'>
+              <Select onChange={this.handleRole} defaultValue='student'>
                 <Option default value='student'>Student</Option>
                 <Option value='employee'>Employee</Option>
                 <Option value='service'>Service Worker</Option>
@@ -79,6 +106,7 @@ class UserCreate extends Component {
           </section>
         </Form>
         <Button
+          onClick={this.submitForm}
           className='user-create-submit'
           htmlType='submit'
           type='primary'

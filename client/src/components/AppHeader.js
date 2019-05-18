@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Menu, Icon, Dropdown, Col, Row } from 'antd';
+import { Menu, Icon, Col, Row } from 'antd';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logoutUser } from '../modules/User/redux/actions';
 import routes from '../routes/routes';
 import './AppHeader.css';
 
-const MenuItemGroup = Menu.ItemGroup;
 const SubMenu = Menu.SubMenu;
 
 class AppNavBar extends Component {
