@@ -40,6 +40,7 @@ export const request = (config) => {
 
     store.dispatch({ type: LOGIN_FAIL });
   }).then((accessToken) => {
+    console.log('CONFIG', config)
     return axios({
       ...config,
       headers: {

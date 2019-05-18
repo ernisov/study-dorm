@@ -9,8 +9,19 @@ const User = require('../models/User');
 
 router.get('/', authenticate, allowedRoles(['admin']), (req, res) => {
   // TODO: find about pagination
-  User.find().then((users) => {
-    res.json(users);
+  User.paginate({}, { limit: req.query.limit, page: req.query.page }).then((result) => {
+    let docs = result.docs.map(user => ({
+      username: user.username,
+      role: user.role
+    }));
+
+    res.json({
+      users: docs,
+      hasNextPage: result.hasNextPage,
+      hasPrevPage: result.hasNextPage,
+      totalDocs: result.totalDocs,
+      totalPages: result.totalPages
+    });
   }).catch(err => console.log(err));
 });
 

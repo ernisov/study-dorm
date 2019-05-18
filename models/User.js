@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const config = require('config');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const UserSchema = new Schema({
   username: {
@@ -32,6 +33,8 @@ const UserSchema = new Schema({
     }
   }]
 });
+
+UserSchema.plugin(mongoosePaginate);
 
 UserSchema.methods.generateAuthTokens = function() {
   const access = 'auth';
