@@ -44,8 +44,7 @@ const UserSchema = new Schema({
 
 UserSchema.plugin(mongoosePaginate);
 
-UserSchema.methods.generateAuthTokens = function() {
-  const access = 'auth';
+UserSchema.methods.generateAuthTokens = function(access) {
   const accessTokenExp = Math.floor(Date.now() / 1000) + +config.get('accessTokenLifespan');
   const refreshTokenExp = Math.floor(Date.now() / 1000) + +config.get('refreshTokenLifespan');
 
@@ -63,8 +62,8 @@ UserSchema.methods.generateAuthTokens = function() {
     access
   }, config.get('refreshTokenSecret'));
 
-  if (this.tokens.length > 0) {
-    let dbToken = this.tokens.find(token => token.access === 'auth');
+  let dbToken = this.tokens.find(token => token.access === access);
+  if (dbToken) {
     dbToken.token = refreshToken;
   } else {
     this.tokens.push({ access, token: refreshToken });
