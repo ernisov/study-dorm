@@ -6,8 +6,17 @@ const authenticate = require('../middleware/auth');
 const allowedRoles = require('../middleware/allowedRoles');
 
 const User = require('../models/User');
+const Tenant  = require('../models/Tenant');
+const {
+  ADMIN,
+  STUDENT,
+  EMPLOYEE,
+  DEAN,
+  SERVICE,
+  COMMANDANT
+} = require('../config/roles');
 
-router.get('/', authenticate, allowedRoles(['admin']), (req, res) => {
+router.get('/', authenticate, allowedRoles([ADMIN]), (req, res) => {
   User.paginate({}, { limit: req.query.limit, page: req.query.page }).then((result) => {
     let docs = result.docs.map(user => ({
       username: user.username,
@@ -26,20 +35,30 @@ router.get('/', authenticate, allowedRoles(['admin']), (req, res) => {
   }).catch(err => console.log(err));
 });
 
-router.post('/', authenticate, allowedRoles(['admin']), (req, res) => {
+router.post('/', authenticate, allowedRoles([ADMIN]), (req, res) => {
   let { username, password, role, firstName, lastName } = req.body;
   let user = new User({ username, password, role, firstName, lastName });
   user.save().then((doc) => {
-    res.status(200).json({
-      username: doc.username,
-      firstName: doc.firstName,
-      lastName: doc.lastName,
-      role: doc.role
-    });
+    let sendUser = () => {
+      res.status(200).json({
+        username: doc.username,
+        firstName: doc.firstName,
+        lastName: doc.lastName,
+        role: doc.role
+      });
+    };
+    if ([STUDENT, EMPLOYEE, COMMANDANT, SERVICE].includes(role)) {
+      const tenant = new Tenant({ _user: username });
+      tenant.save()
+        .then((t) => sendUser())
+        .catch(err => Promise.reject(err));
+    } else {
+      sendUser();
+    }
   }).catch((err) => res.status(400).send(err));
 });
 
-router.get('/:username', authenticate, allowedRoles(['admin']), (req, res) => {
+router.get('/:username', authenticate, allowedRoles([ADMIN]), (req, res) => {
   let { username } = req.params;
   User.findOne({ username }).then((user) => {
     if (!user) return res.status(404).send();
@@ -53,7 +72,7 @@ router.get('/:username', authenticate, allowedRoles(['admin']), (req, res) => {
   }).catch((err) => res.status(400).send(err));
 });
 
-router.patch('/:username', authenticate, allowedRoles(['admin']), (req, res) => {
+router.patch('/:username', authenticate, allowedRoles([ADMIN]), (req, res) => {
   let { username } = req.params;
   let update = {};
   for (let key in req.body) {
@@ -69,7 +88,7 @@ router.patch('/:username', authenticate, allowedRoles(['admin']), (req, res) => 
   }).catch((err) => res.status(400).send(err));
 });
 
-router.delete('/:username', authenticate, allowedRoles(['admin']), (req, res) => {
+router.delete('/:username', authenticate, allowedRoles([ADMIN]), (req, res) => {
   let { username } = req.params;
   User.findOneAndRemove({ username }).then((result) => {
     if (!result) return res.status(404).send();

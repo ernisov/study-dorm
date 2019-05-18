@@ -80,8 +80,8 @@ class UserCreate extends Component {
       data: user
     }).then((response) => {
       if (response.data.username && response.data.role) {
-        console.log('user created');
-        message.success(`${response.data.username} successfully created.`)
+        message.success(`${response.data.username} successfully created.`);
+        this.setState({ username: '', password: '', firstName: '', lastName: '', role: 'student' });
       }
     }).catch((err) => {
       console.log(err);
@@ -113,7 +113,7 @@ class UserCreate extends Component {
               help={this.state.usernameInvalid ? usernameError : ''}
               label='Username'
             >
-              <Input allowClear onChange={this.handleUsername} />
+              <Input value={this.state.username} allowClear onChange={this.handleUsername} />
             </Form.Item>
             <Form.Item
               required
@@ -124,6 +124,7 @@ class UserCreate extends Component {
               <Input.Password
                 allowClear
                 onChange={this.handlePassword}
+                value={this.state.password}
                 prefix={
                   <Tooltip title='Minimum length: 5 characters'>
                     <Icon type='question-circle-o' />
@@ -137,7 +138,7 @@ class UserCreate extends Component {
               help={this.state.firstNameInvalid ? namesError : ''}
               label='First Name'
             >
-              <Input allowClear onChange={this.handleFirstName} />
+              <Input value={this.state.firstName} allowClear onChange={this.handleFirstName} />
             </Form.Item>
 
             <Form.Item
@@ -146,11 +147,11 @@ class UserCreate extends Component {
               help={this.state.lastNameInvalid ? namesError : ''}
               label='Last Name'
             >
-              <Input allowClear onChange={this.handleLastName} />
+              <Input value={this.state.lastName} allowClear onChange={this.handleLastName} />
             </Form.Item>
 
             <Form.Item label='Role'>
-              <Select onChange={this.handleRole} defaultValue='student'>
+              <Select onChange={this.handleRole} value={this.state.role} defaultValue='student'>
                 <Option default value='student'>Student</Option>
                 <Option value='employee'>Employee</Option>
                 <Option value='service'>Service Worker</Option>
