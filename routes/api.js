@@ -23,7 +23,10 @@ router.post('/login', (req, res) => {
   let { username, password } = req.body;
 
   User.findByCredentials(username, password).then((user) => {
-    if (!user) return Promise.reject();
+    if (!user) {
+      console.log('no user found');
+      return Promise.reject()
+    };
     user.generateAuthTokens('mobile').then(tokens => {
       res.status(200).json({
         username,
@@ -33,7 +36,10 @@ router.post('/login', (req, res) => {
         ...tokens
       });
     });
-  }).catch((err) => res.status(401).send(err));
+  }).catch((err) => {
+    console.log(err);
+    res.status(401).send(err);
+  });
 });
 
 router.get('/refresh-token', (req, res) => {
