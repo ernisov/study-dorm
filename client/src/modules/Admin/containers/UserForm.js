@@ -101,7 +101,9 @@ class UserForm extends Component {
 
     request(config).then((response) => {
       if (response.data.username && response.data.role) {
-        this.props.updateUser(this.props.user, response.data);
+        if (this.props.edit) {
+          this.props.updateUser(this.props.user, response.data);
+        }
         message.success(`success.`);
         this.setState({ username: '', password: '', firstName: '', lastName: '', role: 'student' });
       }

@@ -49,13 +49,17 @@ router.post('/', authenticate, allowedRoles([ADMIN]), (req, res) => {
     };
     if ([STUDENT, EMPLOYEE, COMMANDANT, SERVICE].includes(role)) {
       const tenant = new Tenant({ _user: username });
-      tenant.save()
+      return tenant.save()
         .then((t) => sendUser())
         .catch(err => Promise.reject(err));
     } else {
-      sendUser();
+      console.log('Not a tenant');
+      return sendUser();
     }
-  }).catch((err) => res.status(400).send(err));
+  }).catch((err) => {
+    console.log(err);
+    res.status(400).send(err)
+  });
 });
 
 router.get('/:username', authenticate, allowedRoles([ADMIN]), (req, res) => {
