@@ -30,8 +30,10 @@ class UserForm extends Component {
   }
 
   componentDidMount() {
-    let { username, password, firstName, lastName, role } = this.props.user;
-    this.setState({ username, password, firstName, lastName, role });
+    if (this.props.edit) {
+      let { username, password, firstName, lastName, role } = this.props.user;
+      this.setState({ username, password, firstName, lastName, role });
+    }
   }
 
   handleUsername(e) {
