@@ -5,7 +5,7 @@ import AppHeader from '../../components/AppHeader';
 
 import Admin from '../Admin/Admin';
 import Dormitory from '../Dormitory/Dormitory';
-import Announcements from '../Announcements/Announcements';
+import Announcements from '../Announcements/containers/Announcements';
 
 import './Home.css';
 
