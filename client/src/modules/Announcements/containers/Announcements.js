@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loadAnnouncements } from '../redux/actions';
 import { List, Button } from 'antd';
-// import './Announcements.css';
+import './Announcements.css';
 
 class Announcements extends Component {
   componentDidMount() {
@@ -41,19 +41,20 @@ class Announcements extends Component {
           loadMore={loadMore}
           dataSource={announcements}
           renderItem={item => {
-            // let edit = (
-            //   <Link to={{
-            //
-            //   }}>
-            //     edit
-            //   </Link>
-            // );
-            //
-            // let deleteAnnouncement = (
-            //   <span onClick={() => this.props.deleteAnnouncement(item)}>
-            //     delete
-            //   </span>
-            // );
+            let edit = (
+              <Link to={{
+                pathname: `${this.props.match.path}/${item.id}/edit`,
+                state: item
+              }}>
+                edit
+              </Link>
+            );
+
+            let deleteAnnouncement = (
+              <span onClick={() => this.props.deleteAnnouncement(item.id)}>
+                delete
+              </span>
+            );
 
             return (
               <List.Item actions={[edit, deleteAnnouncement]}>
@@ -90,4 +91,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { loadAnnouncements })(Announcements);
+export default connect(mapStateToProps, { loadAnnouncements, deleteAnnouncement })(Announcements);
