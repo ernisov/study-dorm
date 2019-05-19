@@ -42,5 +42,5 @@ export const deleteAnnouncement = (id) => {
 };
 
 export const updateAnnouncement = (old, newAnnouncement) => {
-  return { type: ANNOUNCEMENT_UPDATED, payload: { old, newUser }};
+  return { type: ANNOUNCEMENT_UPDATED, payload: { old, newAnnouncement }};
 };
