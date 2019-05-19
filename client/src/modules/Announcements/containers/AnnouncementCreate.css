@@ -1,0 +1,11 @@
+.AnnouncementCreate {
+  margin: 0 1rem;
+}
+
+.AnnouncementCreate section {
+  padding: 10px;
+}
+
+.announcement-create-submit {
+  margin: 0 10px;
+}
