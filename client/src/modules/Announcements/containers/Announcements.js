@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loadAnnouncements } from '../redux/actions';
+import { loadAnnouncements, deleteAnnouncement } from '../redux/actions';
 import { List, Button } from 'antd';
 import './Announcements.css';
 
