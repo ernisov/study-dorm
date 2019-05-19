@@ -33,6 +33,7 @@ Room.find({}).then((rooms) => {
 app.use('/auth', require('./routes/auth'));
 app.use('/users', require('./routes/users'));
 app.use('/announcements', require('./routes/announcements'));
+app.use('/rooms', require('./routes/rooms'));
 app.use('/api', require('./routes/api'));
 
 if (process.env.NODE_ENV === 'production') {
