@@ -43,6 +43,25 @@ router.get(
   }
 );
 
+// @route  GET /announcements/
+// @desc   Get list of announcements
+// @access Admin, Commandant, Student, Employee, Service
+router.get(
+  '/:_id',
+  authenticate,
+  allowedRoles([ADMIN, COMMANDANT, STUDENT, EMPLOYEE, SERVICE]),
+  (req, res) => {
+    let { _id } = req.params;
+
+    if(!ObjectID.isValid(_id)) return res.status(404).send();
+
+    Announcement.findById(_id).then((announcement) => {
+      if (!announcement) return res.status(404).send();
+
+      res.json(announcement);
+    }).catch((error) => res.status(404).send());
+});
+
 // @route  PATCH /announcements/:id
 // @desc   Update an announcement
 // @access Admin, Commandant
