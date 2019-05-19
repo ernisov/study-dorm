@@ -1,50 +1,6 @@
-[
-  {
-    "floor": 1,
-    "capacity": 4,
-    "width": "20",
-    "height": "40"
-  },
-  {
-    "floor": 1,
-    "capacity": 4,
-    "width": "20",
-    "height": "40"
-  },
-  {
-    "floor": 1,
-    "capacity": 4,
-    "width": "20",
-    "height": "40"
-  },
-  {
-    "floor": 1,
-    "capacity": 4,
-    "width": "20",
-    "height": "40"
-  },
-  {
-    "floor": 2,
-    "capacity": 3,
-    "width": "20",
-    "height": "40"
-  },
-  {
-    "floor": 2,
-    "capacity": 3,
-    "width": "20",
-    "height": "40"
-  },
-  {
-    "floor": 2,
-    "capacity": 3,
-    "width": "20",
-    "height": "40"
-  },
-  {
-    "floor": 2,
-    "capacity": 3,
-    "width": "20",
-    "height": "40"
+{
+  "D1": {
+    "F1": "D1F1.svg",
+    "F2": "D1F2.svg"
   }
-]
+}

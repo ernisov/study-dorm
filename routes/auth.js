@@ -21,6 +21,7 @@ router.get('/', (req, res) => {
 
 router.post('/login', (req, res) => {
   let { username, password } = req.body;
+  username = username.toLowerCase();
 
   User.findByCredentials(username, password).then((user) => {
     if (!user) return Promise.reject();
