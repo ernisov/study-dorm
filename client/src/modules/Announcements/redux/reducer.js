@@ -1,7 +1,10 @@
 import {
   LOAD_ANNOUNCEMENTS,
   LOAD_ANNOUNCEMENTS_FAIL,
-  SET_LOADING
+  SET_LOADING,
+  DELETE_ANNOUNCEMENT_SUCCESS,
+  DELETE_ANNOUNCEMENT_FAIL,
+  ANNOUNCEMENT_UPDATED
 } from './types';
 
 const INITIAL_STATE = {
@@ -28,8 +31,25 @@ export default (state = INITIAL_STATE, action) => {
         page: state.page + 1
       }
 
-    case LOAD_ANNOUNCEMENTS_FAIL:
+    case DELETE_ANNOUNCEMENT_SUCCESS:
+      return {
+        ...state,
+        announcements: state.announcements.filter(a => a.id !== action.payload.id)
+      };
 
+    case ANNOUNCEMENT_UPDATED:
+      return {
+        ...state,
+        announcements: state.announcements.map(a => {
+          if (a.id === action.payload.old.id) {
+            return action.payload.newAnnouncement;
+          }
+          return a;
+        }),
+      };
+
+    case DELETE_ANNOUNCEMENT_FAIL:
+    case LOAD_ANNOUNCEMENTS_FAIL:
     default:
       return state;
   }
