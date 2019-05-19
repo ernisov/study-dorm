@@ -22,4 +22,6 @@ mongoose.connect(config.get('mongoURI'), {
   }).catch(err => console.log(err));
 }).catch(err => console.log(err));
 
+mongoose.set('useFindAndModify', false);
+
 module.exports = mongoose;

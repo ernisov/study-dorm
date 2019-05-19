@@ -1,4 +1,6 @@
 const router = require('express').Router();
+const { ObjectID } = require('mongodb');
+const _ = require('lodash');
 const authenticate = require('../middleware/auth');
 const allowedRoles = require('../middleware/allowedRoles');
 const { ADMIN, COMMANDANT, EMPLOYEE, SERVICE, STUDENT } = require('../config/roles');
@@ -41,5 +43,22 @@ router.get(
   }
 );
 
+// @route  PATCH /announcements/:id
+// @desc   Update an announcement
+// @access Admin, Commandant
+router.patch('/:_id', authenticate, allowedRoles([ADMIN, COMMANDANT]), (req, res) => {
+  let { _id }  = req.params;
+  let body = _.pick(req.body, ['title', 'description']);
+
+  if (!ObjectID.isValid(_id)) return res.status(404).send();
+
+  Announcement.findByIdAndUpdate(_id,
+    { $set: body },
+    { new: true }
+  ).then((announcement) => {
+    if (!announcement) return res.status(404).send();
+    res.send(announcement);
+  }).catch((error) => res.status(400).send());
+});
 
 module.exports = router;
