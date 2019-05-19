@@ -5,7 +5,7 @@ const config = require('config');
 const authenticate = (req, res, next) => {
   const accessToken = req.header('x-auth-token');
   jwt.verify(accessToken, config.get('accessTokenSecret'), (err, decoded) => {
-    if (err) return res.status(401).send();
+    if (err) return res.status(401).send({ message: 'Authentication required' });
     let { username, role } = decoded;
     let user = { username, role, accessToken };
     req.user = user;
