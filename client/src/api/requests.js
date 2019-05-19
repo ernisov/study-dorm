@@ -3,6 +3,19 @@ import moment from 'moment';
 import store from '../store';
 import { LOGIN_FAIL } from '../modules/User/redux/types';
 
+
+/*
+  config:
+  {
+    method: GET/POST/PUT etc.
+    url: full url
+    data: {
+      key: value
+      ...
+      for request body
+    }
+  }
+*/
 export const request = (config) => {
   return new Promise((resolve, reject) => {
     let accessTokenExp = moment(+localStorage.getItem('accessTokenExp'));
