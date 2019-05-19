@@ -1,0 +1,9 @@
+.Announcements {
+  margin: 0 1rem;
+  padding: 10px;
+}
+
+.announcements-list {
+  max-height: 70vh;
+  overflow-y: scroll;
+}
