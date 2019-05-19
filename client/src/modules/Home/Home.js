@@ -5,6 +5,7 @@ import AppHeader from '../../components/AppHeader';
 
 import Admin from '../Admin/Admin';
 import Dormitory from '../Dormitory/Dormitory';
+import Announcements from '../Announcements/Announcements';
 
 import './Home.css';
 
@@ -22,6 +23,7 @@ class Home extends Component {
         <div className="AppContent">
           <Route path='/dormitory' component={Dormitory} />
           <Route path='/admins' component={Admin} />
+          <Route path='/announcements' component={Announcements} />
         </div>
       </div>
     );

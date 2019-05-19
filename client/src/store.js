@@ -4,6 +4,7 @@ import ReduxThunk from 'redux-thunk';
 import DormitoryReducer from './modules/Dormitory/redux/reducer';
 import UserReducer from './modules/User/redux/reducer';
 import AdminUsersReducer from './modules/Admin/redux/reducer';
+import AnnouncementsReducer from './modules/Announcements/redux/reducer';
 
 const initialState = {};
 const middleware = [ReduxThunk];
@@ -11,7 +12,8 @@ const middleware = [ReduxThunk];
 const reducers = combineReducers({
   dormitory: DormitoryReducer,
   user: UserReducer,
-  adminUsers: AdminUsersReducer
+  adminUsers: AdminUsersReducer,
+  announcements:AnnouncementsReducer
 });
 
 const store = createStore(
