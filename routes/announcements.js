@@ -43,8 +43,8 @@ router.get(
   }
 );
 
-// @route  GET /announcements/
-// @desc   Get list of announcements
+// @route  GET /announcements/:id
+// @desc   Get an announcements
 // @access Admin, Commandant, Student, Employee, Service
 router.get(
   '/:_id',
@@ -78,6 +78,20 @@ router.patch('/:_id', authenticate, allowedRoles([ADMIN, COMMANDANT]), (req, res
     if (!announcement) return res.status(404).send();
     res.send(announcement);
   }).catch((error) => res.status(400).send());
+});
+
+// @route  DELETE /announcements/:id
+// @desc   Delete an announcement
+// @access Admin, Commandant
+router.delete('/:_id', authenticate, allowedRoles([ADMIN, COMMANDANT]), (req, res) => {
+  let { _id } = req.params;
+
+  if(!ObjectID.isValid(_id)) return res.status(404).send();
+
+  Announcement.findByIdAndRemove(_id).then((announcement) => {
+    if (!announcement) return res.status(404).send();
+    res.send(announcement);
+  }).catch((error) => res.status(404).send());
 });
 
 module.exports = router;
