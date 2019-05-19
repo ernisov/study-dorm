@@ -15,6 +15,8 @@ import { LOGIN_FAIL } from '../modules/User/redux/types';
       for request body
     }
   }
+
+  returns axios response object
 */
 export const request = (config) => {
   return new Promise((resolve, reject) => {
