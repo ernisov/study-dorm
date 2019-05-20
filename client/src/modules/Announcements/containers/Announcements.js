@@ -34,36 +34,37 @@ class Announcements extends Component {
     return (
       <div className="Announcements">
         <h3>Announcements</h3>
-        <List
-          className='announcements-list'
-          loading={(loading && hasNextPage)}
-          itemLayout='horizontal'
-          loadMore={loadMore}
-          dataSource={announcements}
-          renderItem={item => {
-            let edit = (
-              <Link to={{
-                pathname: `${this.props.match.path}/${item.id}/edit`,
-                state: item
-              }}>
-                edit
-              </Link>
-            );
+          <List
+            className='announcements-list'
+            loading={(loading && hasNextPage)}
+            itemLayout='horizontal'
+            loadMore={loadMore}
+            dataSource={announcements}
+            renderItem={item => {
+              console.log(item);
+              let edit = (
+                <Link to={{
+                  pathname: `${this.props.match.path}/${item._id}/edit`,
+                  state: item
+                }}>
+                  edit
+                </Link>
+              );
 
-            let deleteAnnouncement = (
-              <span onClick={() => this.props.deleteAnnouncement(item.id)}>
-                delete
-              </span>
-            );
+              let deleteAnnouncement = (
+                <span onClick={() => this.props.deleteAnnouncement(item._id)}>
+                  delete
+                </span>
+              );
 
-            return (
-              <List.Item actions={[edit, deleteAnnouncement]}>
-                <List.Item.Meta
-                  title={`${item.title}`}
-                  description={item.description}/>
-              </List.Item>
-            );
-          }} />
+              return (
+                <List.Item actions={[edit, deleteAnnouncement]}>
+                  <List.Item.Meta
+                    title={`${item.title}`}
+                    description={item.description}/>
+                </List.Item>
+              );
+            }} />
       </div>
     );
   }

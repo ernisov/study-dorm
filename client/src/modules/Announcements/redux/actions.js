@@ -4,7 +4,8 @@ import {
   SET_LOADING,
   DELETE_ANNOUNCEMENT_SUCCESS,
   DELETE_ANNOUNCEMENT_FAIL,
-  ANNOUNCEMENT_UPDATED
+  ANNOUNCEMENT_UPDATED,
+  CREATE_ANNOUNCEMENT
 } from './types';
 import { request } from '../../../api/requests';
 
@@ -27,12 +28,30 @@ export const loadAnnouncements = (page) => {
   };
 };
 
+export const createAnnouncement = async item => {
+
+  const res = await request({
+    method: 'post',
+    url: '/announcements/',
+    send: item
+  });
+
+  return dispatch => {
+    dispatch({
+      type: CREATE_ANNOUNCEMENT,
+      payload: res
+    })
+  };
+};
+
 export const deleteAnnouncement = (id) => {
   return dispatch => {
+    console.log('del announcement')
     request({
       method: 'delete',
       url: `/announcements/${id}`
     }).then((res) => {
+      console.log('success del')
       dispatch({ type: DELETE_ANNOUNCEMENT_SUCCESS, payload: res.data });
     }).catch(err => {
       console.log(err);

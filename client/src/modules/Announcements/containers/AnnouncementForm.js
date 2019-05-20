@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Form, Input, Select, message, TextArea } from 'antd';
 import { request } from '../../../api/requests';
 import { connect } from 'react-redux';
-import { updateAnnouncement } from '../redux/actions;'
+import { updateAnnouncement, createAnnouncement } from '../redux/actions';
 import './AnnouncementCreate.css';
 
 const { Option } = Select;
@@ -16,6 +16,7 @@ class AnnouncementForm extends Component {
     };
     this.handleTitle = this.handleTitle.bind(this);
     this.handleDescription = this.handleDescription.bind(this);
+    this.submitForm = this.submitForm.bind(this);
   }
 
   componentDidMount() {
@@ -53,13 +54,13 @@ class AnnouncementForm extends Component {
     if (this.props.edit) {
       config = {
         method: 'patch',
-        url: `/announcements/${this.props.announcement.id}`
+        url: `/announcements/${this.props.announcement._id}`,
         data: announcement
       };
     } else {
       config = {
         method: 'post',
-        url: `/announcements/`
+        url: `/announcements/`,
         data: announcement
       };
     }
@@ -69,7 +70,7 @@ class AnnouncementForm extends Component {
         this.props.updateAnnouncement(this.props.announcement, response.data);
       }
       message.success(`success.`);
-      this.setState({ title: '', password: '' });
+      this.setState({ title: '', description: '' });
     }).catch((err) => {
       console.log(err);
       message.error(`Couldn't perform operation`)
@@ -100,13 +101,7 @@ class AnnouncementForm extends Component {
               required
               label='Description'
             >
-              <TextArea
-                value={this.state.description}
-                allowClear
-                onChange={this.handleDescription}
-                placeholder="Enter description of announcement"
-                autosize={{ minRows: 2, maxRows: 6 }}
-              />
+              <Input value={this.state.description} allowClear onChange={this.handleDescription} />
             </Form.Item>
           </section>
         </Form>
@@ -116,9 +111,11 @@ class AnnouncementForm extends Component {
           htmlType='submit'
           type='primary'
         >
-          {this.props.edit ? 'Update' : 'Register'}
+          {this.props.edit ? 'Update' : 'Create'}
         </Button>
       </div>
     );
   }
 }
+
+export default connect(null, { updateAnnouncement, createAnnouncement })(AnnouncementForm);

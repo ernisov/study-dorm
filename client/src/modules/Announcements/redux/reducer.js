@@ -1,4 +1,5 @@
 import {
+  CREATE_ANNOUNCEMENT,
   LOAD_ANNOUNCEMENTS,
   LOAD_ANNOUNCEMENTS_FAIL,
   SET_LOADING,
@@ -14,13 +15,20 @@ const INITIAL_STATE = {
   hasPrevPage: false,
   totalDocs: 0,
   totalPages: 0,
-  loading: false
+  loading: false,
+  success: false
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case SET_LOADING:
       return { ...state, loading: true };
+
+    case CREATE_ANNOUNCEMENT:
+      return {
+        ...state,
+        success: true
+      }
 
     case LOAD_ANNOUNCEMENTS:
       return {

@@ -4,6 +4,7 @@ import { Redirect, Route } from 'react-router-dom';
 import AppHeader from '../../components/AppHeader';
 
 import Admin from '../Admin/Admin';
+import Commandant from '../Announcements/Commandant';
 import Dormitory from '../Dormitory/Dormitory';
 import Announcements from '../Announcements/containers/Announcements';
 
@@ -23,7 +24,7 @@ class Home extends Component {
         <div className="AppContent">
           <Route path='/dormitory' component={Dormitory} />
           <Route path='/admins' component={Admin} />
-          <Route path='/announcements' component={Announcements} />
+          <Route path='/announcements' component={Commandant} />
         </div>
       </div>
     );
