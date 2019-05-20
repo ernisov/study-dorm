@@ -29,13 +29,7 @@ const ApplicationSchema = new Schema({
   passportDate: {
     type: Date,
     required: true
-  },
-  family: [{
-    memberType: MEMBER_TYPES,
-    fullName: String,
-    workPlace: String,
-    studyPlace: String,
-  }]
+  }
 });
 
 const MEMBER_TYPES = {
