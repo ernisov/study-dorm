@@ -1,27 +1,29 @@
 import React, { Component } from 'react';
 import { Form, Input, Select, DatePicker,Button,Checkbox } from 'antd';
+import moment from 'moment';
 import './ApplyForm.css';
 
-import moment from 'moment';
-
 const { MonthPicker, RangePicker } = DatePicker;
-
 const dateFormat = 'YYYY/MM/DD';
 const monthFormat = 'YYYY/MM';
-
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 
 class ApplyForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        agreed: false
+      agreed: false
     };
     this.onAgreementChange = this.onAgreementChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   onAgreementChange(e) {
     this.setState({ agreed: e.target.checked });
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
   }
 
   render() {
@@ -33,113 +35,46 @@ class ApplyForm extends Component {
       }
     };
 
-  return (
-    <div className='ApplyForm'>
-      <div className='Form'>
-        <h3>ApplyForm</h3>
+    return (
+      <div className='ApplyForm'>
+        <div className='Form'>
+          <h3>Application Form</h3>
           <Form {...formItemLayout}>
-
-            <Form.Item
-              required
-              label='Дата рождения'
-            >
-                 <DatePicker defaultValue={moment('01/01/2015', dateFormatList[0])} format={dateFormatList} />
+            <Form.Item required label='Date of birth'>
+              <DatePicker
+                defaultValue={moment('01/01/2015', dateFormatList[0])}
+                format={dateFormatList} />
             </Form.Item>
-            <Form.Item
-                required
-                label='Номер паспорта'
-            >
-                 <Input addonBefore="AN" defaultValue="" />
+            <Form.Item required label='Passport number'>
+              <Input addonBefore="AN" defaultValue="" />
             </Form.Item>
-            <Form.Item
-                required
-                label='Кем выдан'
-            >
-                 <Input addonBefore="MKK" defaultValue="" />
+            <Form.Item required label='Issued by'>
+              <Input addonBefore="MKK" defaultValue="" />
             </Form.Item>
-            <Form.Item
-                required
-                label='Когда выдан'
-            >
-                  <DatePicker defaultValue={moment('01/01/2015', dateFormatList[0])} format={dateFormatList} />
-            </Form.Item>
-
-            <Form.Item
-                required
-                label='Состав семьи'
-            >
-            </Form.Item>
-            <Form.Item
-                required
-                label='Отец'
-            >
-                <Input placeholder="ФИО" />
-            </Form.Item>
-            <Form.Item
-                required
-                label='Место работы'
-            >
-                <Input placeholder="Место работы" />
-                <div className='inform-button'>
-                  <Button type="primary">Безработный</Button>
-                </div>
-            </Form.Item>
-            <Form.Item
-                required
-                label='Должность'
-            >
-                <Input placeholder="Должность" />
-            </Form.Item>
-            <Form.Item
-                required
-                label='Телефон'
-            >
-                <Input placeholder="Телефон" />
-            </Form.Item>
-
-            <Form.Item
-                required
-                label='Мать'
-            >
-                <Input placeholder="ФИО" />
-            </Form.Item>
-            <Form.Item
-                required
-                label='Место работы'
-            >
-                <Input placeholder="Место работы" />
-                <div className="inform-button">
-                  <Button type="primary">Безработный</Button>
-                </div>
-            </Form.Item>
-            <Form.Item
-                required
-                label='Должность'
-            >
-                <Input placeholder="Должность" />
-            </Form.Item>
-            <Form.Item
-                required
-                label='Телефон'
-            >
-                <Input placeholder="Телефон" />
+            <Form.Item required label='Issued on'>
+              <DatePicker defaultValue={moment('01/01/2015', dateFormatList[0])} format={dateFormatList} />
             </Form.Item>
             <div className="">
-                <p>Обязуюсь:</p>
-                <p>1. Выполнить правила внутреннего распорядка  в общежитии.</p>
-                <p>2. Выполнить Государственный закон Кыргызской Республики №87-ФЗ "Об ограничении курения","Об охране здоровья граждан от взаимодействия окружающего табачного дыма и последсвтий потреблений табака".</p>
-                <p>3. Выполнять требования органов студенческого самоуправления.</p>
-                <p>В случае нарушения данных Обязательств расторгнуть договор проживания в студенческом общежитии.</p>
-
-
+              <p>Обязуюсь:</p>
+              <p>1. Выполнить правила внутреннего распорядка  в общежитии.</p>
+              <p>
+                2. Выполнить Государственный закон Кыргызской Республики №87-ФЗ "Об ограничении курения",<br />
+                "Об охране здоровья граждан от взаимодействия окружающего табачного дыма и последсвтий потреблений табака".
+              </p>
+              <p>3. Выполнять требования органов студенческого самоуправления.</p>
+              <p>В случае нарушения данных Обязательств расторгнуть договор проживания в студенческом общежитии.</p>
             </div>
-            <div>
-            <Checkbox onChange={this.onAgreementChange}>Checkbox</Checkbox>
-
-            </div>
-
-            <Button type="primary" block> Отправить </Button>
+            <Checkbox onChange={this.onAgreementChange}>I Agree</Checkbox>
           </Form>
+          <Button
+            type="primary"
+            className='application-submit'
+            disabled={!this.state.agreed}
+            onClick={this.onSubmit}
+            htmlType='submit'
+          >
+            Submit
+          </Button>
         </div>
       </div>
     );
