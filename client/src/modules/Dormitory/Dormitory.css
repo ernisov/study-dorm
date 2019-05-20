@@ -1,9 +1,7 @@
-.row {
-  flex-direction: row;
+.Dormitory {
+  height: 100%;
 }
 
-.cls-1 {
-  fill:none;
-  stroke:#000;
-  stroke-miterlimit:10;
+.TabPane {
+  height: 80vh;
 }
