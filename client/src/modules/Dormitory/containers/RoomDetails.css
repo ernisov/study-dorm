@@ -1,0 +1,19 @@
+.RoomDetails {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 10px;
+}
+
+.room-header {
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.room-type {
+  color: #ccc;
+}
+
+.room-tenants-container {
+  flex: 1;
+  padding: 10px 0;
+}

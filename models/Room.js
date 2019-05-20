@@ -1,56 +1,39 @@
+const mongoose = require('../db/mongoose');
+const Schema = mongoose.Schema;
+
 const RoomSchema = new Schema({
-  roomNumber: {
+  id: {
     type: String,
+    unique: true,
     required: true
   },
   dormitory: Number,
   floor: Number,
+  number: Number,
+  type: String,
   tenants: [{
     username: String,
     firstName: String,
     lastName: String,
     role: String,
   }],
-  maxTenants: {
-    type: Number,
-    min: 1
-  },
-  available: {
-    type: Boolean,
-    default: true
-  }
+  maxTenants: Number,
+  available: Boolean
 });
 
-export const ROOM_TYPES = {
-  R: 'room',
-  C: 'corridor',
-  WC: 'WC',
-  B: 'bathroom',
-  K: 'kitchen'
+RoomSchema.statics.getRooms = function(dormitory, floor) {
+  let Room = this;
+  return Room.find({ dormitory, floor }).then(docs => {
+    return docs.map(room => ({
+      id: room.id,
+      dormitory: room.dormitory,
+      floor: room.floor,
+      type: room.type,
+      number: room.number,
+      tenants: room.tenants
+    }));
+  });
 };
 
-// Room.poselit = function(username) {
-//   // max tenants
-//   room.tenantes.push(username).then((room) => {
-//     user.roomNumber = room.roomNumber;
-//     return user.save();
-//   });
-// }
-//
-// /rooms/:roomNumber/addTenant {
-//
-// }
-//
-// /tenants/move {
-//   to: roomNumber?,
-//   from: roomNumber?
-// }
-//
-// function settlement({
-//   to: roomNumber,
-//   from: roomNumber,
-//   username: username
-// })
-// {
-//
-// }
+const Room = mongoose.model('room', RoomSchema);
+module.exports = Room;

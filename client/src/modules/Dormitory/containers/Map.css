@@ -1,0 +1,39 @@
+.Map {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.room-details-container {
+  flex: 1;
+  padding: 15px;
+  border-right: 1px solid #e8e8e8;
+}
+
+.map-container {
+  flex: 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.floor-select {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #e8e8e8;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.floor-select label {
+  font-weight: bold;
+  font-size: 1rem;
+  margin-right: 5px;
+}
+
+.svg-root {
+  width: 75%;
+}
