@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, Input, Select, Icon, Tooltip, message, TextArea } from 'antd';
+import { Button, Form, Input, Select, message, TextArea } from 'antd';
 import { request } from '../../../api/requests';
 import { connect } from 'react-redux';
 import { updateAnnouncement } from '../redux/actions;'

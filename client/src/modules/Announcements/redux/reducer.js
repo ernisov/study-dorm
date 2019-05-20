@@ -26,7 +26,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         ...action.payload,
-        announcements: [...state.announcements, ...action.payload.announcements],
+        announcements: [...state.announcements, ...action.payload.list],
         loading: false,
         page: state.page + 1
       }
