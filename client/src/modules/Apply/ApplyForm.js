@@ -5,7 +5,8 @@ import {
   Select,
   DatePicker,
   Button,
-  Checkbox
+  Checkbox,
+  message
 } from 'antd';
 import moment from 'moment';
 import { request } from '../../api/requests';
@@ -75,7 +76,16 @@ class ApplyForm extends Component {
         issuedBy: this.state.issuedBy,
         issuedDate: this.state.issuedDate.toDate()
       };
-      console.log(submitObj);
+      request({
+        method: 'post',
+        url: '/applications',
+        data: submitObj
+      }).then((response) => {
+        if (response.status === 200) message.success('success');
+      }).catch((err) => {
+        console.log(err);
+        message.error('Couldn\'t perform operation ');
+      });
     }
   }
 

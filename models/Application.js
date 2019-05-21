@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Scheam = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 const ApplicationSchema = new Schema({
   _user: {
@@ -29,6 +29,14 @@ const ApplicationSchema = new Schema({
   passportDate: {
     type: Date,
     required: true
+  },
+  approved: {
+    type: Boolean,
+    default: false
+  },
+  date: {
+    type: Date,
+    default: Date.now
   }
 });
 
