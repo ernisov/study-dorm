@@ -1,7 +1,8 @@
 import {
   SET_LOADING,
   LOAD_APPLICATIONS_SUCCESS,
-  LOAD_APPLICATIONS_FAIL
+  LOAD_APPLICATIONS_FAIL,
+  STATUS_CHANGE
 } from './types';
 
 const INITIAL_STATE = {
@@ -11,13 +12,14 @@ const INITIAL_STATE = {
   hasPrevPage: false,
   totalDocs: 0,
   totalPages: 0,
-  loading: false
+  loading: false,
+  status: 'unconsidered'
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case SET_LOADING:
-      return { ...state, loading: true
+      return { ...state, loading: true };
 
     case LOAD_APPLICATIONS_SUCCESS:
       return {
@@ -29,6 +31,13 @@ export default (state = INITIAL_STATE, action) => {
         hasPrevPage: action.payload.hasPrevPage,
         totalDocs: action.payload.totalDocs,
         totalPages: action.payload.totalPages
+      };
+
+    case STATUS_CHANGE:
+      return {
+        ...INITIAL_STATE,
+        list: [],
+        status: action.payload,
       };
 
     case LOAD_APPLICATIONS_FAIL:

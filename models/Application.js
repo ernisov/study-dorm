@@ -31,7 +31,10 @@ const ApplicationSchema = new Schema({
     type: Date,
     required: true
   },
-  status: String,
+  status: {
+    type: String,
+    default: 'unconsidered'
+  },
   date: {
     type: Date,
     default: Date.now

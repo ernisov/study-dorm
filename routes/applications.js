@@ -25,12 +25,12 @@ router.post('/', authenticate, allowedRoles([STUDENT, EMPLOYEE]), (req, res) => 
   }).catch((error) => res.status(400).send({ message: 'Bad Request', error}));
 });
 
-// @route  GET /apply
+// @route  GET /applications
 // @desc   Get applications
 // @access Dean, Admin
 router.get('/', authenticate, allowedRoles([DEAN, ADMIN]), (req, res) => {
-  const { page, limit, username } = req.query;
-  let options = {};
+  const { page, limit, username, status } = req.query;
+  let options = {status};
   if (username) options._user = username;
   Application.paginate(options, { page, limit: (limit || 10) })
     .then((result) => {
@@ -45,6 +45,21 @@ router.get('/', authenticate, allowedRoles([DEAN, ADMIN]), (req, res) => {
       console.log(error);
       res.status(400).send({ message: 'Bad Request', error });
     })
+});
+
+// @route  POST /applications/:_id
+// @desc   Modify application
+// @access Dean, Admin
+router.post('/:_id', authenticate, allowedRoles([DEAN, ADMIN]), (req, res) => {
+  let { _id } =  req.params;
+  let { status } = req.body;
+
+  Application.findByIdAndUpdate(_id, {
+    $set: { status }
+  }).then((result) => {
+    if (!result) return res.status(404).send();
+    res.json(result);
+  }).catch((error) => res.status(400).send(error));
 });
 
 module.exports = router;
