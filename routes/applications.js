@@ -2,9 +2,9 @@ const router = require('express').Router();
 const authenticate = require('../middleware/auth');
 const allowedRoles = require('../middleware/allowedRoles');
 const Application = require('../models/Application');
-const { STUDENT,  EMPLOYEE } = require('../config/roles');
+const { STUDENT,  EMPLOYEE, DEAN, ADMIN } = require('../config/roles');
 
-// @route  POST /apply
+// @route  POST /applications
 // @desc   Create user application
 // @access Student, Employee
 router.post('/', authenticate, allowedRoles([STUDENT, EMPLOYEE]), (req, res) => {
@@ -22,7 +22,29 @@ router.post('/', authenticate, allowedRoles([STUDENT, EMPLOYEE]), (req, res) => 
 
   application.save().then((doc) => {
     res.json(doc);
-  }).catch((err) => res.status(400).send(err));
+  }).catch((error) => res.status(400).send({ message: 'Bad Request', error}));
+});
+
+// @route  GET /apply
+// @desc   Get applications
+// @access Dean, Admin
+router.get('/', authenticate, allowedRoles([DEAN, ADMIN]), (req, res) => {
+  const { page, limit, username } = req.query;
+  let options = {};
+  if (username) options._user = username;
+  Application.paginate(options, { page, limit: (limit || 10) })
+    .then((result) => {
+      res.json({
+        list: result.docs,
+        hasNextPage: result.hasNextPage,
+        hasPrevPage: result.hasPrevPage,
+        totalDocs: result.totalDocs,
+        totalPages: result.totalPages
+      });
+    }).catch((error) => {
+      console.log(error);
+      res.status(400).send({ message: 'Bad Request', error });
+    })
 });
 
 module.exports = router;

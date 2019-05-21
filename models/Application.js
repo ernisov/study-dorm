@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const ApplicationSchema = new Schema({
   _user: {
@@ -46,6 +47,8 @@ const MEMBER_TYPES = {
     BROTHER: 'brother',
     SISTER: 'sister'
 };
+
+ApplicationSchema.plugin(mongoosePaginate);
 
 const Application = mongoose.model('application', ApplicationSchema);
 module.exports = Application;
