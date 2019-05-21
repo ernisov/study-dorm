@@ -31,10 +31,7 @@ const ApplicationSchema = new Schema({
     type: Date,
     required: true
   },
-  approved: {
-    type: Boolean,
-    default: false
-  },
+  status: String,
   date: {
     type: Date,
     default: Date.now

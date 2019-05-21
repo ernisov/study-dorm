@@ -1,0 +1,13 @@
+.Applications {
+  height: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 5px 15px;
+}
+
+.Applications-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
