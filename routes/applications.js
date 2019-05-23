@@ -2,6 +2,7 @@ const router = require('express').Router();
 const authenticate = require('../middleware/auth');
 const allowedRoles = require('../middleware/allowedRoles');
 const Application = require('../models/Application');
+const Tenant = require('../models/Tenant');
 const { STUDENT,  EMPLOYEE, DEAN, ADMIN } = require('../config/roles');
 
 // @route  POST /applications
@@ -54,11 +55,17 @@ router.post('/:_id', authenticate, allowedRoles([DEAN, ADMIN]), (req, res) => {
   let { _id } =  req.params;
   let { status } = req.body;
 
-  Application.findByIdAndUpdate(_id, {
-    $set: { status }
-  }).then((result) => {
+  Application.findByIdAndUpdate(_id, { status }).then((result) => {
     if (!result) return res.status(404).send();
-    res.json(result);
+    if (result.status === 'approved') {
+      return Tenant.findOneAndUpdate({
+        _user: result._user
+      }, { settlementStatus: 'not_settled' }).then((tenant) => {
+        if (!tenant) return res.status(400).send({ message: 'UserNotFound' });
+        res.status(200).send({ result, tenant });
+      }).catch(err => res.status(400).send(err));
+    }
+    res.status(200).send(result);
   }).catch((error) => res.status(400).send(error));
 });
 

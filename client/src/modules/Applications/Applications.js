@@ -30,7 +30,6 @@ class Applications extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.status !== prevProps.status) {
-      console.log(this.props.status, prevProps.status)
       this.props.loadApplications(this.props.page, this.props.status);
     }
   }
@@ -41,15 +40,8 @@ class Applications extends Component {
 
   render() {
     const { list, loading, hasNextPage } = this.props;
-    const loadMore = hasNextPage ? (
-      <div
-        style={{
-          textAlign: 'center',
-          marginTop: 12,
-          height: 32,
-          lineHeight: '32px',
-        }}
-      >
+    const loadMore = !loading && hasNextPage ? (
+      <div className='list-load-more'>
         <Button
           onClick={() => this.props.loadApplications(this.props.page)}
         >

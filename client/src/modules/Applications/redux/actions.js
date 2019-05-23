@@ -29,13 +29,21 @@ export const changeStatus = (status) => {
   return { type: STATUS_CHANGE, payload: status };
 };
 
-export const approve = (id) => {
+export const approve = (_id) => {
   return dispatch => {
-    console.log('approve');
+    request({
+      method: 'post',
+      url: `/applications/${_id}`,
+      data: {
+        status: 'approved'
+      }
+    }).then((response) => {
+      console.log(response);
+    }).catch((err) => console.log(err));
   };
 };
 
-export const reject = (id) => {
+export const reject = (_id) => {
   return dispatch => {
     console.log('reject');
   };
