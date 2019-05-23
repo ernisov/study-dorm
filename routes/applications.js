@@ -11,19 +11,29 @@ const { STUDENT,  EMPLOYEE, DEAN, ADMIN } = require('../config/roles');
 router.post('/', authenticate, allowedRoles([STUDENT, EMPLOYEE]), (req, res) => {
   const { username, firstName, lastName } = req.user;
   let { birthDate, issuedDate, issuedBy, passportNumber } = req.body;
-  let application = new Application({
-    _user: username,
-    firstName: firstName,
-    lastName: lastName,
-    birthDate: birthDate,
-    passportNumber: passportNumber,
-    passportMKK: issuedBy,
-    passportDate: issuedDate
-  });
 
-  application.save().then((doc) => {
-    res.json(doc);
-  }).catch((error) => res.status(400).send({ message: 'Bad Request', error}));
+  Tenant.findOne({ _user: username }).then((tenant) => {
+    if (!tenant) return res.status(404).send({ message: 'UserNotFound' });
+
+    if (tenant.settlementStatus !== 'not_applied') {
+      return res.status(304).send({ message: 'user already approved' });
+    }
+
+    let application = new Application({
+      _user: username,
+      firstName: firstName,
+      lastName: lastName,
+      birthDate: birthDate,
+      passportNumber: passportNumber,
+      passportMKK: issuedBy,
+      passportDate: issuedDate
+    });
+
+    application.save().then((doc) => {
+      res.json(doc);
+    }).catch((error) => res.status(400).send({ message: 'Bad Request', error}));
+
+  }).catch((error) => res.status(400).send({ message: 'Bad Request', error }));
 });
 
 // @route  GET /applications
