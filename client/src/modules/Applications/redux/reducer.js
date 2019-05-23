@@ -2,6 +2,8 @@ import {
   SET_LOADING,
   LOAD_APPLICATIONS_SUCCESS,
   LOAD_APPLICATIONS_FAIL,
+  APPLICATION_STATUS_CHANGED,
+  APPLICATION_STATUS_CHANGE_FAILED,
   STATUS_CHANGE
 } from './types';
 
@@ -40,6 +42,15 @@ export default (state = INITIAL_STATE, action) => {
         status: action.payload,
       };
 
+    case APPLICATION_STATUS_CHANGED:
+      return {
+        ...state,
+        list: state.list.filter(application => (
+          application._id !== action.payload.application._id
+        ))
+      };
+
+    case APPLICATION_STATUS_CHANGE_FAILED:
     case LOAD_APPLICATIONS_FAIL:
     default:
       return state;

@@ -3,7 +3,8 @@ import {
   SET_LOADING,
   LOAD_APPLICATIONS_SUCCESS,
   LOAD_APPLICATIONS_FAIL,
-  STATUS_CHANGE
+  STATUS_CHANGE,
+  APPLICATION_STATUS_CHANGED
 } from './types';
 
 export const loadApplications = (page, status) => {
@@ -38,8 +39,8 @@ export const approve = (_id) => {
         status: 'approved'
       }
     }).then((response) => {
-      console.log(response);
-    }).catch((err) => console.log(err));
+      dispatch({ type: APPLICATION_STATUS_CHANGED, payload: response.data });
+    }).catch((err) => dispatch({ APPLICATION_STATUS_CHANGE_FAILED }));
   };
 };
 

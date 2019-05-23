@@ -57,12 +57,15 @@ router.post('/:_id', authenticate, allowedRoles([DEAN, ADMIN]), (req, res) => {
 
   Application.findByIdAndUpdate(_id, { status }).then((result) => {
     if (!result) return res.status(404).send();
-    if (result.status === 'approved') {
+    if (status === 'approved') {
       return Tenant.findOneAndUpdate({
         _user: result._user
       }, { settlementStatus: 'not_settled' }).then((tenant) => {
         if (!tenant) return res.status(400).send({ message: 'UserNotFound' });
-        res.status(200).send({ result, tenant });
+        res.status(200).send({
+          application: { _id, status },
+          tenant
+        });
       }).catch(err => res.status(400).send(err));
     }
     res.status(200).send(result);
