@@ -1,7 +1,12 @@
 const mongoose = require('mongoose');
-const Scheam = mongoose.Schema;
+const Schema = mongoose.Schema;
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const ApplicationSchema = new Schema({
+  _user: {
+    type: String,
+    required: true
+  },
   firstName: {
     type: String,
     required: true
@@ -26,12 +31,14 @@ const ApplicationSchema = new Schema({
     type: Date,
     required: true
   },
-  family: [{
-    memberType: MEMBER_TYPES,
-    fullName: String,
-    workPlace: String,
-    studyPlace: String,
-  }]
+  status: {
+    type: String,
+    default: 'unconsidered'
+  },
+  date: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 const MEMBER_TYPES = {
@@ -40,6 +47,8 @@ const MEMBER_TYPES = {
     BROTHER: 'brother',
     SISTER: 'sister'
 };
+
+ApplicationSchema.plugin(mongoosePaginate);
 
 const Application = mongoose.model('application', ApplicationSchema);
 module.exports = Application;

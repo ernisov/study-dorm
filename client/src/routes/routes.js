@@ -1,13 +1,13 @@
 export default [
   {
     href: '/dormitory/',
-    roles: ['commendant', 'admin'],
+    roles: ['commandant', 'admin'],
     title: 'Dormitory',
     icon: 'home'
   },
   {
     href: '/announcements/',
-    roles: ['student', 'admin'],
+    roles: ['student', 'employee', 'commandant', 'service', 'admin'],
     title: 'Announcements',
     icon: 'notification'
   },
@@ -19,7 +19,7 @@ export default [
   },
   {
     href: '/applications/',
-    roles: ['student', 'admin'],
+    roles: ['dean', 'admin'],
     title: 'Applications',
     icon: 'solution'
   },

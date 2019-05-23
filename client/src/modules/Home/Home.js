@@ -7,7 +7,8 @@ import Admin from '../Admin/Admin';
 import Commandant from '../Announcements/Commandant';
 import Dormitory from '../Dormitory/Dormitory';
 import Requests from '../Requests/Requests';
-import ApplyForm from '../Apply/ApplyForm';
+import ApplyForm from '../Applications/ApplyForm';
+import Applications from '../Applications/Applications';
 
 import './Home.css';
 
@@ -28,6 +29,7 @@ class Home extends Component {
           <Route path='/announcements' component={Commandant} />
           <Route path='/requests' component={Requests} />
           <Route path='/apply' component={ApplyForm} />
+          <Route path='/applications' component={Applications} />
         </div>
       </div>
     );

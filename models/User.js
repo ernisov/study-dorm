@@ -50,6 +50,8 @@ UserSchema.methods.generateAuthTokens = function(access) {
 
   const accessToken = jwt.sign({
     username: this.username,
+    firstName: this.firstName,
+    lastName: this.lastName,
     role: this.role,
     exp: accessTokenExp,
   }, config.get('accessTokenSecret'));

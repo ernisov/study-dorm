@@ -3,7 +3,7 @@ import React from 'react';
 export default ({ onClick, id, name, data, ...rest }) => {
   const getColor = (count) => {
     let colors = {
-      0: '#D5F5E3',
+      0: '#28B463',
       1: '#F7DC6F',
       2: '#F8C471',
       3: '#D35400',
