@@ -68,7 +68,7 @@ router.post('/:_id', authenticate, allowedRoles([DEAN, ADMIN]), (req, res) => {
         });
       }).catch(err => res.status(400).send(err));
     }
-    res.status(200).send(result);
+    res.status(200).send({ application: result });
   }).catch((error) => res.status(400).send(error));
 });
 

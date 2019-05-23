@@ -3,7 +3,7 @@ import moment from 'moment';
 import { Button } from 'antd';
 import '../Applications.css';
 
-export default ({ item, approve, reject, status }) => (
+export default ({ item, changeApplicationStatus, status }) => (
   <div className='application-item'>
     <div className='info'>
       <p className='fullname'>
@@ -28,7 +28,7 @@ export default ({ item, approve, reject, status }) => (
         disabled={status !== 'unconsidered'}
         ghost
         className='button'
-        onClick={() => approve(item._id)}
+        onClick={() => changeApplicationStatus(item._id, 'approved')}
       >
         Approve
       </Button>
@@ -37,7 +37,7 @@ export default ({ item, approve, reject, status }) => (
         type='danger'
         ghost
         className='button'
-        onClick={() => reject(item._id)}
+        onClick={() => changeApplicationStatus(item._id, 'rejected')}
       >
         Reject
       </Button>

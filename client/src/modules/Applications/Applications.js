@@ -6,8 +6,7 @@ import { allowedRoles } from '../../hoc/allowedRoles';
 import {
   loadApplications,
   changeStatus,
-  approve,
-  reject
+  changeApplicationStatus
 } from './redux/actions';
 import moment from 'moment';
 import ListItem from './components/ListItem';
@@ -73,8 +72,7 @@ class Applications extends Component {
             <ListItem
               item={item}
               status={this.props.status}
-              approve={this.props.approve}
-              reject={this.props.reject} />
+              changeApplicationStatus={this.props.changeApplicationStatus} />
           )}
         />
       </div>
@@ -97,7 +95,6 @@ export default allowedRoles(['admin', 'dean'])(
   connect(mapStateToProps, {
     loadApplications,
     changeStatus,
-    approve,
-    reject
+    changeApplicationStatus
   })(Applications)
 );
