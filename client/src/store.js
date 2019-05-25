@@ -6,6 +6,7 @@ import UserReducer from './modules/User/redux/reducer';
 import AdminUsersReducer from './modules/Admin/redux/reducer';
 import AnnouncementsReducer from './modules/Announcements/redux/reducer';
 import ApplicationsReducer from './modules/Applications/redux/reducer';
+import TenantsReducer from './modules/Tenants/redux/reducer';
 
 const initialState = {};
 const middleware = [ReduxThunk];
@@ -15,7 +16,8 @@ const reducers = combineReducers({
   user: UserReducer,
   adminUsers: AdminUsersReducer,
   announcements:AnnouncementsReducer,
-  applications: ApplicationsReducer
+  applications: ApplicationsReducer,
+  tenants: TenantsReducer
 });
 
 const store = createStore(

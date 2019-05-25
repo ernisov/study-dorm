@@ -19,6 +19,7 @@ export const loadApplications = (page, status) => {
         status
       }
     }).then((response) => {
+      console.log(`page: ${page}`, response.data);
       dispatch({ type: LOAD_APPLICATIONS_SUCCESS, payload: response.data });
     }).catch((err) => {
       console.log(err);

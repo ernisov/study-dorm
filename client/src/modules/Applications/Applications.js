@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-redux';
 import { List, Radio, Button } from 'antd';
 import { allowedRoles } from '../../hoc/allowedRoles';
 import {
@@ -8,7 +7,6 @@ import {
   changeStatus,
   changeApplicationStatus
 } from './redux/actions';
-import moment from 'moment';
 import ListItem from './components/ListItem';
 import './Applications.css';
 
@@ -42,7 +40,7 @@ class Applications extends Component {
     const loadMore = !loading && hasNextPage ? (
       <div className='list-load-more'>
         <Button
-          onClick={() => this.props.loadApplications(this.props.page)}
+          onClick={() => this.props.loadApplications(this.props.page, this.props.status)}
         >
           load more
         </Button>
