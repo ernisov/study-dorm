@@ -36,6 +36,9 @@ app.use('/announcements', require('./routes/announcements'));
 app.use('/rooms', require('./routes/rooms'));
 app.use('/applications', require('./routes/applications'));
 app.use('/api', require('./routes/api'));
+app.use('/swagger.yml', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'swagger.yml'));
+});
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));

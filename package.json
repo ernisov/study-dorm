@@ -29,7 +29,9 @@
     "mongoose-paginate-v2": "^1.2.1",
     "react-spinners-kit": "^1.9.0",
     "styled-components": "^4.2.0",
-    "svgson": "^3.1.0"
+    "svgson": "^3.1.0",
+    "swagger-ui-express": "^4.0.4",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "expect": "^1.20.2",

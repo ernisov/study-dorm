@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const SETTLEMENT_STATUS = {
   NOT_APPLIED: 'not_applied',
@@ -20,6 +21,7 @@ const TenantSchema = new Schema({
   }
 });
 
+TenantSchema.plugin(mongoosePaginate);
 
 
 const Tenant = mongoose.model('tenant', TenantSchema);
