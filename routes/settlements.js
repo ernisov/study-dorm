@@ -19,13 +19,14 @@ router.post('/', authenticate, allowedRoles([ADMIN, COMMANDANT]), (req, res) => 
     return res.status(400).send({ message: 'no action specified' });
   }
 
+  let to = req.body.to;
+  let from = req.body.from;
+
   Tenant.findOne({ username: req.body.tenant }).then((tenant) => {
     if (!tenant) return res.status(404).send({ message: 'tenant not found' });
 
     switch (req.body.action) {
       case ACTIONS.SETTLE:
-        let to = req.body.to;
-
         Room.findOne({ id: to }).then((room) => {
           if (!room) return res.status(404).send({ message: 'room not found' });
           if (!room.hasTenant(tenant.username) && !tenant.room) {
@@ -46,7 +47,6 @@ router.post('/', authenticate, allowedRoles([ADMIN, COMMANDANT]), (req, res) => 
         break;
 
       case ACTIONS.UNSETTLE:
-        let from = req.body.from;
         Room.findOne({ id: from }).then((room) => {
           if (!room) return res.status(404).send({ message: 'room not found' });
           if (room.hasTenant(tenant.username) && tenant.room === from) {
@@ -67,7 +67,24 @@ router.post('/', authenticate, allowedRoles([ADMIN, COMMANDANT]), (req, res) => 
         break;
 
       case ACTIONS.MOVE:
-
+        Room.findOne({ id: from })
+        .then((room) => {
+          if (!room) return res.status(404).send({ message: 'room not found' });
+          if (room.hasTenant(tenant.username) && tenant.room === from) {
+            room.removeTenant(tenant.username);
+            return room.save();
+          }
+          return Promise.reject();
+        })
+        .then(() => Room.findOne({ id: to }))
+        .then((room) => {
+          if (!room) return res.status(404).send({ message: 'room not found' });
+          room.addTenant(tenant);
+          tenant.room = room.id;
+          return Promise.all([room.save(), tenant.save()])
+        })
+        .then(() => res.status(200).send({ message: 'OK' }))
+        .catch((err) => res.status(400).send({ error: err }));
 
         break;
 
