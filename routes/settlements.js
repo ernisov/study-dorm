@@ -34,9 +34,17 @@ router.post('/', authenticate, allowedRoles([ADMIN, COMMANDANT]), (req, res) => 
             tenant.room = to;
             tenant.settlementStatus = 'settled';
 
-            return Promise.all([room.save(), tenant.save()]).then(() => {
-              return res.status(200).send({ message: 'OK' });
-            });
+            return Promise.all([room.save(), tenant.save()])
+              .then(() => {
+                let settlement = new Settlement({
+                  to,
+                  by: req.user.username,
+                  action: ACTIONS.SETTLE,
+                  username: tenant.username
+                });
+                return settlement.save();
+              })
+              .then(() => res.status(200).send({ message: 'OK' }));
           }
           return res.status(400).send({ message: 'not proper action' });
         }).catch((err) => {
@@ -53,9 +61,17 @@ router.post('/', authenticate, allowedRoles([ADMIN, COMMANDANT]), (req, res) => 
             room.removeTenant(tenant.username);
             tenant.room = undefined;
             tenant.settlementStatus = 'not_settled';
-            return Promise.all([room.save(), tenant.save()]).then(() => {
-              return res.status(200).send({ message: 'OK' });
-            });
+            return Promise.all([room.save(), tenant.save()])
+              .then(() => {
+                let settlement = new Settlement({
+                  username: tenant.username,
+                  by: req.user.username,
+                  action: ACTIONS.UNSETTLE,
+                  from
+                });
+                return settlement.save();
+              })
+              .then(() => res.status(200).send({ message: 'OK' }));
           }
 
           return res.status(400).send({ message: 'error' })
@@ -82,6 +98,16 @@ router.post('/', authenticate, allowedRoles([ADMIN, COMMANDANT]), (req, res) => 
           room.addTenant(tenant);
           tenant.room = room.id;
           return Promise.all([room.save(), tenant.save()])
+        })
+        .then(() => {
+          let settlement = new Settlement({
+            to,
+            from,
+            by: req.user.username,
+            username: tenant.username,
+            action: ACTIONS.MOVE
+          });
+          return settlement.save();
         })
         .then(() => res.status(200).send({ message: 'OK' }))
         .catch((err) => res.status(400).send({ error: err }));
