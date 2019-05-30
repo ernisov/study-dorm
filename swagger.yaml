@@ -1,0 +1,76 @@
+openapi: 3.0.0
+info:
+  description: Dormitory service server api
+  version: 1.0.0
+  title: Dormitory Service
+components:
+  schemas:
+    Tenant:
+      type: object
+      properties:
+        settlementStatus:
+          type: string
+          enum:
+          - not_applied
+          - not_settled
+          - settled
+        username:
+          type: string
+          example: admin
+        room:
+          type: string
+          example: D1F1R12
+    ArrayOfTenants:
+      type: object
+      properties:
+        totalDocs:
+          type: integer
+        totalPages:
+          type: integer
+        list:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Tenant"
+        hasNextPage:
+          type: boolean
+        hasPrevPage:
+          type: boolean
+paths:
+  "/tenants":
+    get:
+      summary: Get list of tenants
+      produces: application/json
+      responses:
+        '200':
+          description: List of tenants
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ArrayOfTenants"
+      parameters:
+      - name: settlementStatus
+        in: query
+        description: settlement status of requested tenants
+        schema:
+          type: string
+          enum:
+          - settled
+          - not_settled
+          - all
+      - name: page
+        in: query
+        description: requested page
+        schema:
+          type: integer
+          minimum: 1
+      - name: limit
+        in: query
+        description: tenants per page
+        schema:
+          type: integer
+          default: 10
+      - name: x-auth-token
+        in: header
+        schema:
+          type: string
+          format: JWT

@@ -9,13 +9,13 @@ const SETTLEMENT_STATUS = {
 };
 
 const TenantSchema = new Schema({
-  roomNumber: String,
+  room: String,
   settlementStatus: {
     type: String,
     required: true,
     default: SETTLEMENT_STATUS.NOT_APPLIED
   },
-  _user: {
+  username: {
     type: String,
     required: true,
   }
@@ -23,6 +23,14 @@ const TenantSchema = new Schema({
 
 TenantSchema.plugin(mongoosePaginate);
 
+TenantSchema.methods.toJSON = function() {
+  var obj = this.toObject();
+  return {
+    settlementStatus: obj.settlementStatus,
+    username: obj.username,
+    room: obj.room
+  };
+};
 
 const Tenant = mongoose.model('tenant', TenantSchema);
 

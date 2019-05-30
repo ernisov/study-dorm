@@ -6,12 +6,6 @@ export default [
     icon: 'home'
   },
   {
-    href: '/docs/',
-    roles: ['admin'],
-    title: 'Docs',
-    icon: 'idcard'
-  },
-  {
     href: '/tenants/',
     roles: ['commandant', 'admin'],
     title: 'Tenants',

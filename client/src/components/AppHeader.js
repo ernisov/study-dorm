@@ -43,6 +43,12 @@ class AppNavBar extends Component {
   }
 
   render() {
+    let docs = (
+      <Menu.Item>
+        <Link to='/docs'>Documentation</Link>
+      </Menu.Item>
+    );
+
     let dropdown = (
       <SubMenu title={
         <span className='nav-item'>
@@ -53,6 +59,7 @@ class AppNavBar extends Component {
         <Menu.Item>
           <Link to='/profile'>Profile</Link>
         </Menu.Item>
+        {this.props.role === 'admin' && docs}
         <Menu.Item onClick={this.props.logoutUser}>
           Log out
         </Menu.Item>

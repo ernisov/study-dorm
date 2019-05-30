@@ -35,9 +35,10 @@ app.use('/users', require('./routes/users'));
 app.use('/announcements', require('./routes/announcements'));
 app.use('/rooms', require('./routes/rooms'));
 app.use('/applications', require('./routes/applications'));
+app.use('/tenants', require('./routes/tenants'));
 app.use('/api', require('./routes/api'));
-app.use('/swagger.yml', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'swagger.yml'));
+app.use('/docs', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'swagger.yaml'));
 });
 
 if (process.env.NODE_ENV === 'production') {

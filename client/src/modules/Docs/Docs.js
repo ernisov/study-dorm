@@ -6,7 +6,7 @@ class Docs extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      definitionLink: '/swagger.yml'
+      definitionLink: '/docs'
     };
   }
 

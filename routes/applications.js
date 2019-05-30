@@ -12,7 +12,7 @@ router.post('/', authenticate, allowedRoles([STUDENT, EMPLOYEE]), (req, res) => 
   const { username, firstName, lastName } = req.user;
   let { birthDate, issuedDate, issuedBy, passportNumber } = req.body;
 
-  Tenant.findOne({ _user: username }).then((tenant) => {
+  Tenant.findOne({ username }).then((tenant) => {
     if (!tenant) return res.status(404).send({ message: 'UserNotFound' });
 
     if (tenant.settlementStatus !== 'not_applied') {
@@ -69,7 +69,7 @@ router.post('/:_id', authenticate, allowedRoles([DEAN, ADMIN]), (req, res) => {
     if (!result) return res.status(404).send();
     if (status === 'approved') {
       return Tenant.findOneAndUpdate({
-        _user: result._user
+        username: result._user
       }, { settlementStatus: 'not_settled' }).then((tenant) => {
         if (!tenant) return res.status(400).send({ message: 'UserNotFound' });
         res.status(200).send({

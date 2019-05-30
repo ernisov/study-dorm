@@ -48,7 +48,7 @@ router.post('/', authenticate, allowedRoles([ADMIN]), (req, res) => {
       });
     };
     if ([STUDENT, EMPLOYEE, COMMANDANT, SERVICE].includes(role)) {
-      const tenant = new Tenant({ _user: username });
+      const tenant = new Tenant({ username });
       return tenant.save()
         .then((t) => sendUser())
         .catch(err => Promise.reject(err));

@@ -10,7 +10,6 @@ import Requests from '../Requests/Requests';
 import ApplyForm from '../Applications/ApplyForm';
 import Applications from '../Applications/Applications';
 import Tenants from '../Tenants/Tenants';
-import Docs from '../Docs/Docs';
 
 import './Home.css';
 
@@ -33,7 +32,6 @@ class Home extends Component {
           <Route path='/apply' component={ApplyForm} />
           <Route path='/applications' component={Applications} />
           <Route path='/tenants' component={Tenants} />
-          <Route path='/docs' component={Docs} />
         </div>
       </div>
     );
