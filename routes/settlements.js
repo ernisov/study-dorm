@@ -31,6 +31,9 @@ router.post('/', authenticate, allowedRoles([ADMIN, COMMANDANT]), (req, res) => 
           if (!room) return res.status(404).send({ message: 'room not found' });
           if (!room.hasTenant(tenant.username) && !tenant.room) {
             room.addTenant(tenant);
+            if (room.tenants.length >= room.maxTenants) {
+              room.available = false;
+            }
             tenant.room = to;
             tenant.settlementStatus = 'settled';
 
@@ -59,6 +62,9 @@ router.post('/', authenticate, allowedRoles([ADMIN, COMMANDANT]), (req, res) => 
           if (!room) return res.status(404).send({ message: 'room not found' });
           if (room.hasTenant(tenant.username) && tenant.room === from) {
             room.removeTenant(tenant.username);
+            if (room.tenants.length < room.maxTenants) {
+              room.available = true;
+            }
             tenant.room = undefined;
             tenant.settlementStatus = 'not_settled';
             return Promise.all([room.save(), tenant.save()])
@@ -88,6 +94,9 @@ router.post('/', authenticate, allowedRoles([ADMIN, COMMANDANT]), (req, res) => 
           if (!room) return res.status(404).send({ message: 'room not found' });
           if (room.hasTenant(tenant.username) && tenant.room === from) {
             room.removeTenant(tenant.username);
+            if (room.tenants.length < room.maxTenants) {
+              room.available = true;
+            }
             return room.save();
           }
           return Promise.reject();
@@ -96,6 +105,9 @@ router.post('/', authenticate, allowedRoles([ADMIN, COMMANDANT]), (req, res) => 
         .then((room) => {
           if (!room) return res.status(404).send({ message: 'room not found' });
           room.addTenant(tenant);
+          if (room.tenants.length >= room.maxTenants) {
+            room.available = false;
+          }
           tenant.room = room.id;
           return Promise.all([room.save(), tenant.save()])
         })

@@ -18,7 +18,10 @@ const RoomSchema = new Schema({
     role: String,
   }],
   maxTenants: Number,
-  available: Boolean
+  available: {
+    type: Boolean,
+    default: true
+  }
 });
 
 RoomSchema.methods.hasTenant = function(username) {
