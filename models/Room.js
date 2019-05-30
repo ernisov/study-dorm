@@ -21,6 +21,30 @@ const RoomSchema = new Schema({
   available: Boolean
 });
 
+RoomSchema.methods.hasTenant = function(username) {
+  var room = this;
+  let searched = room.tenants.find(t => t.username === username);
+  return searched ? true : false;
+};
+
+RoomSchema.methods.addTenant = function(tenant) {
+  var room = this;
+  let tenantObj = {
+    username: tenant.username,
+    firstName: tenant.firstName,
+    lastName: tenant.lastName,
+    role: tenant.role
+  };
+
+  room.tenants.push(tenantObj);
+};
+
+RoomSchema.methods.removeTenant = function(username) {
+  var room = this;
+  let tenantIndex = room.tenants.findIndex(t => t.username === username);
+  if (tenantIndex > -1) room.tenants.splice(tenantIndex, 1);
+};
+
 RoomSchema.statics.getRooms = function(dormitory, floor) {
   let Room = this;
   return Room.find({ dormitory, floor }).then(docs => {

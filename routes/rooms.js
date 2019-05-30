@@ -20,11 +20,4 @@ router.get('/', authenticate, allowedRoles([ADMIN, COMMANDANT]), (req, res) => {
   }).catch((err) => res.status(400).send(err));
 });
 
-// @route POST /rooms/settle
-// @desc  Move, settle, unsettle users
-// @access Admin, Commandant
-router.post('/settle', authenticate, allowedRoles([ADMIN, COMMANDANT]), (req, res) => {
-  res.send(req.body);
-});
-
 module.exports = router;

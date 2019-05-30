@@ -11,7 +11,7 @@ router.get('/', authenticate, allowedRoles([ADMIN, COMMANDANT]), (req, res) => {
     limit: (limit || 10)
   };
   let query = { settlementStatus };
-  if (settlementStatus === 'all') {
+  if (!settlementStatus || settlementStatus === 'all') {
     query = {
       settlementStatus: {
         $not: /not_applied/
