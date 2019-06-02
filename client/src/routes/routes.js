@@ -31,7 +31,7 @@ export default [
   },
   {
     href: '/apply/',
-    roles: ['student', 'admin'],
+    roles: ['student', 'employee'],
     title: 'Apply',
     icon: 'mail'
   },

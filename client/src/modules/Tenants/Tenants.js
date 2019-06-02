@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { List, Radio, Button } from 'antd';
+import { List, Radio, Button, Icon } from 'antd';
 import './Tenants.css';
 
 import {
@@ -15,6 +15,7 @@ class Tenants extends Component {
   constructor(props) {
     super(props);
     this.onStatusChange = this.onStatusChange.bind(this);
+    this.renderItem = this.renderItem.bind(this);
   }
 
   componentDidMount() {
@@ -23,13 +24,55 @@ class Tenants extends Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.settlementStatus !== prevProps.settlementStatus) {
+      this.props.loadTenants(this.props.page, this.props.settlementStatus);
+    }
+  }
+
   onStatusChange(e) {
     this.props.changeStatus(e.target.value);
   }
 
+  renderItem(item) {
+    let actions = [];
+
+    const settle = (
+      <button onClick={() => console.log('settle')}>settle</button>
+    );
+
+    const move = (
+      <button onClick={() => console.log('move')}>move</button>
+    );
+
+    const unsettle = (
+      <button onClick={() => console.log('unsettle')}>unsettle</button>
+    );
+
+    const info = (
+      <Icon
+        type='info-circle'
+      />
+    );
+
+    if (item.settlementStatus === 'settled') {
+      actions.concat([move, unsettle]);
+    } else {
+      actions.push(settle);
+    }
+
+    return (
+      <List.Item actions={[...actions, info]}>
+        <List.Item.Meta
+          title={item.username}
+          description={item.settlementStatus}
+        />
+      </List.Item>
+    );
+  }
+
   render() {
-    const { loading, hasNextPage, page, settlementStatus } = this.props;
-    console.log(loading, hasNextPage);
+    const { list, loading, hasNextPage, page, settlementStatus } = this.props;
     const loadMore = !loading && hasNextPage ? (
       <div className='list-load-more'>
         <Button
@@ -55,7 +98,10 @@ class Tenants extends Component {
           </RadioGroup>
         </div>
         <List
+          loading={(loading && hasNextPage)}
           loadMore={loadMore}
+          dataSource={list}
+          renderItem={this.renderItem}
         />
       </div>
     );

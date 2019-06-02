@@ -7,6 +7,7 @@ import AdminUsersReducer from './modules/Admin/redux/reducer';
 import AnnouncementsReducer from './modules/Announcements/redux/reducer';
 import ApplicationsReducer from './modules/Applications/redux/reducer';
 import TenantsReducer from './modules/Tenants/redux/reducer';
+import SettlementFormReducer from './modules/SettlementForm/redux/reducer';
 
 const initialState = {};
 const middleware = [ReduxThunk];
@@ -17,7 +18,8 @@ const reducers = combineReducers({
   adminUsers: AdminUsersReducer,
   announcements:AnnouncementsReducer,
   applications: ApplicationsReducer,
-  tenants: TenantsReducer
+  tenants: TenantsReducer,
+  settlementForm: SettlementFormReducer
 });
 
 const store = createStore(
