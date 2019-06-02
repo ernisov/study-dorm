@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { List, Radio, Button, Icon } from 'antd';
 import './Tenants.css';
 
@@ -38,7 +39,13 @@ class Tenants extends Component {
     let actions = [];
 
     const settle = (
-      <button onClick={() => console.log('settle')}>settle</button>
+      <Link to={{
+        pathname: '/settlement-form',
+        state: {
+          action: 'settle',
+          username: item.username
+        }
+      }}>settle</Link>
     );
 
     const move = (
