@@ -57,9 +57,9 @@ class Tenants extends Component {
     );
 
     const info = (
-      <Icon
-        type='info-circle'
-      />
+      <Link to={`/tenants/${item.username}`}>
+        <Icon type='info-circle' />
+      </Link>
     );
 
     if (item.settlementStatus === 'settled') {

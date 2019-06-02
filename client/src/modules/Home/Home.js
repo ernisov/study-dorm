@@ -10,6 +10,7 @@ import Requests from '../Requests/Requests';
 import ApplyForm from '../Applications/ApplyForm';
 import Applications from '../Applications/Applications';
 import Tenants from '../Tenants/Tenants';
+import TenantDetails from '../TenantDetails/TenantDetails';
 import SettlementForm from '../SettlementForm/SettlementForm';
 
 import './Home.css';
@@ -32,7 +33,8 @@ class Home extends Component {
           <Route path='/requests' component={Requests} />
           <Route path='/apply' component={ApplyForm} />
           <Route path='/applications' component={Applications} />
-          <Route path='/tenants' component={Tenants} />
+          <Route path='/tenants' exact component={Tenants} />
+          <Route path='/tenants/:username' exact component={TenantDetails} />
           <Route path='/settlement-form' component={SettlementForm} />
         </div>
       </div>
