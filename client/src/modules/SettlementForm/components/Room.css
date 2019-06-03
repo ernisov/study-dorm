@@ -1,0 +1,12 @@
+.SettlementForm-Room {
+  margin: 10px 5px;
+  padding: 15px 10px;
+}
+
+.Room-Selected {
+  background-color: #1890ff;
+}
+
+.Room-Selected * {
+  color: #fff;
+}

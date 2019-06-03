@@ -22,11 +22,16 @@ router.get('/', authenticate, allowedRoles([ADMIN, COMMANDANT]), (req, res) => {
 
 router.get('/available', authenticate, allowedRoles([ADMIN, COMMANDANT]), (req, res) => {
   let { dormitory, floor } = req.query;
-  Room.find({ available: true, dormitory: +dormitory, floor: +floor })
-    .then((rooms) => {
-      if (!rooms || rooms.length === 0) return res.status(404).send();
-      return res.json(rooms);
-    }).catch(err => res.status(400).send(err));
+  Room.find({
+    available: true,
+    dormitory: +dormitory,
+    floor: +floor,
+    type: 'R'
+  })
+  .then((rooms) => {
+    if (!rooms || rooms.length === 0) return res.status(404).send();
+    return res.json(rooms);
+  }).catch(err => res.status(400).send(err));
 });
 
 module.exports = router;

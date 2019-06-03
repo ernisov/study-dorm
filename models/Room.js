@@ -17,7 +17,10 @@ const RoomSchema = new Schema({
     lastName: String,
     role: String,
   }],
-  maxTenants: Number,
+  maxTenants: {
+    type: Number,
+    default: 4
+  },
   available: {
     type: Boolean,
     default: true

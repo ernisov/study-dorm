@@ -1,18 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Select } from 'antd';
+import { Select, Button } from 'antd';
 import { allowedRoles } from '../../hoc/allowedRoles';
 import './SettlementForm.css';
 import RoomsList from './containers/RoomsList';
 import {
   changeDormitory,
   changeFloor,
-  loadRooms
+  loadRooms,
+  onRoomSelect,
+  submit
 } from './redux/actions';
 
 const { Option } = Select;
 
 class SettlementForm extends Component {
+  constructor(props) {
+    super(props);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
   componentDidMount() {
     if (this.props.rooms.length < 1) {
       this.props.loadRooms(this.props.dormitory, this.props.floor);
@@ -27,8 +34,14 @@ class SettlementForm extends Component {
     }
   }
 
+  onSubmit() {
+    let { action, user } = this.props.location.state;
+    let { activeRoom } = this.props;
+    this.props.submit(user, action, activeRoom);
+  }
+
   render() {
-    let { username, action } = this.props.location.state;
+    let { action } = this.props.location.state;
     return (
       <div className='SettlementForm'>
         <h3>Choose the room:</h3>
@@ -65,7 +78,10 @@ class SettlementForm extends Component {
           dormitory={this.props.dormitory}
           floor={this.props.floor}
           loading={this.props.loading}
+          active={this.props.activeRoom}
+          onRoomSelect={this.props.onRoomSelect}
         />
+        <Button onClick={this.onSubmit}>{action}</Button>
       </div>
     );
   }
@@ -75,7 +91,8 @@ const mapStateToProps = (state) => ({
   rooms: state.settlementForm.rooms,
   dormitory: state.settlementForm.dormitory,
   floor: state.settlementForm.floor,
-  loading: state.settlementForm.loading
+  loading: state.settlementForm.loading,
+  activeRoom: state.settlementForm.activeRoom
 });
 
 export default allowedRoles([
@@ -85,6 +102,8 @@ export default allowedRoles([
   connect(mapStateToProps, {
     changeDormitory,
     changeFloor,
-    loadRooms
+    loadRooms,
+    onRoomSelect,
+    submit
   })(SettlementForm)
 );

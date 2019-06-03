@@ -43,7 +43,7 @@ class Tenants extends Component {
         pathname: '/settlement-form',
         state: {
           action: 'settle',
-          username: item.username
+          user: item
         }
       }}>settle</Link>
     );

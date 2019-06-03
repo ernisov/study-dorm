@@ -4,7 +4,8 @@ import {
   FLOOR_CHANGED,
   ROOMS_LOADING,
   ROOMS_LOADING_FAIL,
-  ROOMS_LOADING_SUCCESS
+  ROOMS_LOADING_SUCCESS,
+  ROOM_SELECTED
 } from './types';
 
 export const changeDormitory = (dormitory) => {
@@ -27,6 +28,30 @@ export const loadRooms = (dormitory, floor) => {
     }).catch((err) => {
       console.log(err);
       dispatch({ type: ROOMS_LOADING_FAIL });
+    });
+  };
+};
+
+export const onRoomSelect = (id) => {
+  return { type: ROOM_SELECTED, payload: id };
+};
+
+export const submit = (tenant, action, room) => {
+  console.log('submit', tenant, action, room);
+  return dispatch => {
+    request({
+      method: 'post',
+      url: '/settlements',
+      data: {
+        tenant: tenant.username,
+        action: action,
+        to: room,
+        from: tenant.room
+      }
+    }).then((response) => {
+      console.log(response);
+    }).catch((error) => {
+      console.log(error);
     });
   };
 };
