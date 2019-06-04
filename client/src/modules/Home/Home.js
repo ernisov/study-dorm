@@ -28,7 +28,7 @@ class Home extends Component {
         </div>
         <div className="AppContent">
           <Route path='/dormitory' component={Dormitory} />
-          <Route path='/admins' component={Admin} />
+          <Route path='/users' component={Admin} />
           <Route path='/announcements' component={Commandant} />
           <Route path='/requests' component={Requests} />
           <Route path='/apply' component={ApplyForm} />

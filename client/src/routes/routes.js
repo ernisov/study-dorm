@@ -36,9 +36,9 @@ export default [
     icon: 'mail'
   },
   {
-    href: '/admins/',
+    href: '/users/',
     roles: ['admin'],
-    title: 'Admin',
-    icon: 'coffee'
+    title: 'Users',
+    icon: 'team'
   },
 ];

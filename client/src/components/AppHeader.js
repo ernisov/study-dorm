@@ -68,12 +68,12 @@ class AppNavBar extends Component {
 
     return (
       <Row type='flex' className='Header'>
-        <Col span={2}>
+        <Col span={3}>
           <div className='logo'>
-            <Link to='/' className='logo-link'>Logo</Link>
+            <Link to='/' className='logo-link'>KSTU Dormitory</Link>
           </div>
         </Col>
-        <Col span={19} offset={3}>
+        <Col span={19} offset={2}>
           <Menu
             style={{ borderBottom: 'none' }}
             onClick={this.handleClick}
