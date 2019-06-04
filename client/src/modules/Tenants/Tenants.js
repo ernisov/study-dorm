@@ -6,7 +6,9 @@ import './Tenants.css';
 
 import {
   changeStatus,
-  loadTenants
+  loadTenants,
+  unsettle,
+  clearList
 } from './redux/actions';
 
 const RadioGroup = Radio.Group;
@@ -31,6 +33,10 @@ class Tenants extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.clearList();
+  }
+
   onStatusChange(e) {
     this.props.changeStatus(e.target.value);
   }
@@ -49,11 +55,20 @@ class Tenants extends Component {
     );
 
     const move = (
-      <button onClick={() => console.log('move')}>move</button>
+      <Link to={{
+        pathname: '/settlement-form',
+        state: {
+          action: 'move',
+          user: item
+        }
+      }}>move</Link>
     );
 
     const unsettle = (
-      <button onClick={() => console.log('unsettle')}>unsettle</button>
+      <Button
+        type='link'
+        onClick={() => this.props.unsettle(item, this.props.settlementStatus)}
+      >unsettle</Button>
     );
 
     const info = (
@@ -63,7 +78,7 @@ class Tenants extends Component {
     );
 
     if (item.settlementStatus === 'settled') {
-      actions.concat([move, unsettle]);
+      actions = [move, unsettle];
     } else {
       actions.push(settle);
     }
@@ -72,7 +87,7 @@ class Tenants extends Component {
       <List.Item actions={[...actions, info]}>
         <List.Item.Meta
           title={item.username}
-          description={item.settlementStatus}
+          description={item.settlementStatus === 'settled' ? item.room : 'not living in dormitory'}
         />
       </List.Item>
     );
@@ -128,5 +143,7 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   changeStatus,
-  loadTenants
+  loadTenants,
+  unsettle,
+  clearList
 })(Tenants);

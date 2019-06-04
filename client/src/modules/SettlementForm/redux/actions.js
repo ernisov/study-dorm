@@ -36,7 +36,7 @@ export const onRoomSelect = (id) => {
   return { type: ROOM_SELECTED, payload: id };
 };
 
-export const submit = (tenant, action, room) => {
+export const submit = (tenant, action, room, callback) => {
   console.log('submit', tenant, action, room);
   return dispatch => {
     request({
@@ -50,6 +50,7 @@ export const submit = (tenant, action, room) => {
       }
     }).then((response) => {
       console.log(response);
+      callback();
     }).catch((error) => {
       console.log(error);
     });

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { Select, Button } from 'antd';
 import { allowedRoles } from '../../hoc/allowedRoles';
@@ -37,7 +38,9 @@ class SettlementForm extends Component {
   onSubmit() {
     let { action, user } = this.props.location.state;
     let { activeRoom } = this.props;
-    this.props.submit(user, action, activeRoom);
+    this.props.submit(user, action, activeRoom, () => {
+      this.props.history.push('/tenants');
+    });
   }
 
   render() {
@@ -105,5 +108,5 @@ export default allowedRoles([
     loadRooms,
     onRoomSelect,
     submit
-  })(SettlementForm)
+  })(withRouter(SettlementForm))
 );
