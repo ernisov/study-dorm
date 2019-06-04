@@ -4,7 +4,10 @@ import {
   ROOMS_LOADING,
   ROOMS_LOADING_FAIL,
   ROOMS_LOADING_SUCCESS,
-  ROOM_SELECTED
+  ROOM_SELECTED,
+  REQUEST_FAIL,
+  REQUEST_SUCCESS,
+  CLEAR_STATE
 } from './types';
 
 const INITIAL_STATE = {
@@ -54,6 +57,11 @@ export default (state = INITIAL_STATE, action) => {
         activeRoom: action.payload
       };
 
+    case CLEAR_STATE:
+    case REQUEST_SUCCESS:
+      return INITIAL_STATE;
+
+    case REQUEST_FAIL:
     default:
       return state;
   }

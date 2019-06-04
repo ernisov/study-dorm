@@ -8,9 +8,10 @@ export default ({ number, dormitory, floor, tenants, active, id, onClick, maxTen
   if (active) classes.push('Room-Selected');
 
   const renderTenants = () => {
+    console.log(tenants[0]);
     return tenants.map(t => {
       return (
-        <li>
+        <li key={t._id}>
           <div>
             <p>{`${t.firstName} ${t.lastName}`}</p>
             <p>{`${t.username} - ${t.role}`}</p>

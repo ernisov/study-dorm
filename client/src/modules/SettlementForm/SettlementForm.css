@@ -19,3 +19,7 @@
 .SettlementForm .settlement-select {
   width: 60%;
 }
+
+.SettlementForm-submit {
+  margin-top: 10px;
+}

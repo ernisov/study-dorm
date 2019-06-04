@@ -84,7 +84,13 @@ class SettlementForm extends Component {
           active={this.props.activeRoom}
           onRoomSelect={this.props.onRoomSelect}
         />
-        <Button onClick={this.onSubmit}>{action}</Button>
+        <Button
+          className='SettlementForm-submit'
+          onClick={this.onSubmit}
+          type='primary'
+        >
+          {action}
+        </Button>
       </div>
     );
   }

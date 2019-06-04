@@ -4,3 +4,6 @@ export const ROOMS_LOADING = 'settlement_form_rooms_loading';
 export const ROOMS_LOADING_SUCCESS = 'settlement_form_rooms_loading_success';
 export const ROOMS_LOADING_FAIL = 'settlement_form_rooms_loading_fail';
 export const ROOM_SELECTED = 'settlement_form_room_selected';
+export const REQUEST_FAIL = 'settlement_form_request_fail';
+export const REQUEST_SUCCESS = 'settlement_form_request_success';
+export const CLEAR_STATE = 'settlement_form_clear_state';

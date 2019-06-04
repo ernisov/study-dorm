@@ -5,7 +5,10 @@ import {
   ROOMS_LOADING,
   ROOMS_LOADING_FAIL,
   ROOMS_LOADING_SUCCESS,
-  ROOM_SELECTED
+  ROOM_SELECTED,
+  REQUEST_SUCCESS,
+  REQUEST_FAIL,
+  CLEAR_STATE
 } from './types';
 
 export const changeDormitory = (dormitory) => {
@@ -50,9 +53,15 @@ export const submit = (tenant, action, room, callback) => {
       }
     }).then((response) => {
       console.log(response);
+      dispatch({ type: REQUEST_SUCCESS });
       callback();
     }).catch((error) => {
       console.log(error);
+      dispatch({ type: REQUEST_FAIL });
     });
   };
+};
+
+export const clearState = () => {
+  return { type: CLEAR_STATE };
 };
