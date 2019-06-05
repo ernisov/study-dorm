@@ -1,6 +1,7 @@
 import {
   SET_LOADING,
-  LOAD_ROOMS_SUCCESS
+  LOAD_ROOMS_SUCCESS,
+  CLEAR_STATE
 } from './types';
 
 const INITIAL_STATE = {
@@ -23,6 +24,9 @@ export default (state = INITIAL_STATE, action) => {
         data: action.payload.data,
         dorm: action.payload.dorm
       };
+
+    case CLEAR_STATE:
+      return INITIAL_STATE;
 
     default:
       return state;

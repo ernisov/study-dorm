@@ -1,6 +1,7 @@
 import {
   SET_LOADING,
-  LOAD_ROOMS_SUCCESS
+  LOAD_ROOMS_SUCCESS,
+  CLEAR_STATE
 } from './types';
 import { request } from '../../../api/requests';
 
@@ -35,4 +36,8 @@ export const loadRooms = (dormitory, floor) => {
 
     });
   };
+};
+
+export const clearState = () => {
+  return { type: CLEAR_STATE };
 };

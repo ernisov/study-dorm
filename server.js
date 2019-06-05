@@ -37,6 +37,7 @@ app.use('/rooms', require('./routes/rooms'));
 app.use('/applications', require('./routes/applications'));
 app.use('/tenants', require('./routes/tenants'));
 app.use('/settlements', require('./routes/settlements'));
+app.use('/requests', require('./routes/requests'));
 app.use('/api', require('./routes/api'));
 app.use('/docs', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'swagger.yaml'));

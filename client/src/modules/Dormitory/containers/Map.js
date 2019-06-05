@@ -5,7 +5,7 @@ import Floor from './Floor';
 import RoomDetails from './RoomDetails';
 import './Map.css';
 
-import { loadRooms } from '../redux/actions';
+import { loadRooms, clearState } from '../redux/actions';
 
 const Option = Select.Option;
 
@@ -25,6 +25,10 @@ class Map extends Component {
     if (this.props.rooms.length === 0) {
       this.props.loadRooms(this.props.dormitory, this.state.floor);
     }
+  }
+
+  componentWillUnmount() {
+    this.props.clearState();
   }
 
   onRoomClick(id) {
@@ -75,5 +79,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  loadRooms
+  loadRooms,
+  clearState
 })(Map);
