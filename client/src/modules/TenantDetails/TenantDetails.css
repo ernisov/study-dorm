@@ -4,3 +4,24 @@
   margin: 0 auto;
   padding: 5px 15px;
 }
+
+.TenantDetails-spin {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.TenantDetails-main-info h3 {
+  margin: 5px 0;
+}
+
+.TenantDetails-room-info {
+  display: flex;
+  flex-direction: row;
+}
+
+.TenantDetails-room-info p {
+  margin-right: 10px;
+  text-transform: capitalize;
+}
