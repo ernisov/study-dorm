@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from 'antd';
+import { withRouter } from 'react-router';
 import './RoomDetails.css';
 import Tenant from '../components/Tenant';
 
@@ -59,6 +60,8 @@ class RoomDetails extends Component {
         </div>
         <Button
           type='primary'
+          onClick={() => this.props.history.push(`/dormitory/add-tenant/${this.props.room.id}`)}
+          disabled={!this.props.room.available}
         >
           Add Tenant
         </Button>
@@ -67,4 +70,4 @@ class RoomDetails extends Component {
   }
 }
 
-export default RoomDetails;
+export default withRouter(RoomDetails);

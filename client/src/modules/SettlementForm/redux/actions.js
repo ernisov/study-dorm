@@ -29,7 +29,6 @@ export const loadRooms = (dormitory, floor) => {
     }).then((response) => {
       dispatch({ type: ROOMS_LOADING_SUCCESS, payload: response.data });
     }).catch((err) => {
-      console.log(err);
       dispatch({ type: ROOMS_LOADING_FAIL });
     });
   };
@@ -40,7 +39,6 @@ export const onRoomSelect = (id) => {
 };
 
 export const submit = (tenant, action, room, callback) => {
-  console.log('submit', tenant, action, room);
   return dispatch => {
     request({
       method: 'post',
@@ -52,11 +50,9 @@ export const submit = (tenant, action, room, callback) => {
         from: tenant.room
       }
     }).then((response) => {
-      console.log(response);
       dispatch({ type: REQUEST_SUCCESS });
       callback();
     }).catch((error) => {
-      console.log(error);
       dispatch({ type: REQUEST_FAIL });
     });
   };

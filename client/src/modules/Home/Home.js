@@ -12,6 +12,7 @@ import Applications from '../Applications/Applications';
 import Tenants from '../Tenants/Tenants';
 import TenantDetails from '../TenantDetails/TenantDetails';
 import SettlementForm from '../SettlementForm/SettlementForm';
+import AddTenant from '../AddTenant/AddTenant';
 
 import './Home.css';
 
@@ -27,7 +28,8 @@ class Home extends Component {
           <AppHeader />
         </div>
         <div className="AppContent">
-          <Route path='/dormitory' component={Dormitory} />
+          <Route path='/dormitory' exact component={Dormitory} />
+          <Route path='/dormitory/add-tenant/:room' exact component={AddTenant} />
           <Route path='/users' component={Admin} />
           <Route path='/announcements' component={Commandant} />
           <Route path='/requests' component={Requests} />

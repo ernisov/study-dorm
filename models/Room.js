@@ -60,7 +60,9 @@ RoomSchema.statics.getRooms = function(dormitory, floor) {
       floor: room.floor,
       type: room.type,
       number: room.number,
-      tenants: room.tenants
+      tenants: room.tenants,
+      maxTenants: room.maxTenants,
+      available: room.available
     }));
   });
 };

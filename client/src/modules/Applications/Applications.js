@@ -65,7 +65,6 @@ class Applications extends Component {
           loading={(loading && hasNextPage)}
           loadMore={loadMore}
           dataSource={list}
-          split
           renderItem={item => (
             <ListItem
               item={item}

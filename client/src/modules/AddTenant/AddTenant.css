@@ -1,0 +1,18 @@
+.AddTenant {
+  height: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 5px 15px;
+}
+
+.AddTenant-Tenant {
+  cursor: pointer;
+  padding: 5px;
+  margin: 5px 0;
+  font-size: 1.1rem;
+}
+
+.AddTenant-Tenant-Active {
+  background-color: #1890ff;
+  color: #fff;
+}

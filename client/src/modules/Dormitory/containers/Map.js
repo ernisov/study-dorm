@@ -5,7 +5,11 @@ import Floor from './Floor';
 import RoomDetails from './RoomDetails';
 import './Map.css';
 
-import { loadRooms, clearState, unsettleTenant } from '../redux/actions';
+import {
+  loadRooms,
+  clearState,
+  unsettleTenant
+} from '../redux/actions';
 
 const Option = Select.Option;
 
