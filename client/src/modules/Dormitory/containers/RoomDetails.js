@@ -37,7 +37,6 @@ class RoomDetails extends Component {
 
   render() {
     if (!this.props.room) return <p>Please, select room</p>;
-    console.log(this.props.room.tenants);
     return (
       <div className='RoomDetails'>
         <header className='room-header'>
@@ -46,7 +45,17 @@ class RoomDetails extends Component {
         </header>
         <div className='room-tenants-container'>
           <h6>tenants:</h6>
-          {this.props.room.tenants.map(tenant => <Tenant {...tenant} key={tenant.username} />)}
+          {this.props.room.tenants.map(tenant => (
+            <Tenant
+              room={this.props.room.id}
+              {...tenant}
+              key={tenant.username}
+              unsettle={() => this.props.unsettleTenant({
+                username: tenant.username,
+                room: this.props.room.id
+              })}
+            />
+          ))}
         </div>
         <Button
           type='primary'

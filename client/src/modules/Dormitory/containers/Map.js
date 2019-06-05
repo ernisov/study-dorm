@@ -5,7 +5,7 @@ import Floor from './Floor';
 import RoomDetails from './RoomDetails';
 import './Map.css';
 
-import { loadRooms, clearState } from '../redux/actions';
+import { loadRooms, clearState, unsettleTenant } from '../redux/actions';
 
 const Option = Select.Option;
 
@@ -27,6 +27,15 @@ class Map extends Component {
     }
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.room !== null) {
+      let room = this.props.rooms.find(room => room.data.id === this.state.room.id);
+      if (this.state.room.tenants.length !== room.data.tenants.length) {
+        this.setState({ room: room.data });
+      }
+    }
+  }
+
   componentWillUnmount() {
     this.props.clearState();
   }
@@ -37,7 +46,7 @@ class Map extends Component {
   }
 
   onFloorSelect(floor) {
-    this.setState({ floor }, () => {
+    this.setState({ floor, room: null }, () => {
       this.props.loadRooms(this.props.dormitory, this.state.floor);
     });
   }
@@ -46,7 +55,7 @@ class Map extends Component {
     return (
       <div className='Map'>
         <div className='room-details-container'>
-          <RoomDetails room={this.state.room} />
+          <RoomDetails room={this.state.room} unsettleTenant={this.props.unsettleTenant}/>
         </div>
         <div className='map-container'>
           {this.props.loading ? <Spin size='large' /> : (
@@ -80,5 +89,6 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   loadRooms,
-  clearState
+  clearState,
+  unsettleTenant
 })(Map);

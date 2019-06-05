@@ -39,7 +39,7 @@ class SettlementForm extends Component {
     let { action, user } = this.props.location.state;
     let { activeRoom } = this.props;
     this.props.submit(user, action, activeRoom, () => {
-      this.props.history.push('/tenants');
+      this.props.history.goBack();
     });
   }
 

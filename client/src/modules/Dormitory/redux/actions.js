@@ -1,7 +1,9 @@
 import {
   SET_LOADING,
   LOAD_ROOMS_SUCCESS,
-  CLEAR_STATE
+  CLEAR_STATE,
+  TENANT_UNSETTLE_SUCCESS,
+  TENANT_UNSETTLE_FAIL
 } from './types';
 import { request } from '../../../api/requests';
 
@@ -41,3 +43,23 @@ export const loadRooms = (dormitory, floor) => {
 export const clearState = () => {
   return { type: CLEAR_STATE };
 };
+
+export const unsettleTenant = (tenant) => {
+  return dispatch => {
+    request({
+      method: 'post',
+      url: '/settlements',
+      data: {
+        tenant: tenant.username,
+        action: 'unsettle',
+        from: tenant.room
+      }
+    })
+    .then((response) => {
+      dispatch({ type: TENANT_UNSETTLE_SUCCESS, payload: tenant });
+    })
+    .catch((error) => {
+      dispatch({ type: TENANT_UNSETTLE_FAIL });
+    });
+  };
+}
