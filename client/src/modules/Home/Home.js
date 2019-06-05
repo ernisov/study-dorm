@@ -13,6 +13,7 @@ import Tenants from '../Tenants/Tenants';
 import TenantDetails from '../TenantDetails/TenantDetails';
 import SettlementForm from '../SettlementForm/SettlementForm';
 import AddTenant from '../AddTenant/AddTenant';
+import RequestForm from '../RequestForm/RequestForm';
 
 import './Home.css';
 
@@ -32,7 +33,8 @@ class Home extends Component {
           <Route path='/dormitory/add-tenant/:room' exact component={AddTenant} />
           <Route path='/users' component={Admin} />
           <Route path='/announcements' component={Commandant} />
-          <Route path='/requests' component={Requests} />
+          <Route path='/requests' exact component={Requests} />
+          <Route path='/requests/create' exact component={RequestForm} />
           <Route path='/apply' component={ApplyForm} />
           <Route path='/applications' component={Applications} />
           <Route path='/tenants' exact component={Tenants} />

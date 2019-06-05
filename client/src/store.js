@@ -11,6 +11,7 @@ import SettlementFormReducer from './modules/SettlementForm/redux/reducer';
 import TenantDetailsReducer from './modules/TenantDetails/redux/reducer';
 import AddTenantReducer from './modules/AddTenant/redux/reducer';
 import RequestsReducer from './modules/Requests/redux/reducer';
+import RequestFormReducer from './modules/RequestForm/redux/reducer';
 
 const initialState = {};
 const middleware = [ReduxThunk];
@@ -25,7 +26,8 @@ const reducers = combineReducers({
   settlementForm: SettlementFormReducer,
   tenantDetails: TenantDetailsReducer,
   addTenant: AddTenantReducer,
-  requests: RequestsReducer
+  requests: RequestsReducer,
+  requestForm: RequestFormReducer
 });
 
 const store = createStore(
