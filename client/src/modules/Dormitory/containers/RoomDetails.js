@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'antd';
 import './RoomDetails.css';
+import Tenant from '../components/Tenant';
 
 class RoomDetails extends Component {
   constructor(props) {
@@ -36,7 +37,7 @@ class RoomDetails extends Component {
 
   render() {
     if (!this.props.room) return <p>Please, select room</p>;
-
+    console.log(this.props.room.tenants);
     return (
       <div className='RoomDetails'>
         <header className='room-header'>
@@ -44,7 +45,8 @@ class RoomDetails extends Component {
           <p className='room-type'>{this.getRoomType()}</p>
         </header>
         <div className='room-tenants-container'>
-          <p>{this.props.room.tenants.length} residents.</p>
+          <h6>tenants:</h6>
+          {this.props.room.tenants.map(tenant => <Tenant {...tenant} key={tenant.username} />)}
         </div>
         <Button
           type='primary'

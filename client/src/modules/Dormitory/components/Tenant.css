@@ -1,0 +1,23 @@
+.RoomDetails-Tenant {
+  width: 100%;
+  padding: 10px;
+}
+
+.RoomDetails-Tenant:hover {
+  background-color: #1890ff;
+}
+
+.RoomDetails-Tenant:hover * {
+  color: #fff;
+}
+
+.RoomDetails-Tenant-fullName {
+  font-weight: bold;
+  color: #2d2d2d;
+  margin: 5px 0;
+}
+
+.RoomDetails-Tenant-role {
+  color: #777;
+  margin: 0;
+}
