@@ -10,9 +10,9 @@ const requestCategories = {
 };
 
 const requestStatuses = {
-  NOT_FIXED: 'not_fixed',
+  NOT_FIXED: 'awaiting',
   IN_PROGRESS: 'in_progress',
-  FIXED: 'fixed'
+  FIXED: 'done'
 };
 
 const RequestSchema = new Schema({
