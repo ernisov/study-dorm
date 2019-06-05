@@ -7,8 +7,31 @@ const authenticate = require('../middleware/auth');
 const allowedRoles = require('../middleware/allowedRoles');
 const { ADMIN, COMMANDANT, SERVICE, EMPLOYEE, STUDENT } = require('../config/roles');
 
-router.post('/', authenticate, allowedRoles([ADMIN, EMPLOYEE, STUDENT, COMMANDANT]), (req, res) => {
-  
+router.post('/', authenticate, allowedRoles([ADMIN, EMPLOYEE, STUDENT]), (req, res) => {
+  let { title, description, category } = req.body;
+  Tenant.findOne({ username: req.user.username })
+    .then((tenant) => {
+      if (!tenant) return res.status(404).send({ message: 'Tenant not found' });
+      if (!tenant.room) return res.status(403).send({ message: 'Tenant not settled' });
+
+      let request = new Request({
+        title: title,
+        description: description,
+        category: category,
+        author: req.user.username,
+        room: tenant.room
+      });
+
+      return request.save().then((result) => {
+        return res.status(200).send({ message: 'OK', request: result });
+      });
+    })
+    .catch((error) => res.status(400).send({ message: 'Bad Request' }));
 });
+
+// router.get('/', authenticate, allowedRoles([ADMIN, EMPLOYEE, STUDENT, COMMANDANT, SERVICE]), (req, res) => {
+//   let { status, page, limit } = req.query;
+//   Request.paginate({ status }, { page, limit })
+// });
 
 module.exports = router;

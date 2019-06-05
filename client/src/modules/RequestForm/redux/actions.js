@@ -7,7 +7,8 @@ import {
   TITLE_INVALID,
   DESCRIPTION_INVALID,
   REQUEST_CREATED,
-  REQUEST_FAILED
+  REQUEST_FAILED,
+  CLEAR_STATE
 } from './types';
 
 export const onTitleChange = (e) => {
@@ -45,4 +46,8 @@ export const onSubmit = (e) => {
       dispatch({ type: REQUEST_FAILED, payload: error.response.data.message });
     });
   };
+};
+
+export const clearState = () => {
+  return { type: CLEAR_STATE };
 };

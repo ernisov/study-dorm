@@ -6,3 +6,4 @@ export const TITLE_INVALID = 'request_form_title_invalid';
 export const DESCRIPTION_INVALID = 'request_form_description_invalid';
 export const REQUEST_CREATED = 'request_form_request_created_success';
 export const REQUEST_FAILED = 'request_form_requestfailed';
+export const CLEAR_STATE = 'request_form_clear_state';

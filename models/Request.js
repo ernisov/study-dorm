@@ -10,9 +10,9 @@ const requestCategories = {
 };
 
 const requestStatuses = {
-  NOT_FIXED: 'awaiting',
+  AWAITING: 'awaiting',
   IN_PROGRESS: 'in_progress',
-  FIXED: 'done'
+  DONE: 'done'
 };
 
 const RequestSchema = new Schema({
@@ -30,7 +30,7 @@ const RequestSchema = new Schema({
   },
   status: {
     type: String,
-    default: requestStatuses.NOT_FIXED
+    default: requestStatuses.AWAITING
   },
   room: {
     type: String,

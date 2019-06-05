@@ -6,7 +6,8 @@ import {
   TITLE_INVALID,
   DESCRIPTION_INVALID,
   REQUEST_CREATED,
-  REQUEST_FAILED
+  REQUEST_FAILED,
+  CLEAR_STATE
 } from './types';
 
 const INITIAL_STATE = {
@@ -22,13 +23,27 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case TITLE_CHANGED:
-      return { ...state, title: action.payload, titleInvalid: false };
+      return {
+        ...state,
+        title: action.payload,
+        titleInvalid: false,
+        succeded: undefined
+      };
 
     case DESCRIPTION_CHANGED:
-      return { ...state, description: action.payload, descriptionInvalid: false };
+      return {
+        ...state,
+        description: action.payload,
+        descriptionInvalid: false,
+        succeded: undefined
+      };
 
     case CATEGORY_CHANGED:
-      return { ...state, category: action.payload };
+      return {
+        ...state,
+        category: action.payload,
+        succeded: undefined
+      };
 
     case TITLE_INVALID:
       return { ...state, titleInvalid: true };
@@ -41,6 +56,9 @@ export default (state = INITIAL_STATE, action) => {
 
     case REQUEST_FAILED:
       return { ...state,succeded: false, message: action.payload };
+
+    case CLEAR_STATE:
+      return INITIAL_STATE;
 
     default:
       return state;

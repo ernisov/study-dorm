@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import { Form, Input, Select, Icon, Button, message } from 'antd';
 import {
   onTitleChange,
   onDescriptionChange,
   onCategoryChange,
-  onSubmit
+  onSubmit,
+  clearState
 } from './redux/actions';
 import './RequestForm.css';
 
@@ -15,11 +17,16 @@ class RequestForm extends Component {
   componentDidUpdate() {
     if (this.props.succeded === true) {
       message.success('request created');
+      this.props.history.goBack();
     }
 
     if (this.props.succeded === false && this.props.message) {
       message.error(this.props.message);
     }
+  }
+
+  componentWillUnmount() {
+    this.props.clearState();
   }
 
   render() {
@@ -89,7 +96,7 @@ const mapStateToProps = (state) => ({
   category: state.requestForm.category,
   titleInvalid: state.requestForm.titleInvalid,
   descriptionInvalid: state.requestForm.descriptionInvalid,
-  error: state.requestForm.error,
+  message: state.requestForm.message,
   succeded: state.requestForm.succeded
 });
 
@@ -97,5 +104,6 @@ export default connect(mapStateToProps, {
   onTitleChange,
   onDescriptionChange,
   onCategoryChange,
-  onSubmit
-})(RequestForm);
+  onSubmit,
+  clearState
+})(withRouter(RequestForm));
