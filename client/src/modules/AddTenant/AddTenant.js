@@ -44,6 +44,7 @@ class AddTenant extends Component {
       <div className='AddTenant'>
         <h3>Choose a tenant:</h3>
         <List
+          className='AddTenant-List'
           loading={(loading && hasNextPage)}
           loadMore={loadMore}
           dataSource={list}

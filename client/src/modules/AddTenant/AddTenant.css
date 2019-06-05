@@ -12,6 +12,11 @@
   font-size: 1.1rem;
 }
 
+.AddTenant-List {
+  height: 70vh;
+  overflow-y: scroll;
+}
+
 .AddTenant-Tenant-Active {
   background-color: #1890ff;
   color: #fff;

@@ -1,0 +1,13 @@
+.Requests {
+  height: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 15px 5px;
+}
+
+.Requests-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
