@@ -35,7 +35,7 @@ class Map extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (this.state.room !== null) {
       let room = this.props.rooms.find(room => room.data.id === this.state.room.id);
-      if (this.state.room.tenants.length !== room.data.tenants.length) {
+      if (room && this.state.room.tenants.length !== room.data.tenants.length) {
         this.setState({ room: room.data });
       }
     }
