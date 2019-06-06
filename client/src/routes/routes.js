@@ -19,7 +19,7 @@ export default [
   },
   {
     href: '/requests/',
-    roles: ['student', 'employee', 'admin'],
+    roles: ['student', 'employee', 'admin', 'service', 'commandant'],
     title: 'Requests',
     icon: 'fire'
   },

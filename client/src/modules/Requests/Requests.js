@@ -2,21 +2,51 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { List, Radio, Button } from 'antd';
+import RequestItem from './components/RequestItem';
 import './Requests.css';
+import {
+  onStatusChange,
+  loadRequests,
+  commit
+} from './redux/actions';
 
 const RadioGroup = Radio.Group;
 const RadioButton = Radio.Button;
 
 class Requests extends Component  {
+  componentDidMount() {
+    if (this.props.list.length === 0) {
+      this.props.loadRequests(this.props.page, this.props.status);
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.status !== this.props.status) {
+      this.props.loadRequests(this.props.page, this.props.status);
+    }
+  }
+
   render() {
+    const { hasNextPage, loading, list } = this.props;
+    const loadMore = !loading && hasNextPage ? (
+      <div className='list-load-more'>
+        <Button
+          onClick={() => this.props.loadRequests(this.props.page, this.props.status)}
+        >
+          load more
+        </Button>
+      </div>
+      ) : null;
+
     return (
       <div className='Requests'>
         <div className='Requests-header'>
           <h3>Requests</h3>
-          <RadioGroup>
-            <RadioButton>Awaiting</RadioButton>
-            <RadioButton>In Progress</RadioButton>
-            <RadioButton>Done</RadioButton>
+          <RadioGroup onChange={this.props.onStatusChange} value={this.props.status}>
+            <RadioButton value='all'>All</RadioButton>
+            <RadioButton value='awaiting'>Awaiting</RadioButton>
+            <RadioButton value='in_progress'>In Progress</RadioButton>
+            <RadioButton value='done'>Done</RadioButton>
           </RadioGroup>
           <Button
             type='primary'
@@ -25,15 +55,37 @@ class Requests extends Component  {
             Create
           </Button>
         </div>
+        <List
+          loading={(loading && hasNextPage)}
+          loadMore={loadMore}
+          dataSource={list}
+          renderItem={item => (
+            <RequestItem
+              {...item}
+              key={item._id}
+              onSubmit={this.props.commit}
+            />
+          )}
+          className='Requests-List'
+        />
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-
+  list: state.requests.list,
+  page: state.requests.page,
+  hasNextPage: state.requests.hasNextPage,
+  hasPrevPage: state.requests.hasPrevPage,
+  totalDocs: state.requests.totalDocs,
+  totalPages: state.requests.totalPages,
+  loading: state.requests.loading,
+  status: state.requests.status
 });
 
 export default connect(mapStateToProps, {
-
+  onStatusChange,
+  loadRequests,
+  commit
 })(withRouter(Requests));

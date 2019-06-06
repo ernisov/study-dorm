@@ -29,9 +29,21 @@ router.post('/', authenticate, allowedRoles([ADMIN, EMPLOYEE, STUDENT]), (req, r
     .catch((error) => res.status(400).send({ message: 'Bad Request' }));
 });
 
-// router.get('/', authenticate, allowedRoles([ADMIN, EMPLOYEE, STUDENT, COMMANDANT, SERVICE]), (req, res) => {
-//   let { status, page, limit } = req.query;
-//   Request.paginate({ status }, { page, limit })
-// });
+router.get('/', authenticate, allowedRoles([ADMIN, EMPLOYEE, STUDENT, COMMANDANT, SERVICE]), (req, res) => {
+  let { status, page, limit } = req.query;
+  let options = {};
+  if (status) options.status = status;
+
+  Request.paginate(options, { page, limit })
+    .then((result) => {
+      res.json({
+        list: result.docs,
+        hasNextPage: result.hasNextPage,
+        hasPrevPage: result.hasPrevPage,
+        totalDocs: result.totalDocs,
+        totalPages: result.totalPages
+      });
+    }).catch((error) => res.status(400).send({ message: 'Bad Request' }));
+});
 
 module.exports = router;

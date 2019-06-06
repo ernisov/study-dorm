@@ -1,0 +1,26 @@
+.RequestItem {
+  padding: 5px 10px;
+  border: 1px solid #e8e8e8;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.RequestItem-row {
+  display: flex;
+  flex-direction: row;
+  margin: 5px 0;
+}
+
+.RequestItem-col {
+  flex: 1;
+}
+
+.RequestItem-col * {
+  margin: 0;
+}
+
+.RequestItem-buttons {
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}

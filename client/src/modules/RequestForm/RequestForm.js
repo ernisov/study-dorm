@@ -62,7 +62,7 @@ class RequestForm extends Component {
               onChange={this.props.onCategoryChange}
             >
               <Option value='plumbing'>Plubming</Option>
-              <Option value='carptentry'>Carpentry</Option>
+              <Option value='carpentry'>Carpentry</Option>
               <Option value='electricity'>Electricity</Option>
               <Option value='other'>Other</Option>
             </Select>
