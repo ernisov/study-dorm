@@ -26,7 +26,7 @@ const RequestItem = (props) => {
         </div>
         <div className='RequestItem-buttons'>
           {isServiceWorker && props.status !== 'done'? (
-            <Button type='primary' onClick={() => props.onSubmit(props._id, props.user.username)}>
+            <Button type='primary' onClick={() => props.onSubmit(props)}>
               {props.status === 'awaiting' ? 'start' : 'finish'}
             </Button>
           ) : null}

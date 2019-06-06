@@ -46,4 +46,23 @@ router.get('/', authenticate, allowedRoles([ADMIN, EMPLOYEE, STUDENT, COMMANDANT
     }).catch((error) => res.status(400).send({ message: 'Bad Request' }));
 });
 
+router.post('/:_id', authenticate, allowedRoles([SERVICE]), (req, res) => {
+  let { _id } = req.params;
+
+  Request.findById(_id).then((request) => {
+    if (!request) return res.status(404).send({ message: 'Request not found' });
+
+    if (request.status === 'awaiting') {
+      request.status = 'in_progress';
+    } else if (request.status === 'in_progress') {
+      request.status = 'done';
+    }
+
+    request.executor = req.user.username;
+    request.save().then((result) => {
+      return res.status(200).send({ message: 'OK' });
+    });
+  }).catch((error) => res.status(400).send({ message: 'Bad Request' }));
+});
+
 module.exports = router;
