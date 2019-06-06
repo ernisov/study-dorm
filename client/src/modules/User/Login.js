@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { Form, Input, Icon, Button } from 'antd';
+import { Form, Input, Icon, Button, message } from 'antd';
 import { connect } from 'react-redux';
 import { loginUser, loadUser, loadingFalse } from './redux/actions';
 import './Login.css';
@@ -39,7 +39,9 @@ class Login extends Component {
     if (this.state.password.length < 5) {
       return this.setState({ passwordInvalid: true });
     }
-    this.props.loginUser(this.state.username, this.state.password);
+    this.props.loginUser(this.state.username, this.state.password, () => {
+      message.error('Login failed. Check credentials');
+    });
   }
 
   onPasswordChange(e) {

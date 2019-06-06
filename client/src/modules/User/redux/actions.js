@@ -9,7 +9,7 @@ import {
   ACCESS_TOKEN_VALID
 } from './types';
 
-export const loginUser = (username, password) => {
+export const loginUser = (username, password, onFail) => {
   return dispatch => {
     dispatch({ type: LOADING_TRUE });
     axios.post('/auth/login', { username, password })
@@ -39,7 +39,11 @@ export const loginUser = (username, password) => {
             }
           });
         }
-      }).catch(err => console.log(err));
+      }).catch(err => {
+        if (err.response.status == 401) {
+          onFail();
+        }
+      });
   };
 };
 
