@@ -27,6 +27,7 @@ class Map extends Component {
 
   componentDidMount() {
     if (this.props.rooms.length === 0) {
+      console.log('componentDidMount')
       this.props.loadRooms(this.props.dormitory, this.state.floor);
     }
   }
@@ -41,6 +42,7 @@ class Map extends Component {
   }
 
   componentWillUnmount() {
+    console.log('componentWillUnmount')
     this.props.clearState();
   }
 

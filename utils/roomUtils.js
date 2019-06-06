@@ -29,7 +29,6 @@ const parseRoomsFromSVG = (svg, d, f) => {
       }
       return { id, ...description };
     });
-
     dorm = dorm.filter(node => !_.isString(node.id));
     result.dorm = dorm;
     result.rooms = rooms;

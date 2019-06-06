@@ -10,6 +10,11 @@ class Floor extends Component {
 
   renderRooms() {
     return this.props.rooms.map(room => {
+
+      if (!room.data) {
+        console.log(room);
+      }
+
       return (
         <Room
           onClick={this.props.onRoomClick}

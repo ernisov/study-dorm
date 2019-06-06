@@ -11,13 +11,15 @@ const dormpaths = require('../data/dormpaths');
 // @access Admin, Commandant
 router.get('/', authenticate, allowedRoles([ADMIN, COMMANDANT]), (req, res) => {
   let { dormitory, floor } = req.query;
-  if (dormitory > 1 || floor > 2) return res.status(404).send();
   Room.getRooms(dormitory, floor).then((rooms) => {
     if (!rooms || rooms.length === 0) return res.status(404).send();
     let d = `D${dormitory}`;
     let f = `F${floor}`;
     return res.json({ data: rooms, paths: dormpaths[d][f]});
-  }).catch((err) => res.status(400).send(err));
+  }).catch((err) => {
+    console.log(err);
+    res.status(400).send(err);
+  });
 });
 
 router.get('/available', authenticate, allowedRoles([ADMIN, COMMANDANT]), (req, res) => {

@@ -10,7 +10,10 @@ const RoomSchema = new Schema({
   dormitory: Number,
   floor: Number,
   number: Number,
-  type: String,
+  type: {
+    type: String,
+    required: true
+  },
   tenants: [{
     username: String,
     firstName: String,
