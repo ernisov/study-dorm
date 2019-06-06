@@ -4,7 +4,8 @@ import {
   LOAD_REQUESTS_SUCCESS,
   STATUS_CHANGE,
   REQUEST_COMMIT_SUCCESS,
-  REQUEST_COMMIT_FAIL
+  REQUEST_COMMIT_FAIL,
+  CLEAR_STATE
 } from './types';
 
 const INITIAL_STATE = {
@@ -41,6 +42,29 @@ export default (state = INITIAL_STATE, action) => {
     case LOAD_REQUESTS_FAIL:
       return { ...state, loading: false };
 
+    case REQUEST_COMMIT_SUCCESS:
+      if (state.status === 'all') {
+        return {
+          ...state,
+          list: state.list.map(req => {
+            if (req._id === action.payload._id) {
+              let { status } = req;
+              req.status = status === 'awaiting' ? 'in_progress' : 'done';
+              return req;
+            }
+            return req;
+          })
+        };
+      }
+      return {
+        ...state,
+        list: state.list.filter(req => req._id !== action.payload._id)
+      };
+
+    case CLEAR_STATE:
+      return INITIAL_STATE;
+
+    case REQUEST_COMMIT_FAIL:
     default:
       return state;
   }

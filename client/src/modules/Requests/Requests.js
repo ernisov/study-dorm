@@ -7,7 +7,8 @@ import './Requests.css';
 import {
   onStatusChange,
   loadRequests,
-  commit
+  commit,
+  clearState
 } from './redux/actions';
 
 const RadioGroup = Radio.Group;
@@ -24,6 +25,10 @@ class Requests extends Component  {
     if (prevProps.status !== this.props.status) {
       this.props.loadRequests(this.props.page, this.props.status);
     }
+  }
+
+  componentWillUnmount() {
+    this.props.clearState();
   }
 
   render() {
@@ -87,5 +92,6 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   onStatusChange,
   loadRequests,
-  commit
+  commit,
+  clearState
 })(withRouter(Requests));

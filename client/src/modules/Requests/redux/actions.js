@@ -5,7 +5,8 @@ import {
   LOAD_REQUESTS_FAIL,
   STATUS_CHANGE,
   REQUEST_COMMIT_FAIL,
-  REQUEST_COMMIT_SUCCESS
+  REQUEST_COMMIT_SUCCESS,
+  CLEAR_STATE
 } from './types';
 
 export const onStatusChange = (e) => {
@@ -40,9 +41,13 @@ export const commit = (req) => {
       url: `/requests/${req._id}`
     }).then((response) => {
       console.log(response.data);
-      dispatch({ type: REQUEST_COMMIT_SUCCESS });
+      dispatch({ type: REQUEST_COMMIT_SUCCESS, payload: req });
     }).catch((error) => {
       dispatch({ type: REQUEST_COMMIT_FAIL });
     });
   };
-}
+};
+
+export const clearState = () => {
+  return { type: CLEAR_STATE };
+};
