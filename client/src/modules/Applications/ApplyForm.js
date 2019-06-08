@@ -31,6 +31,7 @@ class ApplyForm extends Component {
     this.onAgreementChange = this.onAgreementChange.bind(this);
     this.handlePassportNumber = this.handlePassportNumber.bind(this);
     this.handleIssuedBy = this.handleIssuedBy.bind(this);
+    this.handleIssuedDate = this.handleIssuedDate.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
