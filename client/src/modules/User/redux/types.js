@@ -1,7 +1,6 @@
-export const LOGIN_SUCCESS = 'on_login_success';
-export const LOGOUT_SUCCESS = 'on_logout_success';
-export const LOADING_FALSE = 'set_auth_loading_false';
-export const LOADING_TRUE = 'set_auth_loading_true';
-export const ACCESS_TOKEN_VALID = 'auth_access_token_valid';
-export const LOGIN_FAIL = 'auth_login_fail';
-export const LOGOUT_FAIL = 'auth_logout_fail';
+export const CHANGE_USERNAME = 'login_form_change_username';
+export const CHANGE_PASSWORD = 'login_form_change_password';
+export const SET_USERNAME_INVALID = 'login_form_set_username_invalid';
+export const SET_PASSWORD_INVALID = 'login_form_set_password_invalid';
+export const SET_USER = 'user_set_user';
+export const UNSET_USER = 'user_unset_user';

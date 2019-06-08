@@ -2,93 +2,49 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Form, Input, Icon, Button, message } from 'antd';
 import { connect } from 'react-redux';
-import { loginUser, loadUser, loadingFalse } from './redux/actions';
+import {
+  onUsernameChange,
+  onPasswordChange,
+  onSubmit
+} from './redux/loginFormActions';
 import './Login.css';
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: '',
-      password: '',
-      usernameInvalid: false,
-      passwordInvalid: false
-    };
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onPasswordChange = this.onPasswordChange.bind(this);
-    this.onUsernameChange = this.onUsernameChange.bind(this);
-  }
-
-  componentDidMount() {
-    let accessToken = localStorage.getItem('accessToken');
-    let refreshToken = localStorage.getItem('refreshToken');
-    if (accessToken && refreshToken) {
-      this.props.loadUser(accessToken, refreshToken);
-    } else {
-      this.props.loadingFalse();
-    }
-  }
-
-  onSubmit(e) {
-    if (e) {
-      e.preventDefault();
-    }
-    if (!this.state.username) {
-      return this.setState({ usernameInvalid: true });
-    }
-    if (this.state.password.length < 5) {
-      return this.setState({ passwordInvalid: true });
-    }
-    this.props.loginUser(this.state.username, this.state.password, () => {
-      message.error('Login failed. Check credentials');
-    });
-  }
-
-  onPasswordChange(e) {
-    this.setState({ password: e.target.value, passwordInvalid: false });
-  }
-
-  onUsernameChange(e) {
-    this.setState({ username: e.target.value, usernameInvalid: false });
-  }
-
   render() {
-    let usernameError = 'Please, enter your username';
-    let passwordError = 'Please, check your password';
-
     if (this.props.isAuthenticated) {
       return <Redirect to='/' />
     }
 
     return (
       <div className="Login">
-        <Form onSubmit={this.onSubmit} className='login-form'>
+        <Form className='login-form'>
           <Form.Item
-            validateStatus={this.state.usernameInvalid ? 'error' : ''}
-            help={this.state.usernameInvalid ? usernameError : ''}
+            validateStatus={this.props.usernameInvalid ? 'error' : ''}
+            help={this.props.usernameInvalid ? this.props.error : ''}
           >
             <Input
               prefix={<Icon type='user' style={{color: 'rgba(0, 0, 0, .25)'}} />}
-              onChange={this.onUsernameChange}
+              onChange={this.props.onUsernameChange}
               allowClear
               placeholder='username'
-              value={this.state.username}/>
+              value={this.props.username}/>
           </Form.Item>
           <Form.Item
-            validateStatus={this.state.passwordInvalid ? 'error' : ''}
-            help={this.state.passwordInvalid ? passwordError : ''}
+            validateStatus={this.props.passwordInvalid ? 'error' : ''}
+            help={this.props.passwordInvalid ? this.props.error : ''}
           >
             <Input.Password
               prefix={<Icon type='lock' style={{color: 'rgba(0, 0, 0, .25)'}} />}
-              onChange={this.onPasswordChange}
+              onChange={this.props.onPasswordChange}
               allowClear
               placeholder='password'
-              value={this.state.password}/>
+              value={this.props.password}/>
           </Form.Item>
           <Button
             htmlType='submit'
             type='primary'
             className='login-form-submit'
+            onClick={this.props.onSubmit}
           >
             Log in
           </Button>
@@ -100,11 +56,15 @@ class Login extends Component {
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.user.isAuthenticated,
-  loading: state.user.loading
+  username: state.loginForm.username,
+  password: state.loginForm.password,
+  usernameInvalid: state.loginForm.usernameInvalid,
+  passwordInvalid: state.loginForm.passwordInvalid,
+  error: state.loginForm.error
 });
 
 export default connect(mapStateToProps, {
-  loginUser,
-  loadUser,
-  loadingFalse
+  onUsernameChange,
+  onPasswordChange,
+  onSubmit
 })(Login);

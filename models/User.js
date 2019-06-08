@@ -84,7 +84,7 @@ UserSchema.methods.generateAuthTokens = function(access) {
 UserSchema.statics.findByCredentials = function(username, password) {
   var User = this;
   return User.findOne({ username }).then((user) => {
-    if (!user) return Promise.reject();
+    if (!user) return Promise.reject({ in: 'username', message: 'no user with such username' });
 
     return new Promise((resolve, reject) => {
       bcrypt.compare(password, user.password, (err, result) => {
@@ -92,7 +92,7 @@ UserSchema.statics.findByCredentials = function(username, password) {
         if (result) {
           resolve(user);
         } else {
-          reject();
+          reject({ in: 'password', message: 'wrong password' });
         }
       });
     });

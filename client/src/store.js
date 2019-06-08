@@ -1,4 +1,5 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
+// import { composeWithDevTools } from 'redux-devtools-extension';
 import ReduxThunk from 'redux-thunk';
 
 import DormitoryReducer from './modules/Dormitory/redux/reducer';
@@ -12,6 +13,8 @@ import TenantDetailsReducer from './modules/TenantDetails/redux/reducer';
 import AddTenantReducer from './modules/AddTenant/redux/reducer';
 import RequestsReducer from './modules/Requests/redux/reducer';
 import RequestFormReducer from './modules/RequestForm/redux/reducer';
+import LoginFormReducer from './modules/User/redux/loginFormReducer';
+import AppLoadingReducer from './modules/AppLoading/redux/reducer';
 
 const initialState = {};
 const middleware = [ReduxThunk];
@@ -27,13 +30,18 @@ const reducers = combineReducers({
   tenantDetails: TenantDetailsReducer,
   addTenant: AddTenantReducer,
   requests: RequestsReducer,
-  requestForm: RequestFormReducer
+  requestForm: RequestFormReducer,
+  loginForm: LoginFormReducer,
+  app: AppLoadingReducer
 });
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 
 const store = createStore(
   reducers,
   initialState,
-  applyMiddleware(...middleware)
+  composeEnhancers(applyMiddleware(...middleware))
 );
 
 export default store;
