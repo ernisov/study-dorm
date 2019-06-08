@@ -47,6 +47,8 @@ class RequestForm extends Component {
           <Form.Item
             validateStatus={titleInvalid ? 'error': ''}
             help={titleInvalid ? message : ''}
+            label='Title'
+            required
           >
             <Input
               placeholder='title'
@@ -55,7 +57,7 @@ class RequestForm extends Component {
               allowClear
             />
           </Form.Item>
-          <Form.Item>
+          <Form.Item label='Category' required>
             <Select
               value={this.props.category}
               placeholder='Request Category'
@@ -70,6 +72,8 @@ class RequestForm extends Component {
           <Form.Item
             validateStatus={descriptionInvalid ? 'error': ''}
             help={descriptionInvalid ? message : ''}
+            label='Description'
+            required
           >
             <Input.TextArea
               rows={4}
