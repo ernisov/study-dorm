@@ -15,6 +15,7 @@ import RequestsReducer from './modules/Requests/redux/reducer';
 import RequestFormReducer from './modules/RequestForm/redux/reducer';
 import LoginFormReducer from './modules/User/redux/loginFormReducer';
 import AppLoadingReducer from './modules/AppLoading/redux/reducer';
+import ApplicationFormReducer from './modules/ApplicationForm/redux/reducer';
 
 const initialState = {};
 const middleware = [ReduxThunk];
@@ -32,7 +33,8 @@ const reducers = combineReducers({
   requests: RequestsReducer,
   requestForm: RequestFormReducer,
   loginForm: LoginFormReducer,
-  app: AppLoadingReducer
+  app: AppLoadingReducer,
+  applicationForm: ApplicationFormReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

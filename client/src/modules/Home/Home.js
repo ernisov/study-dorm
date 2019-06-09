@@ -7,7 +7,7 @@ import Admin from '../Admin/Admin';
 import Commandant from '../Announcements/Commandant';
 import Dormitory from '../Dormitory/Dormitory';
 import Requests from '../Requests/Requests';
-import ApplyForm from '../Applications/ApplyForm';
+import ApplicationForm from '../ApplicationForm/ApplicationForm';
 import Applications from '../Applications/Applications';
 import Tenants from '../Tenants/Tenants';
 import TenantDetails from '../TenantDetails/TenantDetails';
@@ -35,7 +35,7 @@ class Home extends Component {
           <Route path='/announcements' component={Commandant} />
           <Route path='/requests' exact component={Requests} />
           <Route path='/requests/create' exact component={RequestForm} />
-          <Route path='/apply' component={ApplyForm} />
+          <Route path='/apply' component={ApplicationForm} />
           <Route path='/applications' component={Applications} />
           <Route path='/tenants' exact component={Tenants} />
           <Route path='/tenants/:username' exact component={TenantDetails} />

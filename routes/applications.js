@@ -16,7 +16,7 @@ router.post('/', authenticate, allowedRoles([STUDENT, EMPLOYEE]), (req, res) => 
     if (!tenant) return res.status(404).send({ message: 'UserNotFound' });
 
     if (tenant.settlementStatus !== Tenant.SettlementStatuses.NOT_APPLIED) {
-      return res.status(304).send({ message: 'user already applied' });
+      return res.status(304).send();
     }
 
     let application = new Application({
@@ -31,7 +31,10 @@ router.post('/', authenticate, allowedRoles([STUDENT, EMPLOYEE]), (req, res) => 
 
     tenant.settlementStatus = Tenant.SettlementStatuses.APPLIED;
     Promise.all([tenant.save(), application.save()])
-      .then((doc) => res.json(application))
+      .then(() => {
+        console.log('success', application);
+        res.json(application);
+      })
       .catch((error) => res.status(400).send({ message: 'Bad Request', error}));
   }).catch((error) => res.status(400).send({ message: 'Bad Request', error }));
 });
@@ -70,13 +73,23 @@ router.post('/:_id', authenticate, allowedRoles([DEAN, ADMIN]), (req, res) => {
     if (status === 'approved') {
       return Tenant.findOneAndUpdate({
         username: result._user
-      }, { settlementStatus: 'not_settled' }).then((tenant) => {
+      }, { settlementStatus: Tenant.SettlementStatuses.NOT_SETTLED }).then((tenant) => {
         if (!tenant) return res.status(400).send({ message: 'UserNotFound' });
         res.status(200).send({
           application: { _id, status },
           tenant
         });
       }).catch(err => res.status(400).send(err));
+    } if (status === 'rejected') {
+      return Tenant.findOneAndUpdate({
+        username: result._user
+      }, { settlementStatus: Tenant.SettlementStatuses.NOT_APPLIED }).then((tenant) => {
+        if (!tenant) return res.status(400).send({ message: 'UserNotFound' });
+        res.status(200).send({
+          application: { _id, status },
+          tenant
+        });
+      }).catch((err) => res.status(400).send(err));
     }
     res.status(200).send({ application: result });
   }).catch((error) => res.status(400).send(error));

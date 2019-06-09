@@ -1,0 +1,9 @@
+export const CHANGE_BIRTH_DATE = 'application_form_change_birth_date';
+export const CHANGE_ISSUED_DATE = 'application_form_change_issued_date';
+export const CHANGE_PASSPORT_NUMBER = 'application_form_change_passport_number';
+export const CHANGE_ISSUED_BY = 'application_form_change_issued_by';
+export const CHANGE_AGREED = 'application_form_change_aggreed';
+export const SET_PASSPORT_NUMBER_INVALID = 'application_form_set_password_number_invalid';
+export const SET_ISSUED_BY_INVALID = 'application_form_set_issued_by_invalid';
+export const SET_APPLICATION_SENT = 'application_form_set_application_set';
+export const SET_ERROR = 'application_form_set_error';

@@ -1,9 +1,9 @@
-.ApplyForm {
+.ApplicationForm {
   height: 90vh;
   overflow-y: scroll;
 }
 
-.ApplyForm .Form {
+.ApplicationForm .Form {
   max-width: 960px;
   margin: 0 auto;
   padding: 15px;
