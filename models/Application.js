@@ -48,6 +48,14 @@ const MEMBER_TYPES = {
     SISTER: 'sister'
 };
 
+const Statuses = Object.freeze({
+  UNCONSIDERED: 'unconsidered',
+  APPROVED: 'approved',
+  REJECTED: 'rejected'
+});
+
+Object.assign(ApplicationSchema.statics, { Statuses });
+
 ApplicationSchema.plugin(mongoosePaginate);
 
 const Application = mongoose.model('application', ApplicationSchema);

@@ -15,8 +15,8 @@ router.post('/', authenticate, allowedRoles([STUDENT, EMPLOYEE]), (req, res) => 
   Tenant.findOne({ username }).then((tenant) => {
     if (!tenant) return res.status(404).send({ message: 'UserNotFound' });
 
-    if (tenant.settlementStatus !== 'not_applied') {
-      return res.status(304).send({ message: 'user already approved' });
+    if (tenant.settlementStatus !== Tenant.SettlementStatuses.NOT_APPLIED) {
+      return res.status(304).send({ message: 'user already applied' });
     }
 
     let application = new Application({
@@ -29,10 +29,10 @@ router.post('/', authenticate, allowedRoles([STUDENT, EMPLOYEE]), (req, res) => 
       passportDate: issuedDate
     });
 
-    application.save().then((doc) => {
-      res.json(doc);
-    }).catch((error) => res.status(400).send({ message: 'Bad Request', error}));
-
+    tenant.settlementStatus = Tenant.SettlementStatuses.APPLIED;
+    Promise.all([tenant.save(), application.save()])
+      .then((doc) => res.json(application))
+      .catch((error) => res.status(400).send({ message: 'Bad Request', error}));
   }).catch((error) => res.status(400).send({ message: 'Bad Request', error }));
 });
 

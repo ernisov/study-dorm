@@ -2,24 +2,28 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const mongoosePaginate = require('mongoose-paginate-v2');
 
-const SETTLEMENT_STATUS = {
+const SettlementStatuses = Object.freeze({
   NOT_APPLIED: 'not_applied',
+  APPLIED: 'applied',
   NOT_SETTLED: 'not_settled',
   SETTLED: 'settled'
-};
+});
+
 
 const TenantSchema = new Schema({
   room: String,
   settlementStatus: {
     type: String,
     required: true,
-    default: SETTLEMENT_STATUS.NOT_APPLIED
+    default: SettlementStatuses.NOT_APPLIED
   },
   username: {
     type: String,
     required: true,
   }
 });
+
+Object.assign(TenantSchema.statics, { SettlementStatuses });
 
 TenantSchema.plugin(mongoosePaginate);
 
