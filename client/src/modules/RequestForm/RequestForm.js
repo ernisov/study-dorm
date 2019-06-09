@@ -10,6 +10,7 @@ import {
   clearState
 } from './redux/actions';
 import './RequestForm.css';
+import { allowedRoles } from '../../hoc/allowedRoles';
 
 const { Option } = Select;
 
@@ -104,10 +105,10 @@ const mapStateToProps = (state) => ({
   succeded: state.requestForm.succeded
 });
 
-export default connect(mapStateToProps, {
+export default allowedRoles(['student', 'employee', 'commandant'])(connect(mapStateToProps, {
   onTitleChange,
   onDescriptionChange,
   onCategoryChange,
   onSubmit,
   clearState
-})(withRouter(RequestForm));
+})(withRouter(RequestForm)));

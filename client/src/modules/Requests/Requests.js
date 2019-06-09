@@ -10,6 +10,7 @@ import {
   commit,
   clearState
 } from './redux/actions';
+import { allowedRoles } from '../../hoc/allowedRoles';
 
 const RadioGroup = Radio.Group;
 const RadioButton = Radio.Button;
@@ -89,9 +90,12 @@ const mapStateToProps = (state) => ({
   status: state.requests.status
 });
 
-export default connect(mapStateToProps, {
+const roles = ['admin', 'commandant', 'student', 'employee'];
+const actionCreators = {
   onStatusChange,
   loadRequests,
   commit,
   clearState
-})(withRouter(Requests));
+};
+
+export default allowedRoles(roles)(connect(mapStateToProps, actionCreators)(withRouter(Requests)));

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 
 export const allowedRoles = (roles) => {
@@ -7,7 +8,7 @@ export const allowedRoles = (roles) => {
     class WithAuthorization extends Component {
       render() {
         if (!roles.includes(this.props.role)) {
-          return <h3>403 Forbidden</h3>;
+          return <Redirect to='/' />;
         }
 
         return <WrappedComponent {...this.props} />;

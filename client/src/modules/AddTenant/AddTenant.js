@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { List, Button } from 'antd';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { allowedRoles } from '../../hoc/allowedRoles';
 import './AddTenant.css';
 
 import {
@@ -80,8 +81,8 @@ const mapStateToProps = (state) => ({
   active: state.addTenant.active
 });
 
-export default connect(mapStateToProps, {
+export default allowedRoles(['admin', 'commandant'])(connect(mapStateToProps, {
   loadTenants,
   select,
   submit
-})(withRouter(AddTenant));
+})(withRouter(AddTenant)));

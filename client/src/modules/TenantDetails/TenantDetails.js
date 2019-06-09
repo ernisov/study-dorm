@@ -6,6 +6,7 @@ import {
   clearState
 } from './redux/actions';
 import './TenantDetails.css';
+import { allowedRoles } from '../../hoc/allowedRoles';
 
 class TenantDetails extends Component {
   componentDidMount() {
@@ -75,7 +76,7 @@ const mapStateToProps = (state) => ({
   requestsLoading: state.tenantDetails.requestsLoading
 });
 
-export default connect(mapStateToProps, {
+export default allowedRoles(['admin', 'commandant'])(connect(mapStateToProps, {
   loadTenantDetails,
   clearState
-})(TenantDetails);
+})(TenantDetails));

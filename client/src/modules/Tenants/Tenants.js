@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { List, Radio, Button, Icon } from 'antd';
+import { allowedRoles } from '../../hoc/allowedRoles';
 import './Tenants.css';
 
 import {
@@ -141,9 +142,9 @@ const mapStateToProps = (state) => ({
   settlementStatus: state.tenants.settlementStatus
 });
 
-export default connect(mapStateToProps, {
+export default allowedRoles(['admin', 'commandant'])(connect(mapStateToProps, {
   changeStatus,
   loadTenants,
   unsettle,
   clearList
-})(Tenants);
+})(Tenants));

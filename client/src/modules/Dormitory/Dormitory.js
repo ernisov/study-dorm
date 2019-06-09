@@ -3,6 +3,7 @@ import { Tabs } from 'antd';
 import { connect } from 'react-redux';
 import { clearState } from './redux/actions';
 import './Dormitory.css';
+import { allowedRoles } from '../../hoc/allowedRoles';
 import Map from './containers/Map';
 const TabPane = Tabs.TabPane;
 
@@ -26,4 +27,4 @@ class Dormitory extends Component {
   }
 }
 
-export default connect(null, { clearState })(Dormitory);
+export default allowedRoles(['admin', 'commandant'])(connect(null, { clearState })(Dormitory));
