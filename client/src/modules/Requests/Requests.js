@@ -90,7 +90,7 @@ const mapStateToProps = (state) => ({
   status: state.requests.status
 });
 
-const roles = ['admin', 'commandant', 'student', 'employee'];
+const roles = ['admin', 'commandant', 'student', 'employee', 'service'];
 const actionCreators = {
   onStatusChange,
   loadRequests,
