@@ -6,7 +6,8 @@ import {
   CHANGE_PASSWORD,
   SET_USERNAME_INVALID,
   SET_PASSWORD_INVALID,
-  SET_USER
+  SET_USER,
+  LOGIN_SUCCESS
 } from './types';
 
 export const onUsernameChange = (e) => {
@@ -46,6 +47,7 @@ export const onSubmit = (e) => {
 
         storage.setItems(tokens);
         dispatch({ type: SET_USER, payload: user });
+        dispatch({ type: LOGIN_SUCCESS });
       })
       .catch((error) => {
         let errorIn = error.response.data.in;

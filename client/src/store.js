@@ -9,13 +9,14 @@ import AnnouncementsReducer from './modules/Announcements/redux/reducer';
 import ApplicationsReducer from './modules/Applications/redux/reducer';
 import TenantsReducer from './modules/Tenants/redux/reducer';
 import SettlementFormReducer from './modules/SettlementForm/redux/reducer';
-import TenantDetailsReducer from './modules/TenantDetails/redux/reducer';
+import TenantDetailsReducer from './modules/TenantDetails/redux/reducers/TenantDetails';
 import AddTenantReducer from './modules/AddTenant/redux/reducer';
 import RequestsReducer from './modules/Requests/redux/reducer';
 import RequestFormReducer from './modules/RequestForm/redux/reducer';
 import LoginFormReducer from './modules/User/redux/loginFormReducer';
 import AppLoadingReducer from './modules/AppLoading/redux/reducer';
 import ApplicationFormReducer from './modules/ApplicationForm/redux/reducer';
+import TenantRequestsReducer from './modules/TenantDetails/redux/reducers/TenantRequests';
 
 const initialState = {};
 const middleware = [ReduxThunk];
@@ -34,7 +35,8 @@ const reducers = combineReducers({
   requestForm: RequestFormReducer,
   loginForm: LoginFormReducer,
   app: AppLoadingReducer,
-  applicationForm: ApplicationFormReducer
+  applicationForm: ApplicationFormReducer,
+  tenantRequests: TenantRequestsReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

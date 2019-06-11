@@ -4,7 +4,7 @@ import { Spin, List, Tabs } from 'antd';
 import {
   loadTenantDetails,
   clearState
-} from './redux/actions';
+} from './redux/actions/TenantDetails';
 import './TenantDetails.css';
 import { allowedRoles } from '../../hoc/allowedRoles';
 import TenantRequests from './containers/TenantRequests';
@@ -76,9 +76,7 @@ const mapStateToProps = (state) => ({
   lastName: state.tenantDetails.lastName,
   role: state.tenantDetails.role,
   settlementStatus: state.tenantDetails.settlementStatus,
-  requests: state.tenantDetails.requests,
-  loading: state.tenantDetails.loading,
-  requestsLoading: state.tenantDetails.requestsLoading
+  loading: state.tenantDetails.loading
 });
 
 export default allowedRoles(['admin', 'commandant'])(connect(mapStateToProps, {

@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+// import {  } from '../redux/actions/TenantRequests';
 
-const TenantRequests = (props) => {
-  return (
-    <div>
-      <p>Requests</p>
-    </div>
-  );
-};
+class TenantRequests extends Component {
+  render() {
+    return (
+      <div>
+        <p>Requests</p>
+      </div>
+    );
+  }
+}
 
-export default TenantRequests;
+const mapStateToProps = (state) => ({
+
+});
+
+export default connect(mapStateToProps, {
+
+})(TenantRequests);

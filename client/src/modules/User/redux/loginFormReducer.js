@@ -2,7 +2,8 @@ import {
   CHANGE_USERNAME,
   CHANGE_PASSWORD,
   SET_USERNAME_INVALID,
-  SET_PASSWORD_INVALID
+  SET_PASSWORD_INVALID,
+  LOGIN_SUCCESS
 } from './types';
 
 const INITIAL_STATE = {
@@ -36,6 +37,9 @@ export default (state = INITIAL_STATE, action) => {
 
     case SET_PASSWORD_INVALID:
       return { ...state, passwordInvalid: true, error: action.payload };
+
+    case LOGIN_SUCCESS:
+      return { ...state, password: '' };
 
     default:
       return state;

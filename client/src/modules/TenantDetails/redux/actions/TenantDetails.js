@@ -1,9 +1,9 @@
-import { request } from '../../../api/requests';
+import { request } from '../../../../api/requests';
 import {
   LOAD_TENANT_DETAILS_FAIL,
   LOAD_TENANT_DETAILS_SUCCESS,
   CLEAR_STATE
-} from './types';
+} from '../types';
 
 export const loadTenantDetails = (username) => {
   return dispatch => {

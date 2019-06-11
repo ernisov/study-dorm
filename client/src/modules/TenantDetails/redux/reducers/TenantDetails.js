@@ -2,7 +2,7 @@ import {
   LOAD_TENANT_DETAILS_FAIL,
   LOAD_TENANT_DETAILS_SUCCESS,
   CLEAR_STATE
-} from './types';
+} from '../types';
 
 const INITIAL_STATE = {
   dormitory: undefined,
@@ -11,9 +11,7 @@ const INITIAL_STATE = {
   firstName: undefined,
   lastName: undefined,
   role: undefined,
-  requests: [],
-  loading: true,
-  requestsLoading: true
+  loading: true
 };
 
 export default (state = INITIAL_STATE, action) => {

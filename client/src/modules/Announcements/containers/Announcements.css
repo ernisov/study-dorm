@@ -7,3 +7,7 @@
   max-height: 70vh;
   overflow-y: scroll;
 }
+
+.Announcement-date-container * {
+  margin: 0;
+}

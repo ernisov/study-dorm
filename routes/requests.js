@@ -65,4 +65,8 @@ router.post('/:_id', authenticate, allowedRoles([SERVICE]), (req, res) => {
   }).catch((error) => res.status(400).send({ message: 'Bad Request' }));
 });
 
+router.get('/:username', authenticate, allowedRoles([ADMIN, COMMANDANT]), (req, res) => {
+  
+});
+
 module.exports = router;

@@ -16,7 +16,6 @@ const SubMenu = Menu.SubMenu;
 
 class Commandant extends Component {
   render() {
-    console.log(this.props.match.path)
     return (
       <div className="Commandant">
         <Sidebar>
@@ -33,9 +32,11 @@ class Commandant extends Component {
               <Menu.Item>
                 <Link to={`${this.props.match.path}/announcements`}>List</Link>
               </Menu.Item>
-              <Menu.Item>
-                <Link to={`${this.props.match.path}/announcements/create`}>Create</Link>
-              </Menu.Item>
+              {['admin', 'commandant'].includes(this.props.user.role) && (
+                <Menu.Item>
+                  <Link to={`${this.props.match.path}/announcements/create`}>Create</Link>
+                </Menu.Item>
+              )}
             </SubMenu>
           </Menu>
         </Sidebar>
@@ -60,4 +61,10 @@ class Commandant extends Component {
   }
 }
 
-export default allowedRoles(['commandant', 'admin'])(connect()(Commandant));
+const mapStateToProps = (state) => ({
+  user: state.user
+});
+
+const roles = ['commandant', 'admin', 'student', 'employee'];
+
+export default allowedRoles(roles)(connect(mapStateToProps)(Commandant));

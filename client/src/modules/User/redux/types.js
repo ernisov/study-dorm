@@ -4,3 +4,4 @@ export const SET_USERNAME_INVALID = 'login_form_set_username_invalid';
 export const SET_PASSWORD_INVALID = 'login_form_set_password_invalid';
 export const SET_USER = 'user_set_user';
 export const UNSET_USER = 'user_unset_user';
+export const LOGIN_SUCCESS = 'login_form_success';

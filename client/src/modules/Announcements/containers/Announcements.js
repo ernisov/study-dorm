@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loadAnnouncements, deleteAnnouncement } from '../redux/actions';
+import moment from 'moment';
 import { List, Button } from 'antd';
 import './Announcements.css';
 
@@ -41,7 +42,6 @@ class Announcements extends Component {
             loadMore={loadMore}
             dataSource={announcements}
             renderItem={item => {
-              console.log(item);
               let edit = (
                 <Link to={{
                   pathname: `${this.props.match.path}/${item._id}/edit`,
@@ -57,11 +57,17 @@ class Announcements extends Component {
                 </span>
               );
 
+              let actions = ['admin', 'commandant'].includes(this.props.user.role) ? [edit, deleteAnnouncement] : null; 
+
               return (
-                <List.Item actions={[edit, deleteAnnouncement]}>
+                <List.Item actions={actions}>
                   <List.Item.Meta
                     title={`${item.title}`}
-                    description={item.description}/>
+                    description={item.description} />
+                    <div className='Announcement-date-container'>
+                      <p><b>{moment(item.date).format('HH:mm')}</b></p>
+                      <p>{moment(item.date).format('DD.MM.YYYY')}</p>
+                    </div>
                 </List.Item>
               );
             }} />
@@ -80,6 +86,7 @@ const mapStateToProps = (state) => {
     totalPages,
     loading
   } = state.announcements;
+  const user = state.user;
 
   return {
     announcements,
@@ -88,7 +95,8 @@ const mapStateToProps = (state) => {
     hasPrevPage,
     totalDocs,
     totalPages,
-    loading
+    loading,
+    user
   }
 }
 
