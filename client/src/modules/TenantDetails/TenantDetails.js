@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Spin, List } from 'antd';
+import { Spin, List, Tabs } from 'antd';
 import {
   loadTenantDetails,
   clearState
 } from './redux/actions';
 import './TenantDetails.css';
 import { allowedRoles } from '../../hoc/allowedRoles';
+import TenantRequests from './containers/TenantRequests';
+import TenantSettlements from './containers/TenantSettlements';
 
 class TenantDetails extends Component {
   componentDidMount() {
@@ -44,19 +46,22 @@ class TenantDetails extends Component {
           <h3>{`${firstName} ${lastName}`}</h3>
           <p>{role}</p>
         </div>
-        <div className='TenantDetails-room'>
-          <h5>Room:</h5>
-          {settlementStatus === 'not_settled' ? <p>not living</p> : (
-            <div className='TenantDetails-room-info'>
-              <p><b>dormitory </b>{dormitory} |</p>
-              <p><b>floor </b>{floor} |</p>
-              <p><b>number </b>{number}</p>
-            </div>
-          )}
-        </div>
-        <div className='TenantDetails-requests'>
-          <h5>Requests:</h5>
-          <List />
+        {settlementStatus === 'not_settled' ? <p>not living</p> : (
+          <div className='TenantDetails-room-info'>
+            <p><b>dormitory </b>{dormitory} |</p>
+            <p><b>floor </b>{floor} |</p>
+            <p><b>number </b>{number}</p>
+          </div>
+        )}
+        <div className='TenantDetails-Tabs'>
+          <Tabs defaultActiveKey='1'>
+            <Tabs.TabPane key='1' tab='Requests'>
+              <TenantRequests />
+            </Tabs.TabPane>
+            <Tabs.TabPane key='2' tab='Settlements'>
+              <TenantSettlements />
+            </Tabs.TabPane>
+          </Tabs>
         </div>
       </div>
     );
