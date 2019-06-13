@@ -134,4 +134,23 @@ router.post('/', authenticate, allowedRoles([ADMIN, COMMANDANT]), (req, res) => 
   });
 });
 
+router.get('/', authenticate, allowedRoles([ADMIN, COMMANDANT]), (req, res) => {
+  let page = req.query.page;
+  let limit = req.query.limit || 10;
+  let action = req.query.action;
+  let username = req.query.username;
+
+  Settlement.paginate({ action, username }, { page, limit })
+    .then((result) => {
+      res.json({
+        list: result.docs,
+        hasNextPage: result.hasNextPage,
+        hasPrevPage: result.hasPrevPage,
+        totalDocs: result.totalDocs,
+        totalPages: result.totalPages
+      });
+    })
+    .catch((error) => res.status(400).send({ error }));
+});
+
 module.exports = router;
