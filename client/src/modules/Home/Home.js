@@ -14,6 +14,7 @@ import TenantDetails from '../TenantDetails/TenantDetails';
 import SettlementForm from '../SettlementForm/SettlementForm';
 import AddTenant from '../AddTenant/AddTenant';
 import RequestForm from '../RequestForm/RequestForm';
+import Profile from '../User/Profile';
 
 import './Home.css';
 
@@ -40,6 +41,7 @@ class Home extends Component {
           <Route path='/tenants' exact component={Tenants} />
           <Route path='/tenants/:username' exact component={TenantDetails} />
           <Route path='/settlement-form' component={SettlementForm} />
+          <Route path='/profile' component={Profile} />
         </div>
       </div>
     );
