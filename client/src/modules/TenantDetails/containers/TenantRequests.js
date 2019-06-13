@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Button, List } from 'antd';
 import { loadRequests } from '../redux/actions/TenantRequests';
 
 class TenantRequests extends Component {
@@ -8,10 +9,26 @@ class TenantRequests extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <p>Requests</p>
+    const { list, loading, hasNextPage, page, username } = this.props;
+    const loadMore = !loading && hasNextPage ? (
+      <div className='list-load-more'>
+        <Button
+          onClick={() => this.props.loadRequests(username)}
+        >
+          load more
+        </Button>
       </div>
+    ) : null;
+
+    return (
+      <List
+        dataSource={list}
+        loading={loading}
+        loadMore={loadMore}
+        renderItem={(item) => (
+          <p>{item.title}</p>
+        )}
+      />
     );
   }
 }
