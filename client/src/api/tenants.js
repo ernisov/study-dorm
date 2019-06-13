@@ -1,7 +1,9 @@
 import { makeRequest } from './requests';
 
-export const loadTenantRequests = (username) => {
+export const loadTenantRequests = (username, page) => {
   return makeRequest({
-    url: '/'
+    url: `/requests/${username}`,
+    method: 'get',
+    params: { page }
   });
 };

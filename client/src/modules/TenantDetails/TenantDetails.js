@@ -39,6 +39,7 @@ class TenantDetails extends Component {
       floor,
       number
     } = this.props;
+    let { username } = this.props.match.params;
 
     return (
       <div className='TenantDetails'>
@@ -56,10 +57,10 @@ class TenantDetails extends Component {
         <div className='TenantDetails-Tabs'>
           <Tabs defaultActiveKey='1'>
             <Tabs.TabPane key='1' tab='Requests'>
-              <TenantRequests />
+              <TenantRequests  username={username} />
             </Tabs.TabPane>
             <Tabs.TabPane key='2' tab='Settlements'>
-              <TenantSettlements />
+              <TenantSettlements username={username} />
             </Tabs.TabPane>
           </Tabs>
         </div>

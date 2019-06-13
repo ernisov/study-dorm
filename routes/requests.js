@@ -66,7 +66,19 @@ router.post('/:_id', authenticate, allowedRoles([SERVICE]), (req, res) => {
 });
 
 router.get('/:username', authenticate, allowedRoles([ADMIN, COMMANDANT]), (req, res) => {
-  
+  let { username } = req.params;
+  let { page } = req.query;
+  Request.paginate({ author: username }, { page, limit: 10 })
+    .then((result) => {
+      res.json({
+        list: result.docs,
+        hasNextPage: result.hasNextPage,
+        hasPrevPage: result.hasPrevPage,
+        totalDocs: result.totalDocs,
+        totalPages: result.totalPages
+      });
+    })
+    .catch((error) => res.status(400).send({ error }));
 });
 
 module.exports = router;
