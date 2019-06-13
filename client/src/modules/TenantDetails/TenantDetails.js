@@ -54,13 +54,13 @@ class TenantDetails extends Component {
             <p><b>number </b>{number}</p>
           </div>
         )}
-        <div className='TenantDetails-Tabs'>
+        <div>
           <Tabs defaultActiveKey='1'>
             <Tabs.TabPane key='1' tab='Requests'>
-              <TenantRequests  username={username} />
+              <TenantRequests username={username} className="TenantDetails-List" />
             </Tabs.TabPane>
             <Tabs.TabPane key='2' tab='Settlements'>
-              <TenantSettlements username={username} />
+              <TenantSettlements username={username} className="TenantDetails-List" />
             </Tabs.TabPane>
           </Tabs>
         </div>

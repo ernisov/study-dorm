@@ -2,7 +2,7 @@ import React from 'react';
 
 const TenantSettlements = (props) => {
   return (
-    <div>
+    <div className={props.className}>
       <p>Tenant Settlements</p>
     </div>
   );

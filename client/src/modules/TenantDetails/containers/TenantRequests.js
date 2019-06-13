@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, List } from 'antd';
 import { loadRequests } from '../redux/actions/TenantRequests';
+import RequestItem from '../../Requests/components/RequestItem';
 
 class TenantRequests extends Component {
   componentDidMount() {
@@ -22,11 +23,16 @@ class TenantRequests extends Component {
 
     return (
       <List
+        className={this.props.className}
         dataSource={list}
         loading={loading}
         loadMore={loadMore}
         renderItem={(item) => (
-          <p>{item.title}</p>
+          <RequestItem
+            {...item}
+            key={item._id}
+            onSubmit={this.props.commit}
+          />
         )}
       />
     );

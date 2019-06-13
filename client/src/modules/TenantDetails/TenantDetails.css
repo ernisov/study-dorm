@@ -26,6 +26,7 @@
   text-transform: capitalize;
 }
 
-.TenantDetails-Tabs {
-  
+.TenantDetails-List {
+  height: 61vh;
+  overflow-y: auto;
 }
