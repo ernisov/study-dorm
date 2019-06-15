@@ -17,6 +17,8 @@ import RequestForm from '../RequestForm/RequestForm';
 import Profile from '../User/Profile';
 import Settlements from '../Settlements/Settlements';
 
+import EmptyScreen from './components/EmptyScreen';
+
 import './Home.css';
 
 class Home extends Component {
@@ -44,6 +46,7 @@ class Home extends Component {
           <Route path='/settlement-form' component={SettlementForm} />
           <Route path='/profile' component={Profile} />
           <Route path='/settlements' component={Settlements} />
+          <Route path='/' exact component={EmptyScreen} />
         </div>
       </div>
     );
