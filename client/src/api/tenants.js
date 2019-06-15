@@ -7,3 +7,14 @@ export const loadTenantRequests = (username, page) => {
     params: { page }
   });
 };
+
+export const loadTenantSettlements = (page, username) => {
+  return makeRequest({
+    url: '/settlements/',
+    method: 'get',
+    params: {
+      page,
+      username
+    }
+  });
+};
