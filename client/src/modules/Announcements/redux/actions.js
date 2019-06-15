@@ -46,12 +46,10 @@ export const createAnnouncement = async item => {
 
 export const deleteAnnouncement = (id) => {
   return dispatch => {
-    console.log('del announcement')
     request({
       method: 'delete',
       url: `/announcements/${id}`
     }).then((res) => {
-      console.log('success del')
       dispatch({ type: DELETE_ANNOUNCEMENT_SUCCESS, payload: res.data });
     }).catch(err => {
       console.log(err);

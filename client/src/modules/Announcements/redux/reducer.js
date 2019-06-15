@@ -42,7 +42,7 @@ export default (state = INITIAL_STATE, action) => {
     case DELETE_ANNOUNCEMENT_SUCCESS:
       return {
         ...state,
-        announcements: state.announcements.filter(a => a.id !== action.payload.id)
+        announcements: state.announcements.filter(a => a._id !== action.payload._id)
       };
 
     case ANNOUNCEMENT_UPDATED:

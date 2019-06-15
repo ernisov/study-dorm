@@ -16,17 +16,8 @@ class Announcements extends Component {
   render() {
     const { announcements, loading, hasNextPage } = this.props;
     const loadMore = hasNextPage ? (
-      <div
-        style={{
-          textAlign: 'center',
-          marginTop: 12,
-          height: 32,
-          lineHeight: '32px',
-        }}
-      >
-        <Button
-          onClick={() => this.props.loadAnnouncements(this.props.page)}
-        >
+      <div className='list-load-more'>
+        <Button onClick={() => this.props.loadAnnouncements(this.props.page)}>
           load more
         </Button>
       </div>
@@ -57,7 +48,7 @@ class Announcements extends Component {
                 </span>
               );
 
-              let actions = ['admin', 'commandant'].includes(this.props.user.role) ? [edit, deleteAnnouncement] : null; 
+              let actions = ['admin', 'commandant'].includes(this.props.user.role) ? [edit, deleteAnnouncement] : null;
 
               return (
                 <List.Item actions={actions}>
