@@ -1,0 +1,21 @@
+.Settlement {
+  border: 1px solid #e8e8e8;
+  border-radius: 3px;
+  margin: 5px 0;
+  padding: 10px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.Settlement span {
+  font-weight: bold;
+  margin: 0 3px;
+}
+
+.Settlement-info * {
+  margin: 0;
+}
+
+.Settlement-details {
+  flex: 1;
+}
