@@ -101,7 +101,7 @@ class AnnouncementForm extends Component {
               required
               label='Description'
             >
-              <Input value={this.state.description} allowClear onChange={this.handleDescription} />
+              <Input.TextArea rows={4} value={this.state.description} onChange={this.handleDescription} />
             </Form.Item>
           </section>
         </Form>
