@@ -14,6 +14,7 @@ class RoomsList extends Component {
             if (item.id === this.props.active) {
               active = true;
             }
+            
             return (
               <Room
                 {...item}

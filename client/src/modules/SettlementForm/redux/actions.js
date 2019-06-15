@@ -19,13 +19,13 @@ export const changeFloor = (floor) => {
   return { type: FLOOR_CHANGED, payload: { floor } };
 };
 
-export const loadRooms = (dormitory, floor) => {
+export const loadRooms = (dormitory, floor, currentRoom) => {
   return dispatch => {
     dispatch({ type: ROOMS_LOADING });
     request({
       method: 'get',
       url: '/rooms/available',
-      params: { dormitory, floor }
+      params: { dormitory, floor, currentRoom }
     }).then((response) => {
       dispatch({ type: ROOMS_LOADING_SUCCESS, payload: response.data });
     }).catch((err) => {

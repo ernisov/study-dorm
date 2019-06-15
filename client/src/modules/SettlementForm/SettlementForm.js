@@ -23,7 +23,8 @@ class SettlementForm extends Component {
 
   componentDidMount() {
     if (this.props.rooms.length < 1) {
-      this.props.loadRooms(this.props.dormitory, this.props.floor);
+      let { room } = this.props.location.state.user;
+      this.props.loadRooms(this.props.dormitory, this.props.floor, room);
     }
   }
 
@@ -31,7 +32,8 @@ class SettlementForm extends Component {
     let { dormitory, floor } = this.props;
 
     if (prevProps.dormitory !== dormitory || prevProps.floor !== floor) {
-      this.props.loadRooms(dormitory, floor);
+      let { room } = this.props.location.state.user;
+      this.props.loadRooms(dormitory, floor, room);
     }
   }
 

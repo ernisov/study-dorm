@@ -23,12 +23,13 @@ router.get('/', authenticate, allowedRoles([ADMIN, COMMANDANT]), (req, res) => {
 });
 
 router.get('/available', authenticate, allowedRoles([ADMIN, COMMANDANT]), (req, res) => {
-  let { dormitory, floor } = req.query;
+  let { dormitory, floor, currentRoom } = req.query;
   Room.find({
     available: true,
     dormitory: +dormitory,
     floor: +floor,
-    type: 'R'
+    type: 'R',
+    id: { $ne: currentRoom }
   })
   .then((rooms) => {
     if (!rooms || rooms.length === 0) return res.status(404).send();
