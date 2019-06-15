@@ -17,6 +17,7 @@ import LoginFormReducer from './modules/User/redux/loginFormReducer';
 import AppLoadingReducer from './modules/AppLoading/redux/reducer';
 import ApplicationFormReducer from './modules/ApplicationForm/redux/reducer';
 import TenantRequestsReducer from './modules/TenantDetails/redux/reducers/TenantRequests';
+import SettlementsReducer from './modules/Settlements/redux/reducer';
 
 const initialState = {};
 const middleware = [ReduxThunk];
@@ -36,7 +37,8 @@ const reducers = combineReducers({
   loginForm: LoginFormReducer,
   app: AppLoadingReducer,
   applicationForm: ApplicationFormReducer,
-  tenantRequests: TenantRequestsReducer
+  tenantRequests: TenantRequestsReducer,
+  settlements: SettlementsReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

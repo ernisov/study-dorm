@@ -15,6 +15,7 @@ import SettlementForm from '../SettlementForm/SettlementForm';
 import AddTenant from '../AddTenant/AddTenant';
 import RequestForm from '../RequestForm/RequestForm';
 import Profile from '../User/Profile';
+import Settlements from '../Settlements/Settlements';
 
 import './Home.css';
 
@@ -42,6 +43,7 @@ class Home extends Component {
           <Route path='/tenants/:username' exact component={TenantDetails} />
           <Route path='/settlement-form' component={SettlementForm} />
           <Route path='/profile' component={Profile} />
+          <Route path='/settlements' component={Settlements} />
         </div>
       </div>
     );

@@ -12,6 +12,12 @@ export default [
     icon: 'idcard'
   },
   {
+    href: '/settlements/',
+    roles: ['commandant', 'admin'],
+    title: 'Settlements',
+    icon: 'audit'
+  },
+  {
     href: '/announcements/',
     roles: ['student', 'employee', 'commandant', 'service', 'admin'],
     title: 'Announcements',

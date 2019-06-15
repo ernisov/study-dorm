@@ -140,7 +140,12 @@ router.get('/', authenticate, allowedRoles([ADMIN, COMMANDANT]), (req, res) => {
   let action = req.query.action;
   let username = req.query.username;
 
-  Settlement.paginate({ action, username }, { page, limit })
+  let query = {};
+
+  if (action) query.action = action;
+  if (username) query.username = username;
+
+  Settlement.paginate(query, { page, limit })
     .then((result) => {
       res.json({
         list: result.docs,
