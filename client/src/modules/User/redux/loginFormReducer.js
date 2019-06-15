@@ -11,7 +11,8 @@ const INITIAL_STATE = {
   password: '',
   usernameInvalid: false,
   passwordInvalid: false,
-  error: ''
+  usernameError: '',
+  passwordError: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -33,10 +34,10 @@ export default (state = INITIAL_STATE, action) => {
       };
 
     case SET_USERNAME_INVALID:
-      return { ...state, usernameInvalid: true, error: action.payload };
+      return { ...state, usernameInvalid: true, usernameError: action.payload };
 
     case SET_PASSWORD_INVALID:
-      return { ...state, passwordInvalid: true, error: action.payload };
+      return { ...state, passwordInvalid: true, passwordError: action.payload };
 
     case LOGIN_SUCCESS:
       return { ...state, password: '' };

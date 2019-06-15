@@ -20,7 +20,7 @@ class Login extends Component {
         <Form className='login-form'>
           <Form.Item
             validateStatus={this.props.usernameInvalid ? 'error' : ''}
-            help={this.props.usernameInvalid ? this.props.error : ''}
+            help={this.props.usernameInvalid ? this.props.usernameError : ''}
           >
             <Input
               prefix={<Icon type='user' style={{color: 'rgba(0, 0, 0, .25)'}} />}
@@ -31,7 +31,7 @@ class Login extends Component {
           </Form.Item>
           <Form.Item
             validateStatus={this.props.passwordInvalid ? 'error' : ''}
-            help={this.props.passwordInvalid ? this.props.error : ''}
+            help={this.props.passwordInvalid ? this.props.passwordError : ''}
           >
             <Input.Password
               prefix={<Icon type='lock' style={{color: 'rgba(0, 0, 0, .25)'}} />}
@@ -60,7 +60,8 @@ const mapStateToProps = (state) => ({
   password: state.loginForm.password,
   usernameInvalid: state.loginForm.usernameInvalid,
   passwordInvalid: state.loginForm.passwordInvalid,
-  error: state.loginForm.error
+  passwordError: state.loginForm.passwordError,
+  usernameError: state.loginForm.usernameError
 });
 
 export default connect(mapStateToProps, {
