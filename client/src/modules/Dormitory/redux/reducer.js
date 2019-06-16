@@ -40,7 +40,7 @@ export default (state = INITIAL_STATE, action) => {
       };
 
     case CLEAR_STATE:
-      return INITIAL_STATE;
+      return { ...INITIAL_STATE };
 
     case TENANT_UNSETTLE_FAIL:
     default:

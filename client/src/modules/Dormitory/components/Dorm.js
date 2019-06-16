@@ -14,7 +14,7 @@ class Dorm extends Component {
           return <path fill={fill} stroke='#000' {...elem} key={elem.d.slice(0, 5)} />;
 
         case 'rect':
-          return <rect {...elem} key={elem.x} fill={fill} stroke='#000' />;
+          return <rect {...elem} key={`${elem.x}${elem.y}`} fill={fill} stroke='#000' />;
 
         case 'polygon':
           return <polygon {...elem} key={elem.points.slice(0, 15)} fill={fill} stroke='#000' />;

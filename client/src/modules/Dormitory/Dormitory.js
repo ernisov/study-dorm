@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Tabs } from 'antd';
 import { connect } from 'react-redux';
-import { clearState } from './redux/actions';
+import { onDormitoryChange } from './redux/actions';
 import './Dormitory.css';
 import { allowedRoles } from '../../hoc/allowedRoles';
 import Map from './containers/Map';
@@ -11,7 +11,7 @@ class Dormitory extends Component {
   render() {
     return (
       <div className='Dormitory'>
-        <Tabs className='Tab' size='small' onChange={this.props.clearState}>
+        <Tabs className='Tab' size='small' onChange={this.props.onDormitoryChange}>
           <TabPane tab='Dormitory 1' key='1' className='TabPane'>
             <Map dormitory={1} floors={2}/>
           </TabPane>
@@ -27,4 +27,4 @@ class Dormitory extends Component {
   }
 }
 
-export default allowedRoles(['admin', 'commandant'])(connect(null, { clearState })(Dormitory));
+export default allowedRoles(['admin', 'commandant'])(connect(null, { onDormitoryChange })(Dormitory));
