@@ -59,6 +59,7 @@ app.use('/tenants', require('./routes/tenants'));
 app.use('/settlements', require('./routes/settlements'));
 app.use('/requests', require('./routes/requests'));
 app.use('/api', require('./routes/api'));
+app.use('/dormitory', require('./routes/dormitory'));
 app.use('/docs', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'swagger.yaml'));
 });

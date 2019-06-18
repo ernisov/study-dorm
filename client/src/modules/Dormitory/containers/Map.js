@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Spin, Select } from 'antd';
+import { Spin, Select, Modal, Icon, Button, Tooltip } from 'antd';
 import { connect } from 'react-redux';
 import Floor from './Floor';
 import RoomDetails from './RoomDetails';
+import DormitoryDetails from './DormitoryDetails';
 import './Map.css';
 
 import {
@@ -18,7 +19,8 @@ class Map extends Component {
     super(props);
     this.state = {
       floor: 1,
-      room: null
+      room: null,
+      modalVisible: false
     };
 
     this.onFloorSelect = this.onFloorSelect.bind(this);
@@ -27,7 +29,6 @@ class Map extends Component {
 
   componentDidMount() {
     if (this.props.rooms.length === 0) {
-      console.log('componentDidMount')
       this.props.loadRooms(this.props.dormitory, this.state.floor);
     }
   }
@@ -42,7 +43,6 @@ class Map extends Component {
   }
 
   componentWillUnmount() {
-    console.log('componentWillUnmount')
     this.props.clearState();
   }
 
@@ -72,6 +72,12 @@ class Map extends Component {
               data={this.props.data} />
           )}
           <div className='floor-select'>
+            <Tooltip title='Dormitory details'>
+              <Icon
+                type='info-circle'
+                onClick={() => this.setState({ modalVisible: true })}
+              />
+            </Tooltip>
             <label>Floor: </label>
             <Select
               onChange={this.onFloorSelect}
@@ -82,6 +88,14 @@ class Map extends Component {
             </Select>
           </div>
         </div>
+        <Modal
+          title='Dormitory details'
+          visible={this.state.modalVisible}
+          onCancel={() => this.setState({ modalVisible: false })}
+          footer={null}
+        >
+          <DormitoryDetails />
+        </Modal>
       </div>
     );
   }

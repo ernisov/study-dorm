@@ -70,5 +70,16 @@ RoomSchema.statics.getRooms = function(dormitory, floor) {
   });
 };
 
+// Room.statics.getDetails = function() {
+//   let Room = this;
+//   Room.aggregate([
+//     {
+//       $project: {
+//
+//       }
+//     }
+//   ]);
+// };
+
 const Room = mongoose.model('room', RoomSchema);
 module.exports = Room;

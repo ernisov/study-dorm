@@ -16,7 +16,7 @@ export default ({ onClick, id, name, data, ...rest }) => {
 
   switch (name) {
     case 'rect':
-      return <rect onClick={() => onClick(id)} {...rest} fill={fill} />
+      return <rect onClick={() => onClick(id)} {...rest} fill={fill} />;
 
     case 'polygon':
       return <polygon onClick={() => onClick(id)} {...rest} fill={fill}/>;

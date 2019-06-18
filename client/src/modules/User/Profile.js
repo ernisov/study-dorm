@@ -1,33 +1,39 @@
 import React, { Component } from 'react';
+import { Select } from 'antd';
 import './Profile.css';
+import { connect } from 'react-redux';
+import { changeLanguage } from '../AppLoading/redux/actions';
 import i18next from '../../i18n/i18n';
 
+const Option = Select.Option;
+
 class Profile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      lang: 'en'
-    };
-    this.onLanguageChange = this.onLanguageChange.bind(this);
-  }
-
-  onLanguageChange() {
-    let lang = this.state.lang === 'en' ? 'ru' : 'en';
-    i18next.changeLanguage(lang)
-      .then(() => this.setState({ lang }))
-      .catch((err) => console.log(err));
-  }
-
   render() {
     return (
-      <div>
-        <h3>
-          Profile
-        </h3>
-        <p onClick={this.onLanguageChange}>{i18next.t('test')}</p>
+      <div className='Profile'>
+        <div className='Profile-Aside'>
+          <div className='Profile-Language'>
+            <p>{i18next.t('profile.languageLabel')}</p>
+            <Select
+              className='Profile-Language-Select'
+              onChange={this.props.changeLanguage}
+              value={this.props.language}
+            >
+              <Option value='en'>English</Option>
+              <Option value='ru'>Русский</Option>
+              <Option value='ky'>Кыргызча</Option>
+            </Select>
+          </div>
+        </div>
+        <div className='Profile-Main'>
+        </div>
       </div>
     );
   }
 }
 
-export default Profile;
+const mapStateToProps = (state) => ({
+  language: state.app.language
+});
+
+export default connect(mapStateToProps, { changeLanguage })(Profile);
