@@ -5,6 +5,8 @@ import { List, Radio, Button, Icon } from 'antd';
 import { allowedRoles } from '../../hoc/allowedRoles';
 import './Tenants.css';
 
+import i18next from '../../i18n/i18n';
+
 import {
   changeStatus,
   loadTenants,
@@ -52,7 +54,7 @@ class Tenants extends Component {
           action: 'settle',
           user: item
         }
-      }}>settle</Link>
+      }}>{i18next.t('tenants.settle')}</Link>
     );
 
     const move = (
@@ -62,14 +64,14 @@ class Tenants extends Component {
           action: 'move',
           user: item
         }
-      }}>move</Link>
+      }}>{i18next.t('tenants.move')}</Link>
     );
 
     const unsettle = (
       <Button
         type='link'
         onClick={() => this.props.unsettle(item, this.props.settlementStatus)}
-      >unsettle</Button>
+      >{i18next.t('tenants.unsettle')}</Button>
     );
 
     const info = (
@@ -88,7 +90,7 @@ class Tenants extends Component {
       <List.Item actions={[...actions, info]}>
         <List.Item.Meta
           title={item.username}
-          description={item.settlementStatus === 'settled' ? item.room : 'not living in dormitory'}
+          description={item.settlementStatus === 'settled' ? item.room : i18next.t('tenants.notLiving')}
         />
       </List.Item>
     );
@@ -101,7 +103,7 @@ class Tenants extends Component {
         <Button
           onClick={() => this.props.loadTenants(page, settlementStatus)}
         >
-          load more
+          {i18next.t('lists.loadMore')}
         </Button>
       </div>
     ) : null;
@@ -109,15 +111,15 @@ class Tenants extends Component {
     return (
       <div className='Tenants'>
         <div className='Tenants-header'>
-          <h3>Tenants: </h3>
+          <h3>{i18next.t('tenants.title')}</h3>
           <RadioGroup
             onChange={this.onStatusChange}
             value={this.props.settlementStatus}
             defaultValue={this.props.settlementStatus}
           >
-            <RadioButton value='all'>All</RadioButton>
-            <RadioButton value='not_settled'>Not Settled</RadioButton>
-            <RadioButton value='settled'>Settled</RadioButton>
+            <RadioButton value='all'>{i18next.t('tenants.all')}</RadioButton>
+            <RadioButton value='not_settled'>{i18next.t('tenants.notSettled')}</RadioButton>
+            <RadioButton value='settled'>{i18next.t('tenants.settled')}</RadioButton>
           </RadioGroup>
         </div>
         <List

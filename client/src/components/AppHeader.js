@@ -6,6 +6,8 @@ import { logoutUser } from '../modules/User/redux/actions';
 import routes from '../routes/routes';
 import './AppHeader.css';
 
+import i18next from '../i18n/i18n';
+
 const SubMenu = Menu.SubMenu;
 
 class AppNavBar extends Component {
@@ -27,7 +29,7 @@ class AppNavBar extends Component {
             <Link to={route.href}>
               <span className="nav-item">
                 <Icon type={route.icon} />
-                {route.title}
+                {route.title()}
               </span>
             </Link>
           </Menu.Item>
@@ -45,7 +47,7 @@ class AppNavBar extends Component {
   render() {
     let docs = (
       <Menu.Item>
-        <Link to='/docs'>Documentation</Link>
+        <Link to='/docs'>{i18next.t('header.documentation')}</Link>
       </Menu.Item>
     );
 
@@ -57,11 +59,11 @@ class AppNavBar extends Component {
         </span>
       }>
         <Menu.Item>
-          <Link to='/profile'>Profile</Link>
+          <Link to='/profile'>{i18next.t('header.profile')}</Link>
         </Menu.Item>
         {this.props.role === 'admin' && docs}
         <Menu.Item onClick={this.props.logoutUser}>
-          Log out
+          {i18next.t('header.logout')}
         </Menu.Item>
       </SubMenu>
     );
@@ -70,10 +72,10 @@ class AppNavBar extends Component {
       <Row type='flex' className='Header'>
         <Col span={3}>
           <div className='logo'>
-            <Link to='/' className='logo-link'>KSTU Dormitory</Link>
+            <Link to='/' className='logo-link'>{i18next.t('header.brandTitle')}</Link>
           </div>
         </Col>
-        <Col span={19} offset={2}>
+        <Col span={21}>
           <Menu
             style={{ borderBottom: 'none' }}
             onClick={this.handleClick}

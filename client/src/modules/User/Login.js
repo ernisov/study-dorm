@@ -8,6 +8,7 @@ import {
   onSubmit
 } from './redux/loginFormActions';
 import './Login.css';
+import i18next from '../../i18n/i18n';
 
 class Login extends Component {
   render() {
@@ -20,24 +21,24 @@ class Login extends Component {
         <Form className='login-form'>
           <Form.Item
             validateStatus={this.props.usernameInvalid ? 'error' : ''}
-            help={this.props.usernameInvalid ? this.props.usernameError : ''}
+            help={this.props.usernameInvalid ? i18next.t('login.errors.' + this.props.usernameError) : ''}
           >
             <Input
               prefix={<Icon type='user' style={{color: 'rgba(0, 0, 0, .25)'}} />}
               onChange={this.props.onUsernameChange}
               allowClear
-              placeholder='username'
+              placeholder={i18next.t('login.username')}
               value={this.props.username}/>
           </Form.Item>
           <Form.Item
             validateStatus={this.props.passwordInvalid ? 'error' : ''}
-            help={this.props.passwordInvalid ? this.props.passwordError : ''}
+            help={this.props.passwordInvalid ? i18next.t('login.errors.' + this.props.passwordError) : ''}
           >
             <Input.Password
               prefix={<Icon type='lock' style={{color: 'rgba(0, 0, 0, .25)'}} />}
               onChange={this.props.onPasswordChange}
               allowClear
-              placeholder='password'
+              placeholder={i18next.t('login.password')}
               value={this.props.password}/>
           </Form.Item>
           <Button
@@ -46,7 +47,7 @@ class Login extends Component {
             className='login-form-submit'
             onClick={this.props.onSubmit}
           >
-            Log in
+            {i18next.t('login.submit')}
           </Button>
         </Form>
       </div>

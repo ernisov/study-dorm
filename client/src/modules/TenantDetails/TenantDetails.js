@@ -9,6 +9,7 @@ import './TenantDetails.css';
 import { allowedRoles } from '../../hoc/allowedRoles';
 import TenantRequests from './containers/TenantRequests';
 import TenantSettlements from './containers/TenantSettlements';
+import i18next from '../../i18n/i18n';
 
 class TenantDetails extends Component {
   componentDidMount() {
@@ -45,21 +46,21 @@ class TenantDetails extends Component {
       <div className='TenantDetails'>
         <div className='TenantDetails-main-info'>
           <h3>{`${firstName} ${lastName}`}</h3>
-          <p>{role}</p>
+          <p>{i18next.t('roles.' + role)}</p>
         </div>
         {settlementStatus === 'not_settled' ? <p>not living</p> : (
           <div className='TenantDetails-room-info'>
-            <p><b>dormitory </b>{dormitory} |</p>
-            <p><b>floor </b>{floor} |</p>
-            <p><b>number </b>{number}</p>
+            <p><b>{i18next.t('tenantDetails.dormitory')} </b>{dormitory} |</p>
+            <p><b>{i18next.t('tenantDetails.floor')} </b>{floor} |</p>
+            <p><b>{i18next.t('tenantDetails.number')} </b>{number}</p>
           </div>
         )}
         <div>
           <Tabs defaultActiveKey='1'>
-            <Tabs.TabPane key='1' tab='Requests'>
+            <Tabs.TabPane key='1' tab={i18next.t('tenantDetails.requests')}>
               <TenantRequests username={username} className="TenantDetails-List" />
             </Tabs.TabPane>
-            <Tabs.TabPane key='2' tab='Settlements'>
+            <Tabs.TabPane key='2' tab={i18next.t('tenantDetails.settlements')}>
               <TenantSettlements username={username} className="TenantDetails-List" />
             </Tabs.TabPane>
           </Tabs>

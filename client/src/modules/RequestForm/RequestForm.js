@@ -11,13 +11,14 @@ import {
 } from './redux/actions';
 import './RequestForm.css';
 import { allowedRoles } from '../../hoc/allowedRoles';
+import i18next from '../../i18n/i18n';
 
 const { Option } = Select;
 
 class RequestForm extends Component {
   componentDidUpdate() {
     if (this.props.succeded === true) {
-      message.success('request created');
+      message.success(i18next.t('requestForm.success'));
       this.props.history.goBack();
     }
 
@@ -43,42 +44,42 @@ class RequestForm extends Component {
 
     return (
       <div className='RequestForm'>
-        <h3>Request Form</h3>
+        <h3>{i18next.t('requestForm.title')}</h3>
         <Form {...formItemLayout} onSubmit={this.props.onSubmit}>
           <Form.Item
             validateStatus={titleInvalid ? 'error': ''}
             help={titleInvalid ? message : ''}
-            label='Title'
+            label={i18next.t('requestForm.requestTitle')}
             required
           >
             <Input
-              placeholder='title'
+              placeholder={i18next.t('requestForm.requestTitle')}
               value={this.props.title}
               onChange={this.props.onTitleChange}
               allowClear
             />
           </Form.Item>
-          <Form.Item label='Category' required>
+          <Form.Item label={i18next.t('requestForm.category')} required>
             <Select
               value={this.props.category}
-              placeholder='Request Category'
+              placeholder={i18next.t('requestForm.category')}
               onChange={this.props.onCategoryChange}
             >
-              <Option value='plumbing'>Plubming</Option>
-              <Option value='carpentry'>Carpentry</Option>
-              <Option value='electricity'>Electricity</Option>
-              <Option value='other'>Other</Option>
+              <Option value='plumbing'>{i18next.t('requests.request.categories.plumbing')}</Option>
+              <Option value='carpentry'>{i18next.t('requests.request.categories.carpentry')}</Option>
+              <Option value='electricity'>{i18next.t('requests.request.categories.electricity')}</Option>
+              <Option value='other'>{i18next.t('requests.request.categories.other')}</Option>
             </Select>
           </Form.Item>
           <Form.Item
             validateStatus={descriptionInvalid ? 'error': ''}
             help={descriptionInvalid ? message : ''}
-            label='Description'
+            label={i18next.t('requestForm.description')}
             required
           >
             <Input.TextArea
               rows={4}
-              placeholder='description'
+              placeholder={i18next.t('requestForm.description')}
               onChange={this.props.onDescriptionChange}
               value={this.props.description}
             />
@@ -87,7 +88,7 @@ class RequestForm extends Component {
             htmlType='submit'
             type='primary'
           >
-            Submit
+            {i18next.t('requestForm.submit')}
           </Button>
         </Form>
       </div>

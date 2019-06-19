@@ -5,6 +5,7 @@ import { loadAnnouncements, deleteAnnouncement } from '../redux/actions';
 import moment from 'moment';
 import { List, Button } from 'antd';
 import './Announcements.css';
+import i18next from '../../../i18n/i18n';
 
 class Announcements extends Component {
   componentDidMount() {
@@ -18,14 +19,14 @@ class Announcements extends Component {
     const loadMore = hasNextPage ? (
       <div className='list-load-more'>
         <Button onClick={() => this.props.loadAnnouncements(this.props.page)}>
-          load more
+          {i18next.t('lists.loadMore')}
         </Button>
       </div>
     ) : null;
 
     return (
       <div className="Announcements">
-        <h3>Announcements</h3>
+        <h3>{i18next.t('announcements.title')}</h3>
           <List
             className='announcements-list'
             loading={(loading && hasNextPage)}
@@ -38,13 +39,13 @@ class Announcements extends Component {
                   pathname: `${this.props.match.path}/${item._id}/edit`,
                   state: item
                 }}>
-                  edit
+                  {i18next.t('announcements.edit')}
                 </Link>
               );
 
               let deleteAnnouncement = (
                 <span onClick={() => this.props.deleteAnnouncement(item._id)}>
-                  delete
+                  {i18next.t('announcements.delete')}
                 </span>
               );
 

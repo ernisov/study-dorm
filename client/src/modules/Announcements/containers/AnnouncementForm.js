@@ -4,6 +4,7 @@ import { request } from '../../../api/requests';
 import { connect } from 'react-redux';
 import { updateAnnouncement, createAnnouncement } from '../redux/actions';
 import './AnnouncementCreate.css';
+import i18next from '../../../i18n/i18n';
 
 const { Option } = Select;
 
@@ -90,16 +91,15 @@ class AnnouncementForm extends Component {
       <div className="AnnouncementCreate">
         <Form {...formItemLayout} onSubmit={this.submitForm}>
           <section>
-            <h3 className='section-header'>Main</h3>
             <Form.Item
               required
-              label='Title'
+              label={i18next.t('announcements.announcementTitle')}
             >
               <Input value={this.state.title} allowClear onChange={this.handleTitle} />
             </Form.Item>
             <Form.Item
               required
-              label='Description'
+              label={i18next.t('announcements.description')}
             >
               <Input.TextArea rows={4} value={this.state.description} onChange={this.handleDescription} />
             </Form.Item>
@@ -111,7 +111,7 @@ class AnnouncementForm extends Component {
           htmlType='submit'
           type='primary'
         >
-          {this.props.edit ? 'Update' : 'Create'}
+          {i18next.t('announcements.submit')}
         </Button>
       </div>
     );

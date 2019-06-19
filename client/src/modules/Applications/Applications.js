@@ -9,6 +9,7 @@ import {
 } from './redux/actions';
 import ListItem from './components/ListItem';
 import './Applications.css';
+import i18next from '../../i18n/i18n';
 
 const RadioGroup = Radio.Group;
 const RadioButton = Radio.Button;
@@ -42,7 +43,7 @@ class Applications extends Component {
         <Button
           onClick={() => this.props.loadApplications(this.props.page, this.props.status)}
         >
-          load more
+          {i18next.t('lists.loadMore')}
         </Button>
       </div>
       ) : null;
@@ -50,15 +51,15 @@ class Applications extends Component {
     return (
       <div className='Applications'>
         <div className='Applications-header'>
-          <h3>Applications: </h3>
+          <h3>{i18next.t('applications.title')}</h3>
           <RadioGroup
             onChange={this.onStatusChange}
             value={this.props.status}
             defaultValue={this.props.status}
           >
-            <RadioButton value='unconsidered'>unconsidered</RadioButton>
-            <RadioButton value='approved'>approved</RadioButton>
-            <RadioButton value='rejected'>rejected</RadioButton>
+            <RadioButton value='unconsidered'>{i18next.t('applications.unconsidered')}</RadioButton>
+            <RadioButton value='approved'>{i18next.t('applications.approved')}</RadioButton>
+            <RadioButton value='rejected'>{i18next.t('applications.rejected')}</RadioButton>
           </RadioGroup>
         </div>
         <List

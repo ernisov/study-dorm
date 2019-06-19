@@ -12,6 +12,7 @@ import {
   onRoomSelect,
   submit
 } from './redux/actions';
+import i18next from '../../i18n/i18n';
 
 const { Option } = Select;
 
@@ -49,10 +50,10 @@ class SettlementForm extends Component {
     let { action } = this.props.location.state;
     return (
       <div className='SettlementForm'>
-        <h3>Choose the room:</h3>
+        <h3>{i18next.t('settlementForm.title')}</h3>
         <div className='row'>
           <div className='row-item'>
-            <label>Dormitory:</label>
+            <label>{i18next.t('settlementForm.dormitory')}</label>
             <Select
               className='settlement-select'
               onChange={this.props.changeDormitory}
@@ -65,7 +66,7 @@ class SettlementForm extends Component {
             </Select>
           </div>
           <div className='row-item'>
-            <label>Floor:</label>
+            <label>{i18next.t('settlementForm.floor')}</label>
             <Select
               className='settlement-select'
               defaultValue={1}
@@ -90,7 +91,7 @@ class SettlementForm extends Component {
           onClick={this.onSubmit}
           type='primary'
         >
-          {action}
+          {i18next.t('actions.' + action)}
         </Button>
       </div>
     );

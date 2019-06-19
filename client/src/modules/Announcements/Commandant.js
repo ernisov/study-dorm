@@ -11,6 +11,7 @@ import Announcements from './containers/Announcements';
 import AnnouncementCreate from './containers/AnnouncementCreate';
 import AnnouncementEdit from './containers/AnnouncementEdit';
 
+import i18next from '../../i18n/i18n';
 
 const SubMenu = Menu.SubMenu;
 
@@ -25,16 +26,16 @@ class Commandant extends Component {
               title={
                 <span className='side-menu-item'>
                   <Icon type='announcement' />
-                  Announcements
+                  {i18next.t('announcements.title')}
                 </span>
               }
             >
               <Menu.Item>
-                <Link to={`${this.props.match.path}/announcements`}>List</Link>
+                <Link to={`${this.props.match.path}/announcements`}>{i18next.t('announcements.list')}</Link>
               </Menu.Item>
               {['admin', 'commandant'].includes(this.props.user.role) && (
                 <Menu.Item>
-                  <Link to={`${this.props.match.path}/announcements/create`}>Create</Link>
+                  <Link to={`${this.props.match.path}/announcements/create`}>{i18next.t('announcements.create')}</Link>
                 </Menu.Item>
               )}
             </SubMenu>

@@ -3,6 +3,7 @@ import { Button } from 'antd';
 import { withRouter } from 'react-router';
 import './RoomDetails.css';
 import Tenant from '../components/Tenant';
+import i18next from '../../../i18n/i18n';
 
 class RoomDetails extends Component {
   constructor(props) {
@@ -20,24 +21,24 @@ class RoomDetails extends Component {
   getRoomType() {
     switch (this.props.room.type) {
       case 'R':
-        return 'Room';
+        return i18next.t('dormitory.roomTypes.room');
 
       case 'C':
-        return 'Corridor';
+        return i18next.t('dormitory.roomTypes.corridor');
 
       case 'WC':
-        return 'Water Closet';
+        return i18next.t('dormitory.roomTypes.wc');
 
       case 'B':
-        return 'Bathroom';
+        return i18next.t('dormitory.roomTypes.bathroom');
 
       case 'K':
-        return 'Kitchen';
+        return i18next.t('dormitory.roomTypes.kitchen');
     }
   }
 
   render() {
-    if (!this.props.room) return <p>Please, select room</p>;
+    if (!this.props.room) return <p>{i18next.t('dormitory.selectRoom')}</p>;
     return (
       <div className='RoomDetails'>
         <header className='room-header'>
@@ -45,7 +46,7 @@ class RoomDetails extends Component {
           <p className='room-type'>{this.getRoomType()}</p>
         </header>
         <div className='room-tenants-container'>
-          <h6>tenants:</h6>
+          <h6>{i18next.t('dormitory.tenants')}</h6>
           {this.props.room.tenants.map(tenant => (
             <Tenant
               room={this.props.room.id}
@@ -63,7 +64,7 @@ class RoomDetails extends Component {
           onClick={() => this.props.history.push(`/dormitory/add-tenant/${this.props.room.id}`)}
           disabled={!this.props.room.available}
         >
-          Add Tenant
+          {i18next.t('dormitory.addTenant')}
         </Button>
       </div>
     );

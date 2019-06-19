@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { loadUsers, deleteUser } from '../redux/actions';
 import { List, Button } from 'antd';
 import './Users.css';
+import i18next from '../../../i18n/i18n';
 
 class Users extends Component {
   componentDidMount() {
@@ -26,14 +27,14 @@ class Users extends Component {
           <Button
             onClick={() => this.props.loadUsers(this.props.page)}
           >
-            load more
+            {i18next.t('lists.loadMore')}
           </Button>
         </div>
       ) : null;
 
     return (
       <div className="Users">
-        <h3>Users</h3>
+        <h3>{i18next.t('users.title')}</h3>
         <List
           className='users-list'
           loading={(loading && hasNextPage)}
@@ -46,13 +47,13 @@ class Users extends Component {
                 pathname: `${this.props.match.path}/${item.username}/edit`,
                 state: item
               }} >
-                edit
+                {i18next.t('users.edit')}
               </Link>
             );
 
             let deleteUser = (
               <span onClick={() => this.props.deleteUser(item.username)}>
-                delete
+                {i18next.t('users.delete')}
               </span>
             );
 
@@ -60,7 +61,7 @@ class Users extends Component {
               <List.Item actions={[edit, deleteUser]}>
                 <List.Item.Meta
                   title={`${item.firstName} ${item.lastName}`}
-                  description={item.role}/>
+                  description={i18next.t('roles.' + item.role)}/>
               </List.Item>
             );
           }} />

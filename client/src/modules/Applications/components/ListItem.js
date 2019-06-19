@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { Button } from 'antd';
 import '../Applications.css';
+import i18next from '../../../i18n/i18n';
 
 export default ({ item, changeApplicationStatus, status }) => (
   <div className='application-item'>
@@ -10,15 +11,15 @@ export default ({ item, changeApplicationStatus, status }) => (
         {`${item.firstName} ${item.lastName}`}
       </p>
       <section>
-        <label>Birth Date: </label>
+        <label>{`${i18next.t('applications.birthDate')}: `}</label>
         <p>{moment(item.birthDate).format('DD/MM/YYYY')}</p>
       </section>
       <section>
-        <label>Passport Number: </label>
+        <label>{`${i18next.t('applications.passportNumber')}: `}</label>
         <p>{item.passportNumber}</p>
       </section>
       <section>
-        <label>Issued By: </label>
+        <label>{`${i18next.t('applications.issuedBy')}: `}</label>
         <p>{item.passportMKK}</p>
       </section>
     </div>
@@ -30,7 +31,7 @@ export default ({ item, changeApplicationStatus, status }) => (
         className='button'
         onClick={() => changeApplicationStatus(item._id, 'approved')}
       >
-        Approve
+        {i18next.t('applications.approve')}
       </Button>
       <Button
         disabled={status !== 'unconsidered'}
@@ -39,7 +40,7 @@ export default ({ item, changeApplicationStatus, status }) => (
         className='button'
         onClick={() => changeApplicationStatus(item._id, 'rejected')}
       >
-        Reject
+        {i18next.t('applications.reject')}
       </Button>
     </div>
   </div>

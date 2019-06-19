@@ -4,6 +4,7 @@ import { request } from '../../../api/requests';
 import { connect } from 'react-redux';
 import { updateUser } from '../redux/actions';
 import './UserCreate.css';
+import i18next from '../../../i18n/i18n';
 
 const { Option } = Select;
 
@@ -104,12 +105,12 @@ class UserForm extends Component {
         if (this.props.edit) {
           this.props.updateUser(this.props.user, response.data);
         }
-        message.success(`success.`);
+        message.success(i18next.t('users.messages.success'));
         this.setState({ username: '', password: '', firstName: '', lastName: '', role: 'student' });
       }
     }).catch((err) => {
-      console.log(err);
-      message.error(`Couldn't perform operation`)
+      console.log(err.response);
+      message.error(i18next.t('users.messages.error'));
     })
   }
 
@@ -124,23 +125,23 @@ class UserForm extends Component {
 
     console.log('role', this.state.role);
 
-    const usernameError = 'Please, enter unique username';
-    const passwordError = 'Password should be 5 characters long';
-    const namesError = 'User must have a name [Valar Morghulis]';
+    const usernameError = i18next.t('users.errors.uniqueUsername');
+    const passwordError = i18next.t('users.errors.passwordValidation');
+    const namesError = i18next.t('users.errors.required');
 
     const passwordComponent = (
       <Form.Item
         required
         validateStatus={this.state.passwordInvalid ? 'error' : ''}
         help={this.state.passwordInvalid ? passwordError : ''}
-        label='Password'
+        label={i18next.t('users.password')}
       >
         <Input.Password
           allowClear
           onChange={this.handlePassword}
           value={this.state.password}
           prefix={
-            <Tooltip title='Minimum length: 5 characters'>
+            <Tooltip title={i18next.t('users.tooltips.password')}>
               <Icon type='question-circle-o' />
             </Tooltip>
           }
@@ -152,12 +153,11 @@ class UserForm extends Component {
       <div className="UserCreate">
         <Form {...formItemLayout} onSubmit={this.submitForm} >
           <section>
-            <h3 className='section-header'>Main</h3>
             <Form.Item
               required
               validateStatus={this.state.usernameInvalid ? 'error' : ''}
               help={this.state.usernameInvalid ? usernameError : ''}
-              label='Username'
+              label={i18next.t('users.username')}
             >
               <Input value={this.state.username} allowClear onChange={this.handleUsername} />
             </Form.Item>
@@ -166,7 +166,7 @@ class UserForm extends Component {
               required
               validateStatus={this.state.firstNameInvalid ? 'error' : ''}
               help={this.state.firstNameInvalid ? namesError : ''}
-              label='First Name'
+              label={i18next.t('users.firstName')}
             >
               <Input value={this.state.firstName} allowClear onChange={this.handleFirstName} />
             </Form.Item>
@@ -175,19 +175,19 @@ class UserForm extends Component {
               required
               validateStatus={this.state.lastNameInvalid ? 'error' : ''}
               help={this.state.lastNameInvalid ? namesError : ''}
-              label='Last Name'
+              label={i18next.t('users.lastName')}
             >
               <Input value={this.state.lastName} allowClear onChange={this.handleLastName} />
             </Form.Item>
 
             <Form.Item label='Role'>
               <Select onChange={this.handleRole} value={this.state.role} defaultValue='student'>
-                <Option default value='student'>Student</Option>
-                <Option value='employee'>Employee</Option>
-                <Option value='service'>Service Worker</Option>
-                <Option value='dean'>Dean</Option>
-                <Option value='commandant'>Commandant</Option>
-                <Option value='admin'>Admin</Option>
+                <Option default value='student'>{i18next.t('roles.student')}</Option>
+                <Option value='employee'>{i18next.t('roles.employee')}</Option>
+                <Option value='service'>{i18next.t('roles.service')}</Option>
+                <Option value='dean'>{i18next.t('roles.dean')}</Option>
+                <Option value='commandant'>{i18next.t('roles.commandant')}</Option>
+                <Option value='admin'>{i18next.t('roles.admin')}</Option>
               </Select>
             </Form.Item>
           </section>
@@ -198,7 +198,7 @@ class UserForm extends Component {
           htmlType='submit'
           type='primary'
         >
-          {this.props.edit ? 'Update' : 'Register'}
+          {i18next.t('users.submit')}
         </Button>
       </div>
     );

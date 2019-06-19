@@ -22,6 +22,7 @@ import {
   onAgreementChange,
   onSubmit
 } from './redux/actions';
+import i18next from '../../i18n/i18n';
 
 const { MonthPicker, RangePicker } = DatePicker;
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
@@ -52,7 +53,7 @@ class ApplicationForm extends Component {
         <div className='Form'>
           <h3>Application Form</h3>
           <Form {...formItemLayout}>
-            <Form.Item required label='Date of birth'>
+            <Form.Item required label={i18next.t('applications.birthDate')}>
               <DatePicker
                 onChange={this.props.onBirthDateChange}
                 value={this.props.birthDate}
@@ -62,7 +63,7 @@ class ApplicationForm extends Component {
               required
               validateStatus={this.props.passportNumberInvalid ? 'error' : ''}
               help={this.props.passportNumberInvalid ? this.props.error : null}
-              label='Passport number'
+              label={i18next.t('applications.passportNumber')}
             >
               <Input
                 addonBefore='AN'
@@ -70,7 +71,7 @@ class ApplicationForm extends Component {
                 value={this.props.passportNumber}
                 onChange={this.props.onPassportNumberChange}
                 suffix={(
-                  <Tooltip title='Passport number must be 7 characters long'>
+                  <Tooltip title={i18next.t('applications.tooltips.passportNumber')}>
                     <Icon type='info-circle' />
                   </Tooltip>
                 )}
@@ -80,7 +81,7 @@ class ApplicationForm extends Component {
               required
               validateStatus={this.props.issuedByInvalid ? 'error' : ''}
               help={this.props.issuedByInvalid ? this.props.error : null}
-              label='Issued by'
+              label={i18next.t('applications.issuedBy')}
             >
               <Input
                 value={this.props.issuedBy}
@@ -88,13 +89,13 @@ class ApplicationForm extends Component {
                 addonBefore='MKK'
                 allowClear
                 suffix={(
-                  <Tooltip title="MKK must be 5 characters long including '-'">
+                  <Tooltip title={i18next.t('applications.tooltips.issuedBy')}>
                     <Icon type='info-circle' />
                   </Tooltip>
                 )}
               />
             </Form.Item>
-            <Form.Item required label='Issued on'>
+            <Form.Item required label={i18next.t('applications.issuedOn')}>
               <DatePicker
                 onChange={this.props.onIssuedDateChange}
                 value={this.props.issuedDate}
@@ -112,7 +113,7 @@ class ApplicationForm extends Component {
             </div>
             <Checkbox
               checked={this.props.agreed}
-              onChange={this.props.onAgreementChange}>I Agree</Checkbox>
+              onChange={this.props.onAgreementChange}>{i18next.t('applications.agree')}</Checkbox>
           </Form>
           <Button
             type="primary"
@@ -121,7 +122,7 @@ class ApplicationForm extends Component {
             onClick={this.props.onSubmit}
             htmlType='submit'
           >
-            Submit
+            {i18next.t('applications.submit')}
           </Button>
         </div>
       </div>

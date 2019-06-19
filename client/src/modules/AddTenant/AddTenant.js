@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { allowedRoles } from '../../hoc/allowedRoles';
 import './AddTenant.css';
+import i18next from '../../i18n/i18n';
 
 import {
   loadTenants,
@@ -36,14 +37,14 @@ class AddTenant extends Component {
     const loadMore = !loading && hasNextPage ? (
       <div className='list-load-more'>
         <Button onClick={() => this.props.loadTenants(page)}>
-          load more
+          {i18next.t('lists.loadMore')}
         </Button>
       </div>
       ) : null;
 
     return (
       <div className='AddTenant'>
-        <h3>Choose a tenant:</h3>
+        <h3>{i18next.t('addTenant.chooseAtenant')}</h3>
         <List
           className='AddTenant-List'
           loading={(loading && hasNextPage)}
@@ -64,7 +65,7 @@ class AddTenant extends Component {
             );
           }}
         />
-        <Button type='primary' onClick={this.submit}>Submit</Button>
+        <Button type='primary' onClick={this.submit}>{i18next.t('addTenant.submit')}</Button>
       </div>
     );
   }

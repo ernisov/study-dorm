@@ -23,10 +23,10 @@ export const onSubmit = (e) => {
   return (dispatch, getState) => {
     const { username, password } = getState().loginForm;
     if (!username) {
-      return dispatch({ type: SET_USERNAME_INVALID, payload: 'username is required' });
+      return dispatch({ type: SET_USERNAME_INVALID, payload: 'required' });
     }
     if (!password || password.length < 5) {
-      return dispatch({ type: SET_PASSWORD_INVALID, payload: 'password must be minimum 5 characters long' });
+      return dispatch({ type: SET_PASSWORD_INVALID, payload: 'passwordValidation' });
     }
 
     login(username, password)
@@ -51,11 +51,11 @@ export const onSubmit = (e) => {
       })
       .catch((error) => {
         let errorIn = error.response.data.in;
-        let { message } = error.response.data;
+        let { code } = error.response.data;
         if (errorIn === 'username') {
-          dispatch({ type: SET_USERNAME_INVALID, payload: message });
+          dispatch({ type: SET_USERNAME_INVALID, payload: code });
         } else {
-          dispatch({ type: SET_PASSWORD_INVALID, payload: message });
+          dispatch({ type: SET_PASSWORD_INVALID, payload: code });
         }
       });
   };

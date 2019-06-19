@@ -6,6 +6,8 @@ import RoomDetails from './RoomDetails';
 import DormitoryDetails from './DormitoryDetails';
 import './Map.css';
 
+import i18next from '../../../i18n/i18n';
+
 import {
   loadRooms,
   clearState,
@@ -72,13 +74,13 @@ class Map extends Component {
               data={this.props.data} />
           )}
           <div className='floor-select'>
-            <Tooltip title='Dormitory details'>
+            <Tooltip title={i18next.t('dormitory.details')}>
               <Icon
                 type='info-circle'
                 onClick={() => this.setState({ modalVisible: true })}
               />
             </Tooltip>
-            <label>Floor: </label>
+            <label>{`${i18next.t('dormitory.floor')}: `}</label>
             <Select
               onChange={this.onFloorSelect}
               value={this.state.floor}
@@ -89,7 +91,7 @@ class Map extends Component {
           </div>
         </div>
         <Modal
-          title='Dormitory details'
+          title={i18next.t('dormitory.details')}
           visible={this.state.modalVisible}
           onCancel={() => this.setState({ modalVisible: false })}
           footer={null}

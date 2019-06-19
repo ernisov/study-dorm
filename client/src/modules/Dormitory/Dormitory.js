@@ -5,6 +5,7 @@ import { onDormitoryChange } from './redux/actions';
 import './Dormitory.css';
 import { allowedRoles } from '../../hoc/allowedRoles';
 import Map from './containers/Map';
+import i18next from '../../i18n/i18n';
 const TabPane = Tabs.TabPane;
 
 class Dormitory extends Component {
@@ -12,13 +13,13 @@ class Dormitory extends Component {
     return (
       <div className='Dormitory'>
         <Tabs className='Tab' size='small' onChange={this.props.onDormitoryChange}>
-          <TabPane tab='Dormitory 1' key='1' className='TabPane'>
+          <TabPane tab={`${i18next.t('dormitory.dormitory')} 1`} key='1' className='TabPane'>
             <Map dormitory={1} floors={2}/>
           </TabPane>
-          <TabPane tab='Dormitory 2' key='2' className='TabPane'>
+          <TabPane tab={`${i18next.t('dormitory.dormitory')} 2`} key='2' className='TabPane'>
             <Map dormitory={2} floors={2}/>
           </TabPane>
-          <TabPane tab='Dormitory 3' key='3' className='TabPane'>
+          <TabPane tab={`${i18next.t('dormitory.dormitory')} 3`} key='3' className='TabPane'>
             <Map dormitory={3} floors={2}/>
           </TabPane>
         </Tabs>

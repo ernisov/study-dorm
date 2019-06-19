@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import './Settlement.css';
+import i18next from '../../../i18n/i18n';
 
 const Settlement = (props) => {
   let text = null;
@@ -8,7 +9,7 @@ const Settlement = (props) => {
     text = (
       <p>
         <span>{props.username}</span>
-        was settled to
+        {`${i18next.t('settlements.settlement.settle')} ${i18next.t('settlements.settlement.to')}`}
         <span>{props.to}</span>
       </p>
     );
@@ -16,7 +17,7 @@ const Settlement = (props) => {
     text = (
       <p>
         <span>{props.username}</span>
-        was unsettled from
+        {`${i18next.t('settlements.settlement.unsettle')} ${i18next.t('settlements.settlement.from')}`}
         <span>{props.from}</span>
       </p>
     );
@@ -24,8 +25,8 @@ const Settlement = (props) => {
     text = (
       <p>
         <span>{props.username}</span>
-        was moved
-        <span>{props.from}</span> to <span>{props.to}</span>
+        {`${i18next.t('settlements.settlement.move')} ${i18next.t('settlements.settlement.from')}`}
+        <span>{props.from}</span> {i18next.t('settlements.settlement.to')} <span>{props.to}</span>
       </p>
     );
   }
@@ -33,7 +34,7 @@ const Settlement = (props) => {
   return (
     <div className='Settlement'>
       <div className='Settlement-info'>
-        <p>by: <span>{props.by}</span></p>
+        <p>{`${i18next.t('settlements.settlement.by')}: `}<span>{props.by}</span></p>
         <p>{moment(props.date).format('DD/MM/YYYY HH:mm')}</p>
       </div>
       <div className='Settlement-details'>{text}</div>

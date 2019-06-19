@@ -9,6 +9,7 @@ import {
 } from './redux/actions';
 import './Settlements.css';
 import Settlement from './components/Settlement';
+import i18next from '../../i18n/i18n';
 
 const RadioGroup = Radio.Group;
 const RadioButton = Radio.Button;
@@ -33,7 +34,7 @@ class Settlements extends Component {
     let loadMore = !loading && hasNextPage ? (
       <div className='list-load-more'>
         <Button onClick={this.props.loadSettlements}>
-          load more
+          {i18next.t('lists.loadMore')}
         </Button>
       </div>
     ) : null;
@@ -41,16 +42,16 @@ class Settlements extends Component {
     return (
       <div className="Settlements">
         <div className="Settlements-header">
-        <h3>Settlements: </h3>
+        <h3>{i18next.t('settlements.title')} </h3>
         <RadioGroup
           onChange={this.props.onActionChange}
           value={this.props.action}
           defaultValue={this.props.action}
         >
-          <RadioButton value='all'>All</RadioButton>
-          <RadioButton value='settle'>settle</RadioButton>
-          <RadioButton value='move'>move</RadioButton>
-          <RadioButton value='unsettle'>unsettle</RadioButton>
+          <RadioButton value='all'>{i18next.t('settlements.actions.all')}</RadioButton>
+          <RadioButton value='settle'>{i18next.t('settlements.actions.settle')}</RadioButton>
+          <RadioButton value='move'>{i18next.t('settlements.actions.move')}</RadioButton>
+          <RadioButton value='unsettle'>{i18next.t('settlements.actions.unsettle')}</RadioButton>
         </RadioGroup>
         </div>
         <List

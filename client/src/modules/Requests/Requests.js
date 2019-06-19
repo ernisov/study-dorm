@@ -11,6 +11,7 @@ import {
   clearState
 } from './redux/actions';
 import { allowedRoles } from '../../hoc/allowedRoles';
+import i18next from '../../i18n/i18n';
 
 const RadioGroup = Radio.Group;
 const RadioButton = Radio.Button;
@@ -39,7 +40,7 @@ class Requests extends Component  {
         <Button
           onClick={() => this.props.loadRequests(this.props.page, this.props.status)}
         >
-          load more
+          {i18next.t('lists.loadMore')}
         </Button>
       </div>
       ) : null;
@@ -47,18 +48,18 @@ class Requests extends Component  {
     return (
       <div className='Requests'>
         <div className='Requests-header'>
-          <h3>Requests</h3>
+          <h3>{i18next.t('requests.title')}</h3>
           <RadioGroup onChange={this.props.onStatusChange} value={this.props.status}>
-            <RadioButton value='all'>All</RadioButton>
-            <RadioButton value='awaiting'>Awaiting</RadioButton>
-            <RadioButton value='in_progress'>In Progress</RadioButton>
-            <RadioButton value='done'>Done</RadioButton>
+            <RadioButton value='all'>{i18next.t('requests.all')}</RadioButton>
+            <RadioButton value='awaiting'>{i18next.t('requests.awaiting')}</RadioButton>
+            <RadioButton value='in_progress'>{i18next.t('requests.inProgress')}</RadioButton>
+            <RadioButton value='done'>{i18next.t('requests.done')}</RadioButton>
           </RadioGroup>
           <Button
             type='primary'
             onClick={() => this.props.history.push('/requests/create')}
           >
-            Create
+            {i18next.t('requests.create')}
           </Button>
         </div>
         <List

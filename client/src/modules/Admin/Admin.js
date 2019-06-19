@@ -4,6 +4,7 @@ import { Menu, Icon } from 'antd';
 import { connect } from 'react-redux';
 import { allowedRoles } from '../../hoc/allowedRoles';
 import './Admin.css';
+import i18next from '../../i18n/i18n';
 
 import Sidebar from './components/Sidebar';
 import Empty from './components/Empty';
@@ -24,15 +25,15 @@ class Admin extends Component {
               title={
                 <span className='side-menu-item'>
                   <Icon type='user' />
-                  Users
+                  {i18next.t('users.title')}
                 </span>
               }
             >
               <Menu.Item>
-                <Link to={`${this.props.match.path}/users`}>List</Link>
+                <Link to={`${this.props.match.path}/users`}>{i18next.t('users.list')}</Link>
               </Menu.Item>
               <Menu.Item>
-                <Link to={`${this.props.match.path}/users/create`}>Create</Link>
+                <Link to={`${this.props.match.path}/users/create`}>{i18next.t('users.create')}</Link>
               </Menu.Item>
             </SubMenu>
           </Menu>
