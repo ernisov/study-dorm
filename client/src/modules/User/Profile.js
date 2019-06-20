@@ -19,9 +19,9 @@ class Profile extends Component {
               onChange={this.props.changeLanguage}
               value={this.props.language}
             >
+              <Option value='ky'>Кыргызча</Option>
               <Option value='en'>English</Option>
               <Option value='ru'>Русский</Option>
-              <Option value='ky'>Кыргызча</Option>
             </Select>
           </div>
         </div>

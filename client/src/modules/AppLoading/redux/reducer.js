@@ -5,7 +5,7 @@ import {
 
 const INITIAL_STATE = {
   appReady: false,
-  language: 'en'
+  language: 'ru'
 };
 
 export default (state = INITIAL_STATE, action) => {

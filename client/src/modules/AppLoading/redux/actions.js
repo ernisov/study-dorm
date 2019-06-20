@@ -6,12 +6,25 @@ import i18next from '../../../i18n/i18n';
 
 export const setup = () => {
   return (dispatch, getState) => {
+    const setLang = () => {
+      let language = storage.getItems('language');
+      if (!language) {
+        storage.setItems({ language: 'ru' });
+        language = 'ru';
+      }
+
+      i18next
+        .changeLanguage(language)
+        .then(() => dispatch({ type: CHANGE_LANGUAGE, payload: language }))
+        .catch((error) => console.log(error));
+    };
+
     auth.fetchUser()
       .then((response) => {
         dispatch({ type: SET_USER, payload: response.data });
-        dispatch({ type: SET_APP_READY, payload: true });
+        setLang();
       })
-      .catch((error) => dispatch({ type: SET_APP_READY, payload: true }));
+      .catch((error) => setLang());
   };
 };
 
@@ -19,7 +32,10 @@ export const changeLanguage = (language) => {
   return (dispatch, getState) => {
     dispatch({ type: SET_APP_READY, payload: false });
     i18next.changeLanguage(language)
-      .then(() => dispatch({ type: CHANGE_LANGUAGE, payload: language }))
+      .then(() => {
+        storage.setItems({ language });
+        dispatch({ type: CHANGE_LANGUAGE, payload: language });
+      })
       .catch((error) => console.log(error));
   };
 };
