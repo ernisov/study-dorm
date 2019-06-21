@@ -25,7 +25,7 @@ export const setup = () => {
         setLang();
       })
       .catch((error) => {
-        console.log(error.response);
+        console.log(error);
         setLang();
       });
   };

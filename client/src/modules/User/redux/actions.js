@@ -11,7 +11,7 @@ export const logoutUser = () => {
     let refreshToken = localStorage.getItem('refreshToken');
     axios({
       method: 'post',
-      url: '/auth/logout',
+      url: '/v1/auth/logout',
       headers: {
         'Content-type': 'application/json',
         'x-auth-refresh-token': refreshToken
