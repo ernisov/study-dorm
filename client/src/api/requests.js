@@ -53,6 +53,7 @@ export const request = (config) => {
     console.log('CONFIG', config)
     return axios({
       ...config,
+      url: '/v1/' + config.url,
       headers: {
         'Content-type': 'application/json',
         'x-auth-token': accessToken
@@ -86,6 +87,7 @@ export const makeRequest = (config) => {
     console.log('REQUEST: ', config);
     return axios({
       ...config,
+      url: '/v1/' + config.url,
       headers: {
         'Content-type': 'application/json',
         'x-auth-token': accessToken
