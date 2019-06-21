@@ -77,6 +77,8 @@ RoomSchema.statics.getDetails = function() {
       $project: {
         room: '$id',
         maxTenants: '$maxTenants',
+        dormitory: '$dormitory',
+        floor: '$floor',
         living: {
           $reduce: {
             input: '$tenants',
@@ -88,7 +90,10 @@ RoomSchema.statics.getDetails = function() {
     },
     {
       $group: {
-        _id: null,
+        _id: {
+          floor: '$floor',
+          dormitory: '$dormitory',
+        },
         totalPlaces: { $sum: '$maxTenants' },
         occupiedPlaces: { $sum: '$living' }
       }
