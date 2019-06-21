@@ -1,0 +1,16 @@
+.DormitoryDetails {
+  width: 100%;
+}
+
+.DormitoryDetails table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.DormitoryDetails .Summary {
+  font-weight: bold;
+}
+
+.DormitoryDetails table tbody tr:nth-child(odd) {
+  background-color: #eee;
+}

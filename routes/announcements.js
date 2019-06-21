@@ -43,7 +43,7 @@ router.get(
   }
 );
 
-// @route  GET /announcements/:id
+// @route  GET /announcements/:_id
 // @desc   Get an announcements
 // @access Admin, Commandant, Student, Employee, Service
 router.get(

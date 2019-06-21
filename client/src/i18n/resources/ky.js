@@ -194,5 +194,12 @@ export default {
     announcementTitle: '[ky] Заголовок',
     description: '[ky] Описание',
     submit: '[ky] Отправить'
+  },
+  dormitoryDetails: {
+    dormitory: '[ky] Общежитие',
+    floor: '[ky] Этаж',
+    total: '[ky] Всего мест',
+    occupied: '[ky] Занято мест',
+    summary: '[ky] Итого'
   }
 };

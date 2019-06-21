@@ -196,5 +196,12 @@ export default {
     announcementTitle: 'Title',
     description: 'Description',
     submit: 'Submit'
+  },
+  dormitoryDetails: {
+    dormitory: 'Dormitory',
+    floor: 'Floor',
+    total: 'Total Places',
+    occupied: 'Occupied Places',
+    summary: 'Summary'
   }
 };
