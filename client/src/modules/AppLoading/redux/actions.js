@@ -24,7 +24,10 @@ export const setup = () => {
         dispatch({ type: SET_USER, payload: response.data });
         setLang();
       })
-      .catch((error) => setLang());
+      .catch((error) => {
+        console.log(error.response);
+        setLang();
+      });
   };
 };
 

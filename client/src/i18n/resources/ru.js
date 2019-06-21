@@ -170,7 +170,7 @@ export default {
     success: 'Успех'
   },
   applications: {
-    title: 'Завяления',
+    title: 'Заявления',
     unconsidered: 'Нерассмотренные',
     approved: 'Утвержденные',
     rejected: 'Отказанные',

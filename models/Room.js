@@ -70,16 +70,31 @@ RoomSchema.statics.getRooms = function(dormitory, floor) {
   });
 };
 
-// Room.statics.getDetails = function() {
-//   let Room = this;
-//   Room.aggregate([
-//     {
-//       $project: {
-//
-//       }
-//     }
-//   ]);
-// };
+RoomSchema.statics.getDetails = function() {
+  let Room = this;
+  return Room.aggregate([
+    {
+      $project: {
+        room: '$id',
+        maxTenants: '$maxTenants',
+        living: {
+          $reduce: {
+            input: '$tenants',
+            initialValue: 0,
+            in: { $add: ['$$value', 1] }
+          }
+        }
+      }
+    },
+    {
+      $group: {
+        _id: null,
+        totalPlaces: { $sum: '$maxTenants' },
+        occupiedPlaces: { $sum: '$living' }
+      }
+    }
+  ]);
+};
 
 const Room = mongoose.model('room', RoomSchema);
 module.exports = Room;

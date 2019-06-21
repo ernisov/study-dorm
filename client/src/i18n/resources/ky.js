@@ -168,7 +168,7 @@ export default {
     success: '[ky] Успех'
   },
   applications: {
-    title: '[ky] Завяления',
+    title: '[ky] Заявления',
     unconsidered: '[ky] Нерассмотренные',
     approved: '[ky] Утвержденные',
     rejected: '[ky] Отказанные',
